@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,12 @@ public class GameInput: MonoBehaviour
     private void Start()
     {
         myInputs.Gameplay.Click.performed += ClickOnPerformed;
+        myInputs.Gameplay.CancelClick.performed += CancelClickOnPerformed;
+    }
+
+    private void CancelClickOnPerformed(InputAction.CallbackContext obj)
+    {
+        PlayerTest.Instance.CancelHolding();
     }
 
     private void ClickOnPerformed(InputAction.CallbackContext obj)

@@ -5,25 +5,6 @@ namespace Tables
 {
     public class ClearTable: BaseTable, IClickable
     {
-        [SerializeField] private bool _hasObject;
-        [SerializeField] private BaseObject _product;
-
-
-        private void SetObjectOnTable()
-        {
-            _hasObject = true;
-            _product = PlayerTest.Instance.GetProduct();
-            _product.transform.position = spawnPosition.transform.position;
-            PlayerTest.Instance.ClearObject();
-        }
-
-        private void SendObjectToHand()
-        {
-            PlayerTest.Instance.SetObject(_product);
-            _hasObject = false;
-            _product = null;
-        }
-
         private void HandleSwap()
         {
             BaseObject productInHand = PlayerTest.Instance.GetProduct();
@@ -41,9 +22,11 @@ namespace Tables
         {
             PlayerTest.Instance.ClearObject();
             PlayerTest.Instance.SetObject(productOnTable);
+            productOnTable.RememberOrigin(productInHand.GetOrigin());
             
             _product = productInHand;
             _product.transform.position = spawnPosition.transform.position;
+            _product.RememberOrigin(this);
         }
 
         public void OnClick()
@@ -57,11 +40,15 @@ namespace Tables
                     return;
                 }
 
-                SendObjectToHand();
+                PlayerTest.Instance.SetObject(TakeObject());
                 return;
             }
-            
-            SetObjectOnTable();
+
+            if (playerHasObject)
+            {
+                SetObjectOnTable(PlayerTest.Instance.GetProduct());
+                PlayerTest.Instance.ClearObject();
+            }
         }
     }
 }

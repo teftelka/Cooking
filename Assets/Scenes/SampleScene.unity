@@ -808,6 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81660a07ff70d748bdc67928a278b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CookingTool
+  _originalTable: {fileID: 1142825521}
   type: Pan
   hasObject: 0
 --- !u!212 &715485653
@@ -860,7 +861,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.88250387, b: 0.5235849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -915,6 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
+  _originalTable: {fileID: 593875255}
   type: 1
 --- !u!212 &745727016
 SpriteRenderer:
@@ -1067,6 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
+  _originalTable: {fileID: 35146809}
   type: 0
 --- !u!58 &959954289
 CircleCollider2D:
@@ -1664,6 +1667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
+  _originalTable: {fileID: 2004037728}
   type: 0
 --- !u!212 &2022534323
 SpriteRenderer:

@@ -55,5 +55,13 @@ namespace DefaultNamespace
 
             _product.transform.position = worldPos;
         }
+        
+        public void CancelHolding()
+        {
+            if (!hasObject) return;
+
+            _product.ReturnToOrigin();
+            ClearObject();
+        }
     }
 }

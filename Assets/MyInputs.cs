@@ -109,6 +109,15 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c498a9f-1760-4fdf-af0c-a4303e70763d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -133,6 +142,17 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74aa9966-d133-45cd-aab3-bf5bfac23024"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Click = m_Gameplay.FindAction("Click", throwIfNotFound: true);
         m_Gameplay_Position = m_Gameplay.FindAction("Position", throwIfNotFound: true);
+        m_Gameplay_CancelClick = m_Gameplay.FindAction("CancelClick", throwIfNotFound: true);
     }
 
     ~@MyInputs()
@@ -225,6 +246,7 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Click;
     private readonly InputAction m_Gameplay_Position;
+    private readonly InputAction m_Gameplay_CancelClick;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -244,6 +266,10 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Position".
         /// </summary>
         public InputAction @Position => m_Wrapper.m_Gameplay_Position;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CancelClick".
+        /// </summary>
+        public InputAction @CancelClick => m_Wrapper.m_Gameplay_CancelClick;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -276,6 +302,9 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
             @Position.started += instance.OnPosition;
             @Position.performed += instance.OnPosition;
             @Position.canceled += instance.OnPosition;
+            @CancelClick.started += instance.OnCancelClick;
+            @CancelClick.performed += instance.OnCancelClick;
+            @CancelClick.canceled += instance.OnCancelClick;
         }
 
         /// <summary>
@@ -293,6 +322,9 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
             @Position.started -= instance.OnPosition;
             @Position.performed -= instance.OnPosition;
             @Position.canceled -= instance.OnPosition;
+            @CancelClick.started -= instance.OnCancelClick;
+            @CancelClick.performed -= instance.OnCancelClick;
+            @CancelClick.canceled -= instance.OnCancelClick;
         }
 
         /// <summary>
@@ -347,5 +379,12 @@ public partial class @MyInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPosition(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CancelClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancelClick(InputAction.CallbackContext context);
     }
 }
