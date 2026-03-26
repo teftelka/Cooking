@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Plate: BaseObject
 {
-    [SerializeField] private string type;
     private void GetDirty()
     {
         
@@ -19,9 +18,14 @@ public class Plate: BaseObject
     {
         
     }
-
-    public override string GetObjectType()
+    
+    public override bool CanMergeWith(BaseObject other)
     {
-        return type;
+        return other is Product;
+    }
+
+    public override void Merge(BaseObject other)
+    {
+        Debug.Log("Add product to plate");
     }
 }

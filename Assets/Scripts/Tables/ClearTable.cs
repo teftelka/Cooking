@@ -27,13 +27,10 @@ namespace Tables
         private void HandleSwap()
         {
             BaseObject productInHand = PlayerTest.Instance.GetProduct();
-
-            string productInHandType = productInHand.GetObjectType();
-            string productOnTableType = _product.GetObjectType();
             
-            if (productInHandType == productOnTableType)
+            if (productInHand.CanMergeWith(_product))
             {
-                HandleMerge();
+                productInHand.Merge(_product);
                 return;
             }
 
@@ -47,11 +44,6 @@ namespace Tables
             
             _product = productInHand;
             _product.transform.position = spawnPosition.transform.position;
-        }
-
-        private void HandleMerge()
-        {
-            Debug.LogWarning("Merging product");
         }
 
         public void OnClick()

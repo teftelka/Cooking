@@ -5,15 +5,30 @@ using UnityEngine;
 
 public class Product : BaseObject, IClickable
 {
-    [SerializeField] private string type;
+    [SerializeField] private ProductType type;
     
     public void OnClick()
     {
         
     }
 
-    public override string GetObjectType()
+    public ProductType GetObjectType()
     {
         return type;
+    }
+    
+    public override bool CanMergeWith(BaseObject other)
+    {
+        return other switch
+        {
+            CookingTool => true,
+            Product product => type == product.type,
+            _ => false
+        };
+    }
+
+    public override void Merge(BaseObject other)
+    {
+        Debug.Log("Merging two products");
     }
 }

@@ -19,7 +19,7 @@ public class CookingTool : BaseObject
         
     }
     
-    public override string GetObjectType()
+    public string GetObjectType()
     {
         return type;
     }
@@ -27,5 +27,15 @@ public class CookingTool : BaseObject
     public bool HasObject()
     {
         return hasObject;
+    }
+    
+    public override bool CanMergeWith(BaseObject other)
+    {
+        return other is Product;
+    }
+
+    public override void Merge(BaseObject other)
+    {
+        Debug.Log("Add product to cooking tool");
     }
 }

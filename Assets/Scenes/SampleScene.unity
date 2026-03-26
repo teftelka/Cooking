@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
-  type: SquareType
+  type: 1
 --- !u!212 &745727016
 SpriteRenderer:
   serializedVersion: 2
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
-  type: CircleType
+  type: 0
 --- !u!58 &959954289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1664,7 +1664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d56ca23b35e9048a1c17c41bbbd50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
-  type: CircleType
+  type: 0
 --- !u!212 &2022534323
 SpriteRenderer:
   serializedVersion: 2

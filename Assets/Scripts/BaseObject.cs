@@ -2,5 +2,6 @@ using UnityEngine;
 
 public abstract class BaseObject: MonoBehaviour
 {
-    public abstract string GetObjectType();
+    public virtual bool CanMergeWith(BaseObject other) => false;
+    public virtual void Merge(BaseObject other) { }
 }
