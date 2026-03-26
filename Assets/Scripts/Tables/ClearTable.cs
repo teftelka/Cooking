@@ -5,17 +5,31 @@ namespace Tables
 {
     public class ClearTable: BaseTable, IClickable
     {
-        private void HandleSwap()
+        private void HandleConflict()
         {
             BaseObject productInHand = PlayerTest.Instance.GetProduct();
             
             if (productInHand.CanMergeWith(_product))
             {
-                productInHand.Merge(_product);
+                HandleMerge(productInHand, _product);
                 return;
             }
 
             Swap(productInHand, _product);
+        }
+        
+        private void HandleMerge(BaseObject productInHand, BaseObject productOnTable)
+        {
+            if (productInHand.CanMergeWithSelf(productOnTable))
+            {
+                Destroy(productOnTable.gameObject);
+                SetObjectOnTable(productInHand);
+                PlayerTest.Instance.ClearObject();
+            }
+            else
+            {
+                productInHand.Merge(_product);
+            }
         }
 
         private void Swap(BaseObject productInHand, BaseObject productOnTable)
@@ -36,7 +50,7 @@ namespace Tables
             {
                 if (playerHasObject)
                 {
-                    HandleSwap();
+                    HandleConflict();
                     return;
                 }
 
