@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340465d9bb5082e40b6f95a76813da52, type: 3}
+  m_Name: Circle_Fried
+  m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
+  state: 2
+  sprite: {fileID: 4266135260714290800, guid: 305848570b169fa4496754a700ea4e11, type: 3}
+  nextStateAsset: {fileID: 0}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class Product : BaseObject, IClickable
@@ -9,10 +10,13 @@ public class Product : BaseObject, IClickable
     [SerializeField] private ProductType type;
     [SerializeField] private int range;
 
+
    // public event EventHandler ProductDestroyed;
 
     public void Start()
     {
+        spriteRenderer = image.GetComponent<SpriteRenderer>();
+        ApplyState(currentState);
         range = 0;
     }
 
@@ -39,9 +43,13 @@ public class Product : BaseObject, IClickable
     public override bool CanMergeWithSelf(BaseObject other)
     {
         if (other is not Product) return false;
-        range++;
-        Debug.Log("Merging two products");
-        return true;
+        if (productState == ProductState.Raw && other.GetProductState() == ProductState.Raw)
+        {
+            range++;
+            Debug.Log("Merging two products");
+            return true;
+        }
+        return false;
     }
 
     public override void Merge(BaseObject other)
