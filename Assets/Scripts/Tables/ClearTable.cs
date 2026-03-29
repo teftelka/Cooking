@@ -5,31 +5,31 @@ namespace Tables
 {
     public class ClearTable: BaseTable, IClickable
     {
-        private void HandleConflict()
+        private void HandleMerge(BaseObject productInHand, BaseObject productOnTable)
         {
-            BaseObject productInHand = PlayerTest.Instance.GetProduct();
-            
-            if (productInHand.CanMergeWith(_product))
+            if (productOnTable.CanCombineWith(productInHand))
             {
-                HandleMerge(productInHand, _product);
+                productOnTable.CombineWith(productInHand);
+                PlayerTest.Instance.ClearObject();
+                return;
+            }
+            
+            if (productOnTable.CanAccept(productInHand) && productInHand.CanBeAcceptedBy(productOnTable))
+            {
+                productOnTable.Accept(productInHand);
+                PlayerTest.Instance.ClearObject();
                 return;
             }
 
-            Swap(productInHand, _product);
-        }
-        
-        private void HandleMerge(BaseObject productInHand, BaseObject productOnTable)
-        {
-            if (productInHand.CanMergeWithSelf(productOnTable))
+            if (productInHand.CanAccept(productOnTable) && productOnTable.CanBeAcceptedBy(productInHand))
             {
-                Destroy(productOnTable.gameObject);
-                SetObjectOnTable(productInHand);
-                PlayerTest.Instance.ClearObject();
+                productInHand.Accept(productOnTable);
+                _product = null;
+                _hasObject = false;
+                return;
             }
-            else
-            {
-                productInHand.Merge(_product);
-            }
+            
+            Swap(productInHand, productOnTable);
         }
 
         private void Swap(BaseObject productInHand, BaseObject productOnTable)
@@ -45,12 +45,12 @@ namespace Tables
 
         public void OnClick()
         {
-            bool playerHasObject = PlayerTest.Instance.HasObject();
+            var productInHand = PlayerTest.Instance.GetProduct();
             if (_hasObject)
             {
-                if (playerHasObject)
+                if (productInHand)
                 {
-                    HandleConflict();
+                    HandleMerge(productInHand, _product);
                     return;
                 }
 
@@ -58,9 +58,9 @@ namespace Tables
                 return;
             }
 
-            if (playerHasObject)
+            if (productInHand)
             {
-                SetObjectOnTable(PlayerTest.Instance.GetProduct());
+                SetObjectOnTable(productInHand);
                 PlayerTest.Instance.ClearObject();
             }
         }

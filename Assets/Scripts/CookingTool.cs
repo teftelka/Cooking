@@ -6,8 +6,7 @@ public class CookingTool : BaseObject
 {
     [SerializeField] private string type;
     [SerializeField] private bool hasObject;
-
-    private Product[] _products;
+    [SerializeField] private List<Product> _products;
     
     private void GetDirty()
     {
@@ -28,14 +27,21 @@ public class CookingTool : BaseObject
     {
         return hasObject;
     }
-    
-    public override bool CanMergeWith(BaseObject other)
+
+    public override bool CanAccept(BaseObject other)
     {
         return other is Product;
     }
 
-    public override void Merge(BaseObject other)
+    public override void Accept(BaseObject other)
     {
-        Debug.Log("Add product to cooking tool");
+        Product product = (Product)other;
+
+        _products.Add(product);
+        
+        product.transform.SetParent(transform);
+        product.transform.localPosition = Vector3.zero;
+
+        Debug.Log("Product added to cooking tool");
     }
 }

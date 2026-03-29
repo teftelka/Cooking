@@ -30,31 +30,28 @@ public class Product : BaseObject, IClickable
         return type;
     }
     
-    public override bool CanMergeWith(BaseObject other)
+    public override bool CanBeAcceptedBy(BaseObject other)
     {
-        return other switch
-        {
-            CookingTool => true,
-            Product product => type == product.type,
-            _ => false
-        };
+        return other is CookingTool or Plate;
     }
     
-    public override bool CanMergeWithSelf(BaseObject other)
+    public override bool CanCombineWith(BaseObject other)
     {
-        if (other is not Product) return false;
-        if (productState == ProductState.Raw && other.GetProductState() == ProductState.Raw)
-        {
-            range++;
-            Debug.Log("Merging two products");
-            return true;
-        }
-        return false;
+        if (other is not Product otherProduct) return false;
+        if (type != otherProduct.type) return false;
+        if (otherProduct.productState != ProductState.Raw) return false;
+        if (productState != ProductState.Raw) return false;
+        
+        return true;
     }
 
-    public override void Merge(BaseObject other)
+    public override void CombineWith(BaseObject other)
     {
-        Debug.Log("Merging with other object");
+        Product otherProduct = (Product)other;
+        range++;
+        Destroy(otherProduct.gameObject);
+
+        Debug.Log("Products combined -> upgraded");
     }
 
     private void DestroySelf()

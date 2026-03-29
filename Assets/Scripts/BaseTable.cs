@@ -19,7 +19,7 @@ public class BaseTable: MonoBehaviour
         product.RememberOrigin(this);
     }
 
-    public virtual BaseObject TakeObject()
+    protected virtual BaseObject TakeObject()
     {
         BaseObject objectOnTable = _product;
         _hasObject = false;

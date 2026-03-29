@@ -41,8 +41,12 @@ public abstract class BaseObject: MonoBehaviour
         if (productState != ProductState.Raw) return;
         ApplyState(currentState.nextStateAsset);
     }
-    
-    public virtual bool CanMergeWith(BaseObject other) => false;
-    public virtual bool CanMergeWithSelf(BaseObject other) => false;
-    public virtual void Merge(BaseObject other) { }
+
+    public virtual bool CanAccept(BaseObject other) => false;
+    public virtual bool CanBeAcceptedBy(BaseObject other) => false;
+    public virtual void Accept(BaseObject other) { }
+
+
+    public virtual bool CanCombineWith(BaseObject other) => false;
+    public virtual void CombineWith(BaseObject other) { }
 }

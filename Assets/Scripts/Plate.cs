@@ -19,13 +19,20 @@ public class Plate: BaseObject
         
     }
     
-    public override bool CanMergeWith(BaseObject other)
+    /*public override bool CanAccept(BaseObject other)
     {
         return other is Product;
     }
 
-    public override void Merge(BaseObject other)
+    public override void Accept(BaseObject other)
     {
-        Debug.Log("Add product to plate");
-    }
+        Product product = (Product)other;
+
+        _products.Add(product);
+        
+        product.transform.SetParent(transform);
+        product.transform.localPosition = Vector3.zero;
+
+        Debug.Log("Product added to cooking tool");
+    }*/
 }
