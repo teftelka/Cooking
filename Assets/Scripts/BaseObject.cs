@@ -4,9 +4,6 @@ public abstract class BaseObject: MonoBehaviour
 {
     [SerializeField] protected BaseTable _originalTable;
     [SerializeField] protected ProductStateSO currentState;
-    [SerializeField] protected SpriteRenderer spriteRenderer;
-    [SerializeField] protected GameObject image;
-    protected ProductState productState;
 
     public void RememberOrigin(BaseTable table)
     {
@@ -21,25 +18,6 @@ public abstract class BaseObject: MonoBehaviour
     public BaseTable GetOrigin()
     {
         return _originalTable;
-    }
-    
-    public ProductState GetProductState()
-    {
-        return productState;
-    }
-
-    protected virtual void ApplyState(ProductStateSO state)
-    {
-        currentState = state;
-        productState = currentState.state;
-        spriteRenderer.sprite = state.sprite;
-        spriteRenderer.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
-    }
-    
-    public virtual void Cut()
-    {
-        if (productState != ProductState.Raw) return;
-        ApplyState(currentState.nextStateAsset);
     }
 
     public virtual bool CanAccept(BaseObject other) => false;

@@ -9,9 +9,10 @@ public class Product : BaseObject, IClickable
 {
     [SerializeField] private ProductType type;
     [SerializeField] private int range;
-
-
-   // public event EventHandler ProductDestroyed;
+    [SerializeField] private ProductState productState;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject image;
+    
 
     public void Start()
     {
@@ -29,6 +30,26 @@ public class Product : BaseObject, IClickable
     {
         return type;
     }
+    
+    public ProductState GetProductState()
+    {
+        return productState;
+    }
+    
+    private void ApplyState(ProductStateSO state)
+    {
+        currentState = state;
+        productState = currentState.state;
+        spriteRenderer.sprite = state.sprite;
+        spriteRenderer.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+    }
+    
+    public void Cut()
+    {
+        if (productState != ProductState.Raw) return;
+        ApplyState(currentState.nextStateAsset);
+    }
+    
     
     public override bool CanBeAcceptedBy(BaseObject other)
     {

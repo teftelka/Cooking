@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-public class BaseTable: MonoBehaviour
+public  class BaseTable: MonoBehaviour
 {
     [SerializeField] protected GameObject spawnPosition;
     

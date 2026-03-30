@@ -23,13 +23,15 @@ namespace Tables
                 }
             }
             
-            if (playerProduct is Product && !_hasObject)
+            if (playerProduct is Product product && !_hasObject)
             {
-                SetObjectOnTable(PlayerTest.Instance.GetProduct());
-                PlayerTest.Instance.ClearObject();
-                _product.Cut();
+                if (product.GetProductState() == ProductState.Raw)
+                {
+                    SetObjectOnTable(playerProduct);
+                    PlayerTest.Instance.ClearObject();
+                    product.Cut();
+                }
             }
-
         }
     }
 }
