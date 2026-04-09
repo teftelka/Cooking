@@ -10,14 +10,14 @@ namespace Tables
             if (productOnTable.CanCombineWith(productInHand))
             {
                 productOnTable.CombineWith(productInHand);
-                PlayerTest.Instance.ClearObject();
+                PlayerTest.Instance.HandleObjectGive();
                 return;
             }
             
             if (productOnTable.CanAccept(productInHand) && productInHand.CanBeAcceptedBy(productOnTable))
             {
                 productOnTable.Accept(productInHand);
-                PlayerTest.Instance.ClearObject();
+                PlayerTest.Instance.HandleObjectGive();
                 return;
             }
 
@@ -34,8 +34,8 @@ namespace Tables
 
         private void Swap(BaseObject productInHand, BaseObject productOnTable)
         {
-            PlayerTest.Instance.ClearObject();
-            PlayerTest.Instance.SetObject(productOnTable);
+            PlayerTest.Instance.HandleObjectGive();
+            PlayerTest.Instance.HandleObjectTake(productOnTable);
             productOnTable.RememberOrigin(productInHand.GetOrigin());
             
             _product = productInHand;
@@ -54,14 +54,14 @@ namespace Tables
                     return;
                 }
 
-                PlayerTest.Instance.SetObject(TakeObject());
+                PlayerTest.Instance.HandleObjectTake(GiveObject());
                 return;
             }
 
             if (productInHand)
             {
                 SetObjectOnTable(productInHand);
-                PlayerTest.Instance.ClearObject();
+                PlayerTest.Instance.HandleObjectGive();
             }
         }
     }

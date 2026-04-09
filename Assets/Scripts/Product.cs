@@ -50,6 +50,12 @@ public class Product : BaseObject, IClickable
         ApplyState(currentState.nextStateAsset);
     }
     
+    public void Cook()
+    {
+        if (productState != ProductState.Chopped) return;
+        ApplyState(currentState.nextStateAsset);
+    }
+    
     
     public override bool CanBeAcceptedBy(BaseObject other)
     {

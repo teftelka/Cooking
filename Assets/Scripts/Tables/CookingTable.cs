@@ -27,15 +27,23 @@ namespace Tables
             {
                 if (_hasObject)
                 {
-                    PlayerTest.Instance.SetObject(TakeObject());
+                    PlayerTest.Instance.HandleObjectTake(GiveObject());
                     return;
                 }
             }
             
-            if (playerProduct is CookingTool && !_hasObject)
+            if (playerProduct && !_hasObject)
             {
-                SetObjectOnTable(playerProduct);
-                PlayerTest.Instance.ClearObject();
+                TakeObject(playerProduct);
+            }
+        }
+
+        private void TakeObject(BaseObject _object)
+        {
+            if (_object is CookingTool)
+            {
+                SetObjectOnTable(_object);
+                PlayerTest.Instance.HandleObjectGive();
             }
         }
 

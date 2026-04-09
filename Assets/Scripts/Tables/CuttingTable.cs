@@ -18,17 +18,25 @@ namespace Tables
             {
                 if (_hasObject)
                 {
-                    PlayerTest.Instance.SetObject(TakeObject());
+                    PlayerTest.Instance.HandleObjectTake(GiveObject());
                     return;
                 }
             }
             
-            if (playerProduct is Product product && !_hasObject)
+            if (playerProduct && !_hasObject)
+            {
+                TakeObject(playerProduct);
+            }
+        }
+
+        private void TakeObject(BaseObject _object)
+        {
+            if (_object is Product product)
             {
                 if (product.GetProductState() == ProductState.Raw)
                 {
-                    SetObjectOnTable(playerProduct);
-                    PlayerTest.Instance.ClearObject();
+                    SetObjectOnTable(_object);
+                    PlayerTest.Instance.HandleObjectGive();
                     product.Cut();
                 }
             }

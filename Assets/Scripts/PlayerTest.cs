@@ -29,7 +29,7 @@ namespace DefaultNamespace
             return hasObject;
         }
 
-        public void SetObject(BaseObject product)
+        private void SetObject(BaseObject product)
         {
             hasObject = true;
             _product = product;
@@ -40,10 +40,22 @@ namespace DefaultNamespace
             return _product;
         }
         
-        public void ClearObject()
+        private void ClearObject()
         {
             hasObject = false;
             _product = null;
+        }
+
+        public void HandleObjectGive()
+        {
+            if (!hasObject) return;
+            ClearObject();
+        }
+        
+        public void HandleObjectTake(BaseObject product)
+        {
+            if (hasObject) return;
+            SetObject(product);
         }
         
         private void MoveHeldObject()
