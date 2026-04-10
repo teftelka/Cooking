@@ -57,10 +57,10 @@ public class Product : BaseObject, IClickable
     }
     
     
-    public override bool CanBeAcceptedBy(BaseObject other)
+    /*public override bool CanBeAcceptedBy(BaseObject other)
     {
         return other is CookingTool or Plate;
-    }
+    }*/
     
     public override bool CanCombineWith(BaseObject other)
     {

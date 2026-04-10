@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using UnityEngine;
 
 namespace Tables
 {
@@ -13,7 +14,7 @@ namespace Tables
             Burnt
         }
 
-        private CookingTableState _state;
+        [SerializeField] private CookingTableState _state;
 
         private void Start()
         {
@@ -23,26 +24,37 @@ namespace Tables
         public void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
-            if (!playerProduct)
+
+            if (playerProduct)
             {
                 if (_hasObject)
                 {
-                    PlayerTest.Instance.HandleObjectTake(GiveObject());
+                    HandleCollision(playerProduct);
                     return;
                 }
-            }
-            
-            if (playerProduct && !_hasObject)
-            {
                 TakeObject(playerProduct);
+                return;
+            }
+            if (_hasObject)
+            {
+                PlayerTest.Instance.HandleObjectTake(GiveObject());
+            }
+        }
+
+        private void HandleCollision(BaseObject _object)
+        {
+            if (_product.CanAccept(_object))
+            {
+                _product.Accept(_object);
+                PlayerTest.Instance.HandleObjectGive();
             }
         }
 
         private void TakeObject(BaseObject _object)
         {
-            if (_object is CookingTool)
+            if (_object is CookingTool cookingTool)
             {
-                SetObjectOnTable(_object);
+                SetObjectOnTable(cookingTool);
                 PlayerTest.Instance.HandleObjectGive();
             }
         }
@@ -50,6 +62,12 @@ namespace Tables
         private void StartCooking()
         {
             _state = CookingTableState.Cooking;
+            EndCooking();
+        }
+
+        private void EndCooking()
+        {
+            _state = CookingTableState.Idle;
         }
     }
 }

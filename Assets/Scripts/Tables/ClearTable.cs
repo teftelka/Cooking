@@ -14,14 +14,14 @@ namespace Tables
                 return;
             }
             
-            if (productOnTable.CanAccept(productInHand) && productInHand.CanBeAcceptedBy(productOnTable))
+            if (productOnTable.CanAccept(productInHand)) // && productInHand.CanBeAcceptedBy(productOnTable))
             {
                 productOnTable.Accept(productInHand);
                 PlayerTest.Instance.HandleObjectGive();
                 return;
             }
 
-            if (productInHand.CanAccept(productOnTable) && productOnTable.CanBeAcceptedBy(productInHand))
+            if (productInHand.CanAccept(productOnTable)) // && productOnTable.CanBeAcceptedBy(productInHand))
             {
                 productInHand.Accept(productOnTable);
                 _product = null;

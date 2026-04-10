@@ -8,16 +8,6 @@ public class CookingTool : BaseObject
     [SerializeField] private bool hasObject;
     [SerializeField] private List<Product> _products;
     
-    private void GetDirty()
-    {
-        
-    }
-
-    private void GetClean()
-    {
-        
-    }
-    
     public string GetObjectType()
     {
         return type;
@@ -27,10 +17,16 @@ public class CookingTool : BaseObject
     {
         return hasObject;
     }
-
+    
+    public void CookRecipe()
+    {
+        
+    }
+    
     public override bool CanAccept(BaseObject other)
     {
-        return other is Product;
+        if (other is not Product product) return false;
+        return product.GetProductState() == ProductState.Chopped;
     }
 
     public override void Accept(BaseObject other)
