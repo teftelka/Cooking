@@ -20,7 +20,7 @@ public class CookingTool : BaseObject
     
     public void CookRecipe()
     {
-        
+        var test = 3;
     }
     
     public override bool CanAccept(BaseObject other)
