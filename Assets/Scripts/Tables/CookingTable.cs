@@ -41,18 +41,18 @@ namespace Tables
             }
         }
 
-        private void HandleCollision(BaseObject _object)
+        private void HandleCollision(BaseObject objectInHand)
         {
-            if (_product.CanAccept(_object))
+            if (_objectOnTable.CanAccept(objectInHand))
             {
-                _product.Accept(_object);
+                _objectOnTable.Accept(objectInHand);
                 PlayerTest.Instance.HandleObjectGive();
             }
         }
 
-        private void TakeObject(BaseObject _object)
+        private void TakeObject(BaseObject objectInHand)
         {
-            if (_object is CookingTool cookingTool)
+            if (objectInHand is CookingTool cookingTool)
             {
                 SetObjectOnTable(cookingTool);
                 PlayerTest.Instance.HandleObjectGive();

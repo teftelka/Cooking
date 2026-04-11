@@ -24,7 +24,7 @@ namespace Tables
             if (productInHand.CanAccept(productOnTable)) // && productOnTable.CanBeAcceptedBy(productInHand))
             {
                 productInHand.Accept(productOnTable);
-                _product = null;
+                _objectOnTable = null;
                 _hasObject = false;
                 return;
             }
@@ -38,9 +38,9 @@ namespace Tables
             PlayerTest.Instance.HandleObjectTake(productOnTable);
             productOnTable.RememberOrigin(productInHand.GetOrigin());
             
-            _product = productInHand;
-            _product.transform.position = spawnPosition.transform.position;
-            _product.RememberOrigin(this);
+            _objectOnTable = productInHand;
+            _objectOnTable.transform.position = spawnPosition.transform.position;
+            _objectOnTable.RememberOrigin(this);
         }
 
         public void OnClick()
@@ -50,7 +50,7 @@ namespace Tables
             {
                 if (productInHand)
                 {
-                    HandleMerge(productInHand, _product);
+                    HandleMerge(productInHand, _objectOnTable);
                     return;
                 }
 

@@ -13,14 +13,19 @@ public class CookingTool : BaseObject
         return type;
     }
     
+    /*
     public bool HasObject()
     {
         return hasObject;
     }
+    */
     
     public void CookRecipe()
     {
-        var test = 3;
+        foreach (var product in _products)
+        {
+            product.Cook();
+        }
     }
     
     public override bool CanAccept(BaseObject other)
