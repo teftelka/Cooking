@@ -37,7 +37,7 @@ namespace Tables
                 {
                     SetObjectOnTable(_object);
                     PlayerTest.Instance.HandleObjectGive();
-                    product.Cut();
+                    product.ApplyAction(ProductAction.Cut);
                 }
             }
         }

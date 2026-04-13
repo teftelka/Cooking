@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class BaseObject: MonoBehaviour
 {
     [SerializeField] protected BaseTable _originalTable;
-    [SerializeField] protected ProductStateSO currentState;
 
     public void RememberOrigin(BaseTable table)
     {

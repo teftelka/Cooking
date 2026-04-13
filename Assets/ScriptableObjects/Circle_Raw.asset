@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 340465d9bb5082e40b6f95a76813da52, type: 3}
-  m_Name: Circle_Row
+  m_Name: Circle_Raw
   m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
   state: 0
   sprite: {fileID: -4512059310158498933, guid: 4b4f67ed15519654285eaaa2c85f88ee, type: 3}

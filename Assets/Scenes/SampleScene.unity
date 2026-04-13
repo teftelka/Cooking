@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tables.ClearTable
   spawnPosition: {fileID: 1646083902}
   _hasObject: 1
-  _product: {fileID: 1900588239}
+  _objectOnTable: {fileID: 1900588239}
 --- !u!212 &35146810
 SpriteRenderer:
   serializedVersion: 2
@@ -680,7 +680,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CookingTool
   _originalTable: {fileID: 1142825521}
-  currentState: {fileID: 0}
   type: Pan
   hasObject: 0
   _products: []
@@ -837,7 +836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tables.ClearTable
   spawnPosition: {fileID: 1938541859}
   _hasObject: 1
-  _product: {fileID: 715485652}
+  _objectOnTable: {fileID: 715485652}
 --- !u!212 &1142825522
 SpriteRenderer:
   serializedVersion: 2
@@ -1018,6 +1017,10 @@ PrefabInstance:
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 35146809}
+    - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
+      propertyPath: kitchenObjectSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2147ddd167fd23f4fa2401ca258a5ad3, type: 2}
     - target: {fileID: 4409797101718878941, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.57
@@ -1217,7 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tables.ClearTable
   spawnPosition: {fileID: 538570254}
   _hasObject: 1
-  _product: {fileID: 1797527463}
+  _objectOnTable: {fileID: 1797527463}
 --- !u!61 &2004037729
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1280,6 +1283,10 @@ PrefabInstance:
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 2004037728}
+    - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
+      propertyPath: kitchenObjectSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2147ddd167fd23f4fa2401ca258a5ad3, type: 2}
     - target: {fileID: 4409797101718878941, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.13

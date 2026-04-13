@@ -12,6 +12,7 @@ public class Product : BaseObject, IClickable
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject image;
+    [SerializeField] protected ProductStateSO currentState;
     
 
     public void Start()
@@ -24,11 +25,6 @@ public class Product : BaseObject, IClickable
     public void OnClick()
     {
         
-    }
-
-    public ProductType GetObjectType()
-    {
-        return type;
     }
     
     public ProductState GetProductState()
@@ -47,20 +43,24 @@ public class Product : BaseObject, IClickable
     public void Cut()
     {
         if (productState != ProductState.Raw) return;
-        ApplyState(currentState.nextStateAsset);
+        ApplyAction(ProductAction.Cut);
     }
     
     public void Cook()
     {
         if (productState != ProductState.Chopped) return;
-        ApplyState(currentState.nextStateAsset);
+        ApplyAction(ProductAction.Cook);
     }
     
     
-    /*public override bool CanBeAcceptedBy(BaseObject other)
+    public bool ApplyAction(ProductAction action)
     {
-        return other is CookingTool or Plate;
-    }*/
+        if (!currentState.TryGetTransition(action, out var nextState))
+            return false;
+
+        ApplyState(nextState);
+        return true;
+    }
     
     public override bool CanCombineWith(BaseObject other)
     {
