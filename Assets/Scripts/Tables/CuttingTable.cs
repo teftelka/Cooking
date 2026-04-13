@@ -29,17 +29,18 @@ namespace Tables
             }
         }
 
-        private void TakeObject(BaseObject _object)
+        private void TakeObject(BaseObject obj)
         {
-            if (_object is Product product)
-            {
-                if (product.GetProductState() == ProductState.Raw)
-                {
-                    SetObjectOnTable(_object);
-                    PlayerTest.Instance.HandleObjectGive();
-                    product.ApplyAction(ProductAction.Cut);
-                }
-            }
+            if (obj is not Product product) 
+                return;
+            
+            if (!product.CanApplyAction(ProductAction.Cut))
+                return;
+
+            SetObjectOnTable(obj);
+            PlayerTest.Instance.HandleObjectGive();
+
+            product.ApplyAction(ProductAction.Cut);
         }
     }
 }

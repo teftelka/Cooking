@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Kitchen/Product State")]
@@ -11,16 +12,21 @@ public class ProductStateSO : ScriptableObject
 
     public bool TryGetTransition(ProductAction action, out ProductStateSO next)
     {
-        foreach (var t in transitions)
+        foreach (var transition in transitions)
         {
-            if (t.action == action)
+            if (transition.action == action)
             {
-                next = t.targetState;
+                next = transition.targetState;
                 return true;
             }
         }
 
         next = null;
         return false;
+    }
+    
+    public bool HasTransition(ProductAction action)
+    {
+        return transitions.Any(t => t.action == action);
     }
 }

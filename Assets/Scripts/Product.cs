@@ -40,6 +40,7 @@ public class Product : BaseObject, IClickable
         spriteRenderer.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
     }
     
+    /*
     public void Cut()
     {
         if (productState != ProductState.Raw) return;
@@ -51,7 +52,12 @@ public class Product : BaseObject, IClickable
         if (productState != ProductState.Chopped) return;
         ApplyAction(ProductAction.Cook);
     }
+    */
     
+    public bool CanApplyAction(ProductAction action)
+    {
+        return currentState.HasTransition(action);
+    }
     
     public bool ApplyAction(ProductAction action)
     {

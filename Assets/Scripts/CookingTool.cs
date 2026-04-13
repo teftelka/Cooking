@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class CookingTool : BaseObject
 {
-    [SerializeField] private string type;
+    [SerializeField] private ProductAction toolAction;
     [SerializeField] private bool hasObject;
     [SerializeField] private List<Product> _products;
-    
-    public string GetObjectType()
-    {
-        return type;
-    }
+    [SerializeField] private int capacity = 3;
     
     /*
     public bool HasObject()
@@ -24,14 +20,16 @@ public class CookingTool : BaseObject
     {
         foreach (var product in _products)
         {
-            product.Cook();
+            product.ApplyAction(toolAction);
         }
     }
     
     public override bool CanAccept(BaseObject other)
     {
         if (other is not Product product) return false;
-        return product.GetProductState() == ProductState.Chopped;
+        if (_products.Count >= capacity) return false;
+
+        return product.CanApplyAction(toolAction);
     }
 
     public override void Accept(BaseObject other)
