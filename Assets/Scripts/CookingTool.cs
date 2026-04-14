@@ -23,6 +23,17 @@ public class CookingTool : BaseObject
         }
     }
     
+    public void BurnRecipe()
+    {
+        foreach (var product in _products)
+        {
+            if (product.CanApplyAction(ProductAction.Burn))
+            {
+                product.ApplyAction(ProductAction.Burn);
+            }
+        }
+    }
+    
     public override bool CanAccept(BaseObject other)
     {
         if (other is not Product product) return false;

@@ -10,12 +10,12 @@ namespace Tables
         {
             Idle,
             Cooking,
-            Cooked,
-            Burnt
+            Burning
         }
 
         [SerializeField] private CookingTableState _state;
         [SerializeField] private float cookingTime = 5f;
+        [SerializeField] private float burningTime = 4f;
         private float _timer;
 
         private void Start()
@@ -25,15 +25,25 @@ namespace Tables
         
         private void Update()
         {
-            if (_state != CookingTableState.Cooking) return;
+            if (_state == CookingTableState.Idle) return;
 
             _timer -= Time.deltaTime;
-
-            if (_timer <= 0f)
+            if (_timer > 0f) return;
+            var tool = (CookingTool)_objectOnTable;
+            
+            switch (_state)
             {
-                var currentTool = (CookingTool)_objectOnTable;
-                currentTool.CookRecipe(); 
-                _state = CookingTableState.Idle; //Переделать потом в горение
+                case CookingTableState.Cooking:
+                    tool.CookRecipe();
+                    _state = CookingTableState.Burning;
+                    _timer = burningTime;
+                    Debug.Log("Food cooked");
+                    break;
+                case CookingTableState.Burning:
+                    tool.BurnRecipe();
+                    _state = CookingTableState.Idle;
+                    Debug.Log("Food burned!");
+                    break;
             }
         }
 
@@ -60,7 +70,7 @@ namespace Tables
         private void HandleObjectGive()
         {
             PlayerTest.Instance.HandleObjectTake(GiveObject());
-            _objectOnTable = null;
+            _state = CookingTableState.Idle;
         }
 
         private void HandleCollision(BaseObject objectInHand)
@@ -90,7 +100,6 @@ namespace Tables
         {
             _timer = cookingTime;
             _state = CookingTableState.Cooking;
-            //EndCooking();
         }
 
         private void EndCooking()
