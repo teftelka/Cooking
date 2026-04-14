@@ -680,9 +680,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CookingTool
   _originalTable: {fileID: 1142825521}
-  type: Pan
+  toolAction: 1
   hasObject: 0
   _products: []
+  capacity: 3
 --- !u!212 &715485653
 SpriteRenderer:
   serializedVersion: 2

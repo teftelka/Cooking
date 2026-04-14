@@ -15,10 +15,26 @@ namespace Tables
         }
 
         [SerializeField] private CookingTableState _state;
+        [SerializeField] private float cookingTime = 5f;
+        private float _timer;
 
         private void Start()
         {
             _state = CookingTableState.Idle;
+        }
+        
+        private void Update()
+        {
+            if (_state != CookingTableState.Cooking) return;
+
+            _timer -= Time.deltaTime;
+
+            if (_timer <= 0f)
+            {
+                var currentTool = (CookingTool)_objectOnTable;
+                currentTool.CookRecipe(); 
+                _state = CookingTableState.Idle; //Переделать потом в горение
+            }
         }
 
         public void OnClick()
@@ -37,8 +53,14 @@ namespace Tables
             }
             if (_hasObject)
             {
-                PlayerTest.Instance.HandleObjectTake(GiveObject());
+                HandleObjectGive();
             }
+        }
+
+        private void HandleObjectGive()
+        {
+            PlayerTest.Instance.HandleObjectTake(GiveObject());
+            _objectOnTable = null;
         }
 
         private void HandleCollision(BaseObject objectInHand)
@@ -47,6 +69,7 @@ namespace Tables
             {
                 _objectOnTable.Accept(objectInHand);
                 PlayerTest.Instance.HandleObjectGive();
+                StartCooking();
             }
         }
 
@@ -56,13 +79,18 @@ namespace Tables
             {
                 SetObjectOnTable(cookingTool);
                 PlayerTest.Instance.HandleObjectGive();
+                if (cookingTool.CanCook())
+                {
+                    StartCooking();
+                }
             }
         }
 
         private void StartCooking()
         {
+            _timer = cookingTime;
             _state = CookingTableState.Cooking;
-            EndCooking();
+            //EndCooking();
         }
 
         private void EndCooking()

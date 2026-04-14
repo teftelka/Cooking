@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CookingTool : BaseObject
@@ -9,12 +10,10 @@ public class CookingTool : BaseObject
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
     
-    /*
-    public bool HasObject()
+    public bool CanCook()
     {
-        return hasObject;
+        return _products.Any(product => product.CanApplyAction(toolAction));
     }
-    */
     
     public void CookRecipe()
     {
@@ -40,7 +39,5 @@ public class CookingTool : BaseObject
         
         product.transform.SetParent(transform);
         product.transform.localPosition = Vector3.zero;
-
-        Debug.Log("Product added to cooking tool");
     }
 }

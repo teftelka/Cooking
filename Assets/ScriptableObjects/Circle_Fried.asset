@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
   state: 2
   sprite: {fileID: 4266135260714290800, guid: 305848570b169fa4496754a700ea4e11, type: 3}
-  nextStateAsset: {fileID: 0}
+  transitions:
+  - action: 2
+    targetState: {fileID: 11400000, guid: b2552280407fb3240b39c011fbe968b3, type: 2}
