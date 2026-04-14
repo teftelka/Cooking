@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Plate: BaseObject
 {
+    [SerializeField] private bool hasObject;
+    [SerializeField] private bool isDirty;
+    [SerializeField] private List<Product> _products;
     private void GetDirty()
     {
         
@@ -19,20 +22,25 @@ public class Plate: BaseObject
         
     }
     
-    /*public override bool CanAccept(BaseObject other)
+    public override bool CanAccept(BaseObject other)
     {
-        return other is Product;
+        return other is CookingTool;
     }
 
     public override void Accept(BaseObject other)
     {
-        Product product = (Product)other;
-
-        _products.Add(product);
+        if (other is CookingTool cookingTool)
+        {
+            _products = cookingTool.GetProducts();
+            foreach (var product in _products)
+            {
+                product.transform.SetParent(transform);
+                product.transform.localPosition = Vector3.zero;
+            }
+            
+            cookingTool.EmptyTool();
+        }
         
-        product.transform.SetParent(transform);
-        product.transform.localPosition = Vector3.zero;
-
-        Debug.Log("Product added to cooking tool");
-    }*/
+        Debug.Log("Product added to plate");
+    }
 }

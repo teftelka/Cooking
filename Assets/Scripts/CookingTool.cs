@@ -7,7 +7,7 @@ using UnityEngine;
 public class CookingTool : BaseObject
 {
     [SerializeField] private ProductAction toolAction;
-    [SerializeField] private bool hasObject;
+    //[SerializeField] private bool hasObject;
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
     [SerializeField] private float cookingTime = 5f;
@@ -85,6 +85,17 @@ public class CookingTool : BaseObject
             }
         }
     }
+
+    public List<Product> GetProducts()
+    {
+        return _products;
+    }
+
+    public void EmptyTool()
+    {
+        _state = CookingProgressState.Idle;
+        _products.Clear();
+    }
     
     public override bool CanAccept(BaseObject other)
     {
@@ -97,7 +108,6 @@ public class CookingTool : BaseObject
     public override void Accept(BaseObject other)
     {
         Product product = (Product)other;
-
         _products.Add(product);
         
         product.transform.SetParent(transform);

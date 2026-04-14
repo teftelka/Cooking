@@ -45,11 +45,23 @@ namespace DefaultNamespace
             hasObject = false;
             _product = null;
         }
-
+        
         public void HandleObjectGive()
         {
             if (!hasObject) return;
+
             ClearObject();
+        }
+
+        public void HandleObjectGive(BaseObject receiver)
+        {
+            if (!hasObject) return;
+
+            if (receiver is not Plate)
+            {
+                ClearObject();
+            }
+            
         }
         
         public void HandleObjectTake(BaseObject product)

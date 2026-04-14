@@ -17,15 +17,19 @@ namespace Tables
             if (productOnTable.CanAccept(productInHand)) // && productInHand.CanBeAcceptedBy(productOnTable))
             {
                 productOnTable.Accept(productInHand);
-                PlayerTest.Instance.HandleObjectGive();
+                PlayerTest.Instance.HandleObjectGive(productOnTable);
                 return;
             }
 
             if (productInHand.CanAccept(productOnTable)) // && productOnTable.CanBeAcceptedBy(productInHand))
             {
                 productInHand.Accept(productOnTable);
-                _objectOnTable = null;
-                _hasObject = false;
+                if (productInHand is not Plate)
+                {
+                    _objectOnTable = null;
+                    _hasObject = false;
+                }
+
                 return;
             }
             
