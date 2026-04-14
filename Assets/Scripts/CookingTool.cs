@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Tables;
 using UnityEngine;
 
 public class CookingTool : BaseObject
@@ -9,21 +10,72 @@ public class CookingTool : BaseObject
     [SerializeField] private bool hasObject;
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
+    [SerializeField] private float cookingTime = 5f;
+    [SerializeField] private float burningTime = 4f;
+    private CookingProgressState _state;
+    [SerializeField] private float _timer;
+    [SerializeField] private bool _isOnHeat;
     
-    public bool CanCook()
+    private enum CookingProgressState
+    {
+        Idle,
+        Cooking,
+        Burning
+    }
+
+    private void Start()
+    {
+        _state = CookingProgressState.Idle;
+    }
+    
+    private void Update()
+    {
+        if (!_isOnHeat) return;
+
+        _timer -= Time.deltaTime;
+        if (_timer > 0f) return;
+
+        switch (_state)
+        {
+            case CookingProgressState.Cooking:
+                CookRecipe();
+                _state = CookingProgressState.Burning;
+                _timer = burningTime;
+                Debug.Log("Food cooked");
+                break;
+            case CookingProgressState.Burning:
+                BurnRecipe();
+                _state = CookingProgressState.Idle;
+                Debug.Log("Food burned!");
+                break;
+        }
+    }
+    
+    public void SetHeat(bool hasHeat)
+    {
+        _isOnHeat = hasHeat;
+        
+        if (_isOnHeat && CanCook() && _state == CookingProgressState.Idle)
+        {
+            _state = CookingProgressState.Cooking;
+            _timer = cookingTime;
+        }
+    }
+    
+    private bool CanCook()
     {
         return _products.Any(product => product.CanApplyAction(toolAction));
     }
-    
-    public void CookRecipe()
+
+    private void CookRecipe()
     {
         foreach (var product in _products)
         {
             product.ApplyAction(toolAction);
         }
     }
-    
-    public void BurnRecipe()
+
+    private void BurnRecipe()
     {
         foreach (var product in _products)
         {
