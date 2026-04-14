@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 
 namespace Tables
@@ -14,18 +15,29 @@ namespace Tables
         public void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
-            if (!playerProduct)
+
+            if (playerProduct)
             {
                 if (_hasObject)
                 {
-                    PlayerTest.Instance.HandleObjectTake(GiveObject());
+                    HandleCollision(playerProduct);
                     return;
                 }
-            }
-            
-            if (playerProduct && !_hasObject)
-            {
                 TakeObject(playerProduct);
+                return;
+            }
+            if (_hasObject)
+            {
+                PlayerTest.Instance.HandleObjectTake(GiveObject());
+            }
+        }
+
+        private void HandleCollision(BaseObject playerProduct)
+        {
+            if (playerProduct.CanAccept(_objectOnTable))
+            {
+                playerProduct.Accept(_objectOnTable);
+                GiveObject();
             }
         }
 
