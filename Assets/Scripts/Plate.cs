@@ -24,6 +24,10 @@ public class Plate: BaseObject
     
     public override bool CanAccept(BaseObject other)
     {
+        if (other is Product)
+        {
+            return true;
+        }
         return other is CookingTool;
     }
 
@@ -31,16 +35,26 @@ public class Plate: BaseObject
     {
         if (other is CookingTool cookingTool)
         {
-            _products = cookingTool.GetProducts();
-            foreach (var product in _products)
+            foreach (var productInTool in cookingTool.GetProducts())
             {
-                product.transform.SetParent(transform);
-                product.transform.localPosition = Vector3.zero;
+                AddProductToPlate(productInTool);
             }
-            
             cookingTool.EmptyTool();
+            return;
+        }
+
+        if (other is Product product)
+        {
+            AddProductToPlate(product);
         }
         
         Debug.Log("Product added to plate");
+    }
+
+    private void AddProductToPlate(Product product)
+    {
+        _products.Add(product);
+        product.transform.SetParent(transform);
+        product.transform.localPosition = Vector3.zero;
     }
 }

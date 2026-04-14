@@ -17,7 +17,11 @@ namespace Tables
             if (productOnTable.CanAccept(productInHand)) // && productInHand.CanBeAcceptedBy(productOnTable))
             {
                 productOnTable.Accept(productInHand);
-                PlayerTest.Instance.HandleObjectGive(productOnTable);
+                if (productOnTable is not Plate)
+                {
+                    PlayerTest.Instance.HandleObjectGive();
+                }
+                
                 return;
             }
 
