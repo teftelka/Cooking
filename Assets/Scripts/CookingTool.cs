@@ -7,12 +7,12 @@ using UnityEngine;
 public class CookingTool : BaseObject
 {
     [SerializeField] private ProductAction toolAction;
-    //[SerializeField] private bool hasObject;
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
     [SerializeField] private float cookingTime = 5f;
     [SerializeField] private float burningTime = 4f;
-    private CookingProgressState _state;
+    [SerializeField] private float extraTimePerItem = 2f;
+    [SerializeField] private CookingProgressState _state;
     [SerializeField] private float _timer;
     [SerializeField] private bool _isOnHeat;
     
@@ -54,19 +54,8 @@ public class CookingTool : BaseObject
     public void SetHeat(bool hasHeat)
     {
         _isOnHeat = hasHeat;
-        
-        if (_isOnHeat && CanCook() && _state == CookingProgressState.Idle)
-        {
-            _state = CookingProgressState.Cooking;
-            _timer = cookingTime;
-        }
     }
     
-    private bool CanCook()
-    {
-        return _products.Any(product => product.CanApplyAction(toolAction));
-    }
-
     private void CookRecipe()
     {
         foreach (var product in _products)
@@ -119,6 +108,16 @@ public class CookingTool : BaseObject
     {
         Product product = (Product)other;
         _products.Add(product);
+
+        if (_state == CookingProgressState.Idle)
+        {
+            _state = CookingProgressState.Cooking;
+            _timer = cookingTime;
+        }
+        else
+        {
+            _timer += extraTimePerItem;
+        }
         
         product.transform.SetParent(transform);
         product.transform.localPosition = Vector3.zero;

@@ -498,9 +498,10 @@ MonoBehaviour:
   _originalTable: {fileID: 977494607}
   toolAction: 1
   _products: []
-  capacity: 1
+  capacity: 2
   cookingTime: 5
   burningTime: 4
+  extraTimePerItem: 2
   _timer: 0
   _isOnHeat: 0
 --- !u!65 &390539127
@@ -1021,9 +1022,10 @@ MonoBehaviour:
   _originalTable: {fileID: 1142825521}
   toolAction: 1
   _products: []
-  capacity: 1
+  capacity: 2
   cookingTime: 5
   burningTime: 4
+  extraTimePerItem: 2
   _timer: 0
   _isOnHeat: 0
 --- !u!212 &715485653
