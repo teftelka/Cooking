@@ -1,8 +1,11 @@
 public enum ProductAction
 {
     Cut,
-    Cook,
+    Fry,
     Burn,
     Mix,
-    Boil
+    Boil,
+    DeepFry,
+    Steam,
+    Bake
 }
