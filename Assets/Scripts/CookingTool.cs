@@ -96,6 +96,16 @@ public class CookingTool : BaseObject
         _state = CookingProgressState.Idle;
         _products.Clear();
     }
+
+    public void DestroyAllProducts()
+    {
+        foreach (var product in _products)
+        {
+           Destroy(product.gameObject); 
+        }
+
+        EmptyTool();
+    }
     
     public override bool CanAccept(BaseObject other)
     {
