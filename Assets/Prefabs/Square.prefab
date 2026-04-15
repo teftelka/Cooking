@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2054207767618485484}
   - component: {fileID: 1431536606494937217}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,12 +138,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
   _originalTable: {fileID: 0}
-  type: 0
+  type: 1
   range: 0
   productState: 0
   spriteRenderer: {fileID: 0}
   image: {fileID: 941103979538365508}
-  currentState: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
+  currentState: {fileID: 11400000, guid: 0c11ca9ac0fddcb499feb83d1e9339f4, type: 2}
 --- !u!58 &1431536606494937217
 CircleCollider2D:
   m_ObjectHideFlags: 0

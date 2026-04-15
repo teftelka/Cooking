@@ -45,7 +45,7 @@ public class Plate: BaseObject
 
         if (other is Product product)
         {
-            AddProductToPlate(product);
+            //AddProductToPlate(product);
         }
         
         Debug.Log("Product added to plate");

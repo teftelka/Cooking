@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340465d9bb5082e40b6f95a76813da52, type: 3}
+  m_Name: Square_Raw
+  m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
+  state: 0
+  sprite: {fileID: 991191668737955923, guid: ac95c76946e870a44abd2bf9dc34685e, type: 3}
+  transitions:
+  - action: 1
+    targetState: {fileID: 11400000, guid: 4f14aa9b6407fbd4d99510f3abcaf565, type: 2}
