@@ -27,10 +27,15 @@ public class Product : BaseObject, IClickable
         
     }
     
-    public ProductState GetProductState()
+    /*private ProductState GetProductState()
     {
         return productState;
     }
+    
+    private ProductType GetObjectType()
+    {
+        return type;
+    }*/
     
     private void ApplyState(ProductStateSO state)
     {
@@ -52,6 +57,15 @@ public class Product : BaseObject, IClickable
 
         ApplyState(nextState);
         return true;
+    }
+    
+    public RecipeItem GetRecipeKey()
+    {
+        return new RecipeItem
+        {
+            productType = type,
+            productState = productState
+        };
     }
     
     public override bool CanCombineWith(BaseObject other)

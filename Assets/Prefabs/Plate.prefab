@@ -141,6 +141,9 @@ MonoBehaviour:
   hasObject: 0
   isDirty: 0
   _products: []
+  possibleRecipes:
+  - {fileID: 11400000, guid: 20d52f09730c5aa4d9690be532840036, type: 2}
+  - {fileID: 11400000, guid: fb1e630b1671b0946a467b97a35a25e9, type: 2}
 --- !u!58 &196173294005941473
 CircleCollider2D:
   m_ObjectHideFlags: 0

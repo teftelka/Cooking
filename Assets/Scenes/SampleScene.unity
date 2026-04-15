@@ -441,7 +441,7 @@ MonoBehaviour:
   _originalTable: {fileID: 977494607}
   toolAction: 1
   _products: []
-  capacity: 3
+  capacity: 1
   cookingTime: 5
   burningTime: 4
   _timer: 0
@@ -964,7 +964,7 @@ MonoBehaviour:
   _originalTable: {fileID: 1142825521}
   toolAction: 1
   _products: []
-  capacity: 3
+  capacity: 1
   cookingTime: 5
   burningTime: 4
   _timer: 0
