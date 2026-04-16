@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,14 +110,21 @@ public class CookingTool : BaseObject
         Product product = (Product)other;
         _products.Add(product);
 
-        if (_state == CookingProgressState.Idle)
+        switch (_state)
         {
-            _state = CookingProgressState.Cooking;
-            _timer = cookingTime;
-        }
-        else
-        {
-            _timer += extraTimePerItem;
+            case CookingProgressState.Idle:
+                _state = CookingProgressState.Cooking;
+                _timer = cookingTime;
+                break;
+            case CookingProgressState.Cooking:
+                _timer += extraTimePerItem;
+                break;
+            case CookingProgressState.Burning:
+                _state = CookingProgressState.Cooking;
+                _timer = extraTimePerItem;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         
         product.transform.SetParent(transform);
