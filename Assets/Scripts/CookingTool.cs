@@ -21,7 +21,8 @@ public class CookingTool : BaseObject
     {
         Idle,
         Cooking,
-        Burning
+        Burning,
+        Burned
     }
 
     private void Start()
@@ -46,7 +47,7 @@ public class CookingTool : BaseObject
                 break;
             case CookingProgressState.Burning:
                 BurnRecipe();
-                _state = CookingProgressState.Idle;
+                _state = CookingProgressState.Burned;
                 Debug.Log("Food burned!");
                 break;
         }
@@ -99,9 +100,10 @@ public class CookingTool : BaseObject
     
     public override bool CanAccept(BaseObject other)
     {
+        if (_state == CookingProgressState.Burned) return false;
         if (other is not Product product) return false;
         if (_products.Count >= capacity) return false;
-
+        
         return product.CanApplyAction(toolAction);
     }
 
