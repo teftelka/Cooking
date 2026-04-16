@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6e896c7c6c010e1499a735a8e8f80dc8
+guid: a5279b35e0f2bb84a989f7183b3c3108
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2711974966424728005
-    second: CirleBurned_0
+      213: 7327641991538990738
+    second: CapsuleBurned_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CirleBurned_0
+      name: CapsuleBurned_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c17f710dded2a520800000000000000
-      internalID: 2711974966424728005
+      spriteID: 29edaea519301b560800000000000000
+      internalID: 7327641991538990738
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CirleBurned_0: 2711974966424728005
+      CapsuleBurned_0: 7327641991538990738
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

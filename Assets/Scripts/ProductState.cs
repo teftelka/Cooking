@@ -3,5 +3,10 @@ public enum ProductState
     Raw,
     Chopped,
     Fried,
-    Burned
+    Burned,
+    Mixed,
+    Boiled,
+    DeepFried,
+    Steamed,
+    Baked
 }
