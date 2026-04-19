@@ -8,17 +8,13 @@ public class Plate: BaseObject
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
     [SerializeField] private List<RecipeSO> possibleRecipes;
+    private GameObject newRecipe;
     private void GetDirty()
     {
         
     }
 
     private void GetClean()
-    {
-        
-    }
-    
-    public void OnClick()
     {
         
     }
@@ -59,8 +55,8 @@ public class Plate: BaseObject
     private void AddProductToPlate(Product product)
     {
         _products.Add(product);
-        product.transform.SetParent(transform);
-        product.transform.localPosition = Vector3.zero;
+        product.SetToParent(transform);
+        TryCompleteRecipe();
     }
     
     private bool CanAddProducts(List<Product> incomingProducts)
@@ -123,10 +119,18 @@ public class Plate: BaseObject
     private void CreateDish(RecipeSO recipe)
     {
         foreach (var p in _products)
-            Destroy(p.gameObject);
+            p.DisableImage();
+            //Destroy(p.gameObject);
 
-        _products.Clear();
+        //_products.Clear();
 
-        Instantiate(recipe.resultPrefab, transform.position, Quaternion.identity);
+        if (newRecipe)
+        {
+            Destroy(newRecipe);
+        }
+        
+        newRecipe = Instantiate(recipe.resultPrefab, transform.position, Quaternion.identity);
+        newRecipe.transform.SetParent(transform);
+        newRecipe.transform.localPosition = Vector3.zero;
     }
 }

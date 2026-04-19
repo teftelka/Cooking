@@ -68,6 +68,19 @@ public class Product : BaseObject, IClickable
         };
     }
     
+    public void SetToParent(Transform parent)
+    {
+        //Destroy(spriteRenderer);
+        //DisableImage();
+        transform.SetParent(parent);
+        transform.localPosition = Vector3.zero;
+    }
+
+    public void DisableImage()
+    {
+        spriteRenderer.gameObject.SetActive(false);
+    }
+    
     public override bool CanCombineWith(BaseObject other)
     {
         if (other is not Product otherProduct) return false;

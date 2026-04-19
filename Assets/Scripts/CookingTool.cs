@@ -100,9 +100,9 @@ public class CookingTool : BaseObject
     
     public override bool CanAccept(BaseObject other)
     {
-        if (_state == CookingProgressState.Burned) return false;
         if (other is not Product product) return false;
         if (_products.Count >= capacity) return false;
+        if (_state == CookingProgressState.Burned) return false;
         
         return product.CanApplyAction(toolAction);
     }
@@ -129,7 +129,6 @@ public class CookingTool : BaseObject
                 throw new ArgumentOutOfRangeException();
         }
         
-        product.transform.SetParent(transform);
-        product.transform.localPosition = Vector3.zero;
+        product.SetToParent(transform);
     }
 }

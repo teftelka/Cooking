@@ -15,4 +15,4 @@ MonoBehaviour:
   ingredients:
   - productType: 0
     productState: 1
-  resultPrefab: {fileID: 0}
+  resultPrefab: {fileID: 4709926376490962013, guid: 2265e7a4d6aaff049ae57f76f1a22841, type: 3}
