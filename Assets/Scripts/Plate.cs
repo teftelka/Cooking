@@ -7,7 +7,6 @@ public class Plate: BaseObject
     [SerializeField] private bool hasObject;
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
-    //[SerializeField] private List<RecipeSO> possibleRecipes;
     [SerializeField] private RecipeListSO recipeList;
     private RecipeSO completedRecipe;
     private GameObject newRecipe;
@@ -140,7 +139,7 @@ public class Plate: BaseObject
         return completedRecipe;
     }
 
-    public void FinishOrder()
+    public void ResetPlate()
     {
         completedRecipe = null;
         Destroy(newRecipe);

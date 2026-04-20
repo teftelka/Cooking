@@ -25,6 +25,9 @@ namespace Tables
                     PlayerTest.Instance.HandleObjectGive();
                     Destroy(someProduct.gameObject);
                     break;
+                case Plate plate:
+                    plate.ResetPlate();
+                    break;
             }
         }
     }

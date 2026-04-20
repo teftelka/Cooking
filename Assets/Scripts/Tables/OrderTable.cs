@@ -28,7 +28,7 @@ namespace Tables
                 if (activeOrder == recipe)
                 {
                     OrderManager.Instance.CompleteOrder(activeOrder);
-                    plate.FinishOrder();
+                    plate.ResetPlate();
                     return;
                 }
             }
