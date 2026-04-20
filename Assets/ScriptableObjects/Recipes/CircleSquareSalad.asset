@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
   ingredients:
   - productType: 0
-    productState: 2
+    productState: 1
   - productType: 1
     productState: 2
   resultPrefab: {fileID: 4709926376490962013, guid: dfd50e04bb39a73418e31a5ebe6d41dc, type: 3}

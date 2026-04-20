@@ -7,8 +7,11 @@ public class Plate: BaseObject
     [SerializeField] private bool hasObject;
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
-    [SerializeField] private List<RecipeSO> possibleRecipes;
+    //[SerializeField] private List<RecipeSO> possibleRecipes;
+    [SerializeField] private RecipeListSO recipeList;
+    private RecipeSO completedRecipe;
     private GameObject newRecipe;
+    
     private void GetDirty()
     {
         
@@ -69,7 +72,7 @@ public class Plate: BaseObject
         foreach (var product in incomingProducts)
             futureItems.Add(product.GetRecipeKey());
         
-        foreach (var recipe in possibleRecipes)
+        foreach (var recipe in recipeList.allRecipes)
         {
             if (IsSubsetOfRecipe(futureItems, recipe))
                 return true;
@@ -98,7 +101,7 @@ public class Plate: BaseObject
     
     private void TryCompleteRecipe()
     {
-        foreach (var recipe in possibleRecipes)
+        foreach (var recipe in recipeList.allRecipes)
         {
             if (IsExactRecipe(recipe))
             {
@@ -120,9 +123,6 @@ public class Plate: BaseObject
     {
         foreach (var p in _products)
             p.DisableImage();
-            //Destroy(p.gameObject);
-
-        //_products.Clear();
 
         if (newRecipe)
         {
@@ -130,7 +130,26 @@ public class Plate: BaseObject
         }
         
         newRecipe = Instantiate(recipe.resultPrefab, transform.position, Quaternion.identity);
+        completedRecipe = recipe;
         newRecipe.transform.SetParent(transform);
         newRecipe.transform.localPosition = Vector3.zero;
+    }
+    
+    public RecipeSO GetRecipeOnPlate()
+    {
+        return completedRecipe;
+    }
+
+    public void FinishOrder()
+    {
+        completedRecipe = null;
+        Destroy(newRecipe);
+        
+        foreach (var p in _products)
+            Destroy(p.gameObject);
+        
+        _products.Clear();
+        
+        GetDirty();
     }
 }
