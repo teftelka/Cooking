@@ -6,14 +6,6 @@ namespace Tables
 {
     public class CookingTable: BaseTable, IClickable
     {
-
-        public EventHandler<OnCookingToolChangeEventArgs> OnCookingToolChanged;
-        public class OnCookingToolChangeEventArgs : EventArgs
-        {
-            public CookingTool cookingTool;
-            public bool isCookingToolOnTable;
-        }
-        
         public void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
@@ -39,7 +31,6 @@ namespace Tables
             if (_objectOnTable is CookingTool tool)
             {
                 tool.SetHeat(false);
-                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = false, cookingTool = null});
             }
                 
             PlayerTest.Instance.HandleObjectTake(GiveObject());
@@ -72,7 +63,6 @@ namespace Tables
             if (_object is CookingTool tool)
             {
                 tool.SetHeat(true);
-                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = tool});
             }
                 
         }

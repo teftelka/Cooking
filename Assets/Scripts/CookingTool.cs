@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CookingTool : BaseObject
 {
-    
+    public EventHandler OnEmptyTool;
     public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs : EventArgs {
         public float someProgress; 
@@ -92,6 +92,7 @@ public class CookingTool : BaseObject
     {
         _state = CookingProgressState.Idle;
         _products.Clear();
+        OnEmptyTool?.Invoke(this, EventArgs.Empty);
     }
 
     public void DestroyAllProducts()

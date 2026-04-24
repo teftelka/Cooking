@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ProgressBarUI : MonoBehaviour
 {
     [SerializeField] private Image progressBarFill;
-    [SerializeField] private CookingTable _cookingTable;
+    [SerializeField] private CuttingTable _cookingTable;
     private CookingTool _currentCookingTool;
     
 
-    private void Start()
+    /*private void Start()
     {
         SetVisibility(false);
         _cookingTable.OnCookingToolChanged += HandleCookingToolChanged;
@@ -29,7 +29,7 @@ public class ProgressBarUI : MonoBehaviour
             _currentCookingTool = null;
             SetVisibility(false);
         }
-    }
+    }*/
 
     private void HandleProgressChanged(object sender, CookingTool.OnProgressChangedEventArgs e)
     {

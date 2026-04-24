@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3858245688491571876}
   - component: {fileID: 8756472838631054973}
   - component: {fileID: 5468082046935906724}
-  - component: {fileID: 9185147791059662315}
   - component: {fileID: 97050059604274824}
   m_Layer: 5
   m_Name: Background
@@ -77,21 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9185147791059662315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994124663843427000}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
-  m_EffectColor: {r: 0.3679245, g: 0.35230508, b: 0.35230508, a: 0.5}
-  m_EffectDistance: {x: 0.1, y: -0.1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &97050059604274824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8952870689311166423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -249,7 +233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4465457855860299122}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794f18a1f4737f74e87f77c998ac0f20, type: 3}
   m_Name: 

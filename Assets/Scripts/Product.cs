@@ -42,7 +42,7 @@ public class Product : BaseObject, IClickable
         currentState = state;
         productState = currentState.state;
         spriteRenderer.sprite = state.sprite;
-        spriteRenderer.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+        spriteRenderer.transform.localScale = new Vector3(0.35f, 0.35f, 1f);
     }
     
     public bool CanApplyAction(ProductAction action)
