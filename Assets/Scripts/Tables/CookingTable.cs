@@ -61,7 +61,6 @@ namespace Tables
                 PlayerTest.Instance.HandleObjectGive();
                 SetObjectOnTable(cookingTool);
                 cookingTool.SetHeat(true);
-                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = _objectOnTable as CookingTool});
             }
         }
 

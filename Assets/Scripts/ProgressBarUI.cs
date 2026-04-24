@@ -12,6 +12,7 @@ public class ProgressBarUI : MonoBehaviour
 
     private void Start()
     {
+        SetVisibility(false);
         _cookingTable.OnCookingToolChanged += HandleCookingToolChanged;
     }
 
@@ -26,11 +27,19 @@ public class ProgressBarUI : MonoBehaviour
         {
             _currentCookingTool.OnProgressChanged -= HandleProgressChanged;
             _currentCookingTool = null;
+            SetVisibility(false);
         }
     }
 
     private void HandleProgressChanged(object sender, CookingTool.OnProgressChangedEventArgs e)
     {
+        SetVisibility(true);
         progressBarFill.fillAmount = e.someProgress;
+    }
+    
+    
+    private void SetVisibility(bool isVisible)
+    {
+        gameObject.SetActive(isVisible);
     }
 }
