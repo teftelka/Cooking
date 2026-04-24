@@ -60,11 +60,11 @@ namespace Tables
             _objectOnTable = _object;
             _object.transform.position = spawnPosition.transform.position;
             _object.RememberOrigin(this);
+            
             if (_object is CookingTool tool)
             {
                 tool.SetHeat(true);
             }
-                
         }
     }
 }

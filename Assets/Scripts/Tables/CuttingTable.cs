@@ -1,15 +1,37 @@
 using System;
 using DefaultNamespace;
+using UnityEngine;
 
 namespace Tables
 {
     public class CuttingTable: BaseTable, IClickable
     {
+        
+        [SerializeField] private float cuttingTime = 3f;
+        [SerializeField] private float _timer;
+        [SerializeField] private CuttingTableState cuttingState;
+        
         private enum CuttingTableState
         {
             Idle,
             Cutting,
             Cut
+        }
+        
+        private void Start()
+        {
+            cuttingState = CuttingTableState.Idle;
+        }
+
+        private void Update()
+        {
+            if (cuttingState != CuttingTableState.Cutting) return;
+            
+            _timer -= Time.deltaTime;
+            if (_timer > 0f) return;
+            
+            ((Product)_objectOnTable).ApplyAction(ProductAction.Cut);
+            cuttingState = CuttingTableState.Cut;
         }
 
         public void OnClick()
@@ -28,31 +50,48 @@ namespace Tables
             }
             if (_hasObject)
             {
-                PlayerTest.Instance.HandleObjectTake(GiveObject());
+                HandleObjectGive();
             }
+        }
+
+        private void HandleObjectGive()
+        {
+            if (cuttingState == CuttingTableState.Cutting) return;
+            PlayerTest.Instance.HandleObjectTake(GiveObject());
+            cuttingState = CuttingTableState.Idle;
         }
 
         private void HandleCollision(BaseObject playerProduct)
         {
-            if (playerProduct.CanAccept(_objectOnTable))
+            /*if (playerProduct.CanAccept(_objectOnTable))
             {
                 playerProduct.Accept(_objectOnTable);
                 GiveObject();
-            }
+            }*/
         }
 
         private void TakeObject(BaseObject obj)
         {
-            if (obj is not Product product) 
-                return;
-            
-            if (!product.CanApplyAction(ProductAction.Cut))
-                return;
+            if (obj is not Product product) return;
+            if (!product.CanApplyAction(ProductAction.Cut)) return;
 
             SetObjectOnTable(obj);
             PlayerTest.Instance.HandleObjectGive();
+        }
+        
+        public override void SetObjectOnTable(BaseObject _object)
+        {
+            _hasObject = true;
+            _objectOnTable = _object;
+            _object.transform.position = spawnPosition.transform.position;
+            _object.RememberOrigin(this);
 
-            product.ApplyAction(ProductAction.Cut);
+            if (_object is Product product && product.CanApplyAction(ProductAction.Cut)) 
+            {
+                _timer = cuttingTime;
+                cuttingState = CuttingTableState.Cutting;
+            }
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Tables
             _object.transform.position = spawnPosition.transform.position;
             _object.RememberOrigin(this);
         }
-
+        
         protected virtual BaseObject GiveObject()
         {
             BaseObject objectOnTable = _objectOnTable;
