@@ -60,7 +60,6 @@ namespace Tables
             {
                 PlayerTest.Instance.HandleObjectGive();
                 SetObjectOnTable(cookingTool);
-                cookingTool.SetHeat(true);
             }
         }
 
@@ -72,8 +71,8 @@ namespace Tables
             _object.RememberOrigin(this);
             if (_object is CookingTool tool)
             {
-                    OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = tool});
-                    tool.SetHeat(true);
+                tool.SetHeat(true);
+                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = tool});
             }
                 
         }
