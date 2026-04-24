@@ -7,6 +7,12 @@ using UnityEngine;
 
 public class CookingTool : BaseObject
 {
+    
+    public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+    public class OnProgressChangedEventArgs : EventArgs {
+        public float someProgress; 
+    }
+    
     [SerializeField] private ProductAction toolAction;
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
@@ -35,6 +41,8 @@ public class CookingTool : BaseObject
         if (!_isOnHeat) return;
 
         _timer -= Time.deltaTime;
+        
+        OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { someProgress = 1 - (_timer / ( _state == CookingProgressState.Cooking ? cookingTime : burningTime)) });
         if (_timer > 0f) return;
 
         switch (_state)

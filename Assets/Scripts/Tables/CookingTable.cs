@@ -6,6 +6,14 @@ namespace Tables
 {
     public class CookingTable: BaseTable, IClickable
     {
+
+        public EventHandler<OnCookingToolChangeEventArgs> OnCookingToolChanged;
+        public class OnCookingToolChangeEventArgs : EventArgs
+        {
+            public CookingTool cookingTool;
+            public bool isCookingToolOnTable;
+        }
+        
         public void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
@@ -29,7 +37,11 @@ namespace Tables
         private void HandleObjectGive()
         {
             if (_objectOnTable is CookingTool tool)
+            {
                 tool.SetHeat(false);
+                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = false, cookingTool = null});
+            }
+                
             PlayerTest.Instance.HandleObjectTake(GiveObject());
         }
 
@@ -49,6 +61,7 @@ namespace Tables
                 PlayerTest.Instance.HandleObjectGive();
                 SetObjectOnTable(cookingTool);
                 cookingTool.SetHeat(true);
+                OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = _objectOnTable as CookingTool});
             }
         }
 
@@ -59,7 +72,11 @@ namespace Tables
             _object.transform.position = spawnPosition.transform.position;
             _object.RememberOrigin(this);
             if (_object is CookingTool tool)
-                tool.SetHeat(true);
+            {
+                    OnCookingToolChanged?.Invoke(this, new OnCookingToolChangeEventArgs {isCookingToolOnTable = true, cookingTool = tool});
+                    tool.SetHeat(true);
+            }
+                
         }
     }
 }
