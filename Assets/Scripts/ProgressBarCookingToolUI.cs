@@ -22,8 +22,8 @@ public class ProgressBarCookingToolUI : MonoBehaviour
 
     private void HandleProgressChanged(object sender, CookingTool.OnProgressChangedEventArgs e)
     {
-        SetVisibility(!(progressBarFill.fillAmount >= 1f));
-        progressBarFill.fillAmount = e.someProgress;
+        SetVisibility(!(progressBarFill.fillAmount >= 0.99f));
+        progressBarFill.fillAmount = e.cookingProgress;
     }
     
     

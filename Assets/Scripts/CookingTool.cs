@@ -7,7 +7,7 @@ public class CookingTool : BaseObject
     public EventHandler OnEmptyTool;
     public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs : EventArgs {
-        public float someProgress; 
+        public float cookingProgress; 
     }
     
     [SerializeField] private ProductAction toolAction;
@@ -39,7 +39,7 @@ public class CookingTool : BaseObject
         if (_products.Count == 0) return;
 
         _timer -= Time.deltaTime;
-        OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { someProgress = 1 - (_timer / ( _state == CookingProgressState.Cooking ? cookingTime : burningTime)) });
+        OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { cookingProgress = 1 - (_timer / ( _state == CookingProgressState.Cooking ? cookingTime : burningTime)) });
         
         if (_timer > 0f) return;
 

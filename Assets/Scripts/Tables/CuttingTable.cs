@@ -7,6 +7,11 @@ namespace Tables
     public class CuttingTable: BaseTable, IClickable
     {
         
+        public EventHandler<OnCuttingProgressChangedEventArgs> OnCuttingProgressChanged;
+        public class OnCuttingProgressChangedEventArgs {
+            public float cuttingProgress; 
+        }
+        
         [SerializeField] private float cuttingTime = 3f;
         [SerializeField] private float _timer;
         [SerializeField] private CuttingTableState cuttingState;
@@ -28,6 +33,8 @@ namespace Tables
             if (cuttingState != CuttingTableState.Cutting) return;
             
             _timer -= Time.deltaTime;
+            OnCuttingProgressChanged?.Invoke(this, new OnCuttingProgressChangedEventArgs { cuttingProgress = 1 - (_timer / cuttingTime) });
+            
             if (_timer > 0f) return;
             
             ((Product)_objectOnTable).ApplyAction(ProductAction.Cut);
@@ -91,7 +98,6 @@ namespace Tables
                 _timer = cuttingTime;
                 cuttingState = CuttingTableState.Cutting;
             }
-
         }
     }
 }
