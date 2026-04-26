@@ -98,6 +98,11 @@ public class Product : BaseObject, IClickable
 
         Debug.Log("Products combined -> upgraded");
     }
+    
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return spriteRenderer;
+    }
 
     private void DestroySelf()
     {

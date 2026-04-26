@@ -9,6 +9,12 @@ public class CookingTool : BaseObject
     public class OnProgressChangedEventArgs : EventArgs {
         public float cookingProgress; 
     }
+
+    public EventHandler<OnProductAddedEventArgs> OnProductAdded;
+    public class OnProductAddedEventArgs : EventArgs
+    {
+        public Product product;
+    }
     
     [SerializeField] private ProductAction toolAction;
     [SerializeField] private List<Product> _products;
@@ -118,6 +124,7 @@ public class CookingTool : BaseObject
     {
         Product product = (Product)other;
         _products.Add(product);
+        OnProductAdded?.Invoke(this, new OnProductAddedEventArgs { product = product });
 
         switch (_state)
         {
