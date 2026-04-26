@@ -70,7 +70,6 @@ public class Product : BaseObject, IClickable
     
     public void SetToParent(Transform parent)
     {
-        //Destroy(spriteRenderer);
         //DisableImage();
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
