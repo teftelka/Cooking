@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +12,19 @@ public class Plate: BaseObject
     private RecipeSO completedRecipe;
     private GameObject newRecipe;
     
+    public EventHandler<OnProductAddedEventArgs> OnProductAdded;
+    public class OnProductAddedEventArgs : EventArgs
+    {
+        public Product product;
+    }
+    
+    public EventHandler OnEmptyPlate;
+
     private void GetDirty()
     {
         
     }
 
-    private void GetClean()
-    {
-        
-    }
-    
     public override bool CanAccept(BaseObject other)
     {
         switch (other)
@@ -57,6 +61,8 @@ public class Plate: BaseObject
     private void AddProductToPlate(Product product)
     {
         _products.Add(product);
+        OnProductAdded?.Invoke(this, new OnProductAddedEventArgs { product = product });
+        
         product.SetToParent(transform);
         TryCompleteRecipe();
     }
@@ -150,5 +156,6 @@ public class Plate: BaseObject
         _products.Clear();
         
         GetDirty();
+        OnEmptyPlate?.Invoke(this, EventArgs.Empty);
     }
 }
