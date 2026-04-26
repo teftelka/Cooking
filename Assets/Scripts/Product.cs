@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DefaultNamespace;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class Product : BaseObject, IClickable
@@ -11,13 +6,11 @@ public class Product : BaseObject, IClickable
     [SerializeField] private int range;
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private GameObject image;
     [SerializeField] protected ProductStateSO currentState;
     
 
     public void Start()
     {
-        spriteRenderer = image.GetComponent<SpriteRenderer>();
         ApplyState(currentState);
         range = 0;
     }

@@ -141,8 +141,7 @@ MonoBehaviour:
   type: 0
   range: 0
   productState: 0
-  spriteRenderer: {fileID: 0}
-  image: {fileID: 941103979538365508}
+  spriteRenderer: {fileID: 1002045464526586862}
   currentState: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
 --- !u!58 &1431536606494937217
 CircleCollider2D:
