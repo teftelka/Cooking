@@ -10,7 +10,19 @@ public class OrderManager: MonoBehaviour
     private List<RecipeSO> _activeOrders;
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 3f;
-    private int maxActiveOrders = 2;
+    [SerializeField] private int maxActiveOrders = 2;
+    
+    public EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
+    public class OnNewRecipeSpawnedEventArgs : EventArgs
+    {
+        public RecipeSO newRecipe;
+    }
+    
+    public EventHandler<OnOrderCompleteEventArgs> OnOrderComplete;
+    public class OnOrderCompleteEventArgs : EventArgs
+    {
+        public RecipeSO recipeConplete;
+    }
 
     
     private void Awake()
@@ -36,7 +48,8 @@ public class OrderManager: MonoBehaviour
     private void SpawnNewOrder()
     {
         var nextOrderRecipe = recipeList.allRecipes[UnityEngine.Random.Range(0, recipeList.allRecipes.Count)];
-        Debug.Log(nextOrderRecipe.name + " order spawned!");
+        OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newRecipe = nextOrderRecipe });
+        
         _activeOrders.Add(nextOrderRecipe);
     }
     
@@ -50,6 +63,7 @@ public class OrderManager: MonoBehaviour
         if (_activeOrders.Contains(recipe))
         {
             _activeOrders.Remove(recipe);
+            OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
             Debug.Log(recipe.name + " order completed!");
         }
     }    
