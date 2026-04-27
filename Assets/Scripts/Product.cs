@@ -57,7 +57,8 @@ public class Product : BaseObject, IClickable
         return new RecipeItem
         {
             productType = type,
-            productState = productState
+            productState = productState,
+            icon = spriteRenderer.sprite
         };
     }
     

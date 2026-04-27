@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UIScripts
 {
@@ -10,6 +11,11 @@ namespace UIScripts
         [SerializeField] private Transform iconTemplate;
     
         private RecipeSO _recipe;
+        
+        private void Awake()
+        {
+            iconTemplate.gameObject.SetActive(false);
+        }
     
         public void SetRecipe(RecipeSO recipe)
         {
@@ -18,6 +24,9 @@ namespace UIScripts
 
             foreach (var ingredient in _recipe.ingredients)
             {
+                Transform newIcon = Instantiate(iconTemplate, iconsContainer);
+                newIcon.gameObject.SetActive(true);
+                newIcon.GetComponent<Image>().sprite = ingredient.icon;
             }
         }
     
