@@ -48,11 +48,36 @@ public class OrderManager: MonoBehaviour
     private void SpawnNewOrder()
     {
         var nextOrderRecipe = recipeList.allRecipes[UnityEngine.Random.Range(0, recipeList.allRecipes.Count)];
-        OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newRecipe = nextOrderRecipe });
+        var modifiedRecipeSO = RecipeModification(nextOrderRecipe);
         
-        _activeOrders.Add(nextOrderRecipe);
+        OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newRecipe = modifiedRecipeSO });
+        
+        _activeOrders.Add(modifiedRecipeSO);
     }
-    
+
+    private RecipeSO RecipeModification(RecipeSO nextOrderRecipe)
+    {
+        var recipeItems = new List<RecipeItem>();
+
+        foreach (var ingredient in nextOrderRecipe.ingredients)
+        {
+            var recipeItem = new RecipeItem
+            {
+                productState = ingredient.productState,
+                productType = ingredient.productType,
+                productLevel = 10,
+                productPrefab = ingredient.productPrefab
+            };
+            recipeItems.Add(recipeItem);
+        }
+
+        RecipeSO modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
+        modifiedRecipeSO.ingredients = recipeItems;
+        modifiedRecipeSO.resultPrefab = nextOrderRecipe.resultPrefab;
+        
+        return modifiedRecipeSO;
+    }
+
     public List<RecipeSO> GetActiveOrders()
     {
         return _activeOrders;
