@@ -60,8 +60,7 @@ public class Product : BaseObject, IClickable
         {
             productType = type,
             productState = productState,
-            productLevel = range,
-            icon = spriteRenderer.sprite
+            productLevel = range
         };
     }
     

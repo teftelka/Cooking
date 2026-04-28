@@ -143,6 +143,7 @@ MonoBehaviour:
   productState: 0
   spriteRenderer: {fileID: 1002045464526586862}
   currentState: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
+  defaultSprite: {fileID: -4512059310158498933, guid: 4b4f67ed15519654285eaaa2c85f88ee, type: 3}
 --- !u!58 &1431536606494937217
 CircleCollider2D:
   m_ObjectHideFlags: 0

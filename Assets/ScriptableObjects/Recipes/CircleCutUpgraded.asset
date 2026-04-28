@@ -16,5 +16,5 @@ MonoBehaviour:
   - productType: 0
     productState: 1
     productLevel: 1
-    icon: {fileID: 7028614004287598706, guid: f4d114521c4b53a449006ce69834fcfb, type: 3}
+    productPrefab: {fileID: 4754075658079602206, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
   resultPrefab: {fileID: 4709926376490962013, guid: 2265e7a4d6aaff049ae57f76f1a22841, type: 3}

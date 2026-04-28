@@ -15,8 +15,10 @@ MonoBehaviour:
   ingredients:
   - productType: 0
     productState: 1
-    icon: {fileID: 7028614004287598706, guid: f4d114521c4b53a449006ce69834fcfb, type: 3}
+    productLevel: 0
+    productPrefab: {fileID: 4754075658079602206, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
   - productType: 1
     productState: 2
-    icon: {fileID: -4200829304026778111, guid: fd4ccde6c05fc1445a1c1bbc8944a973, type: 3}
+    productLevel: 0
+    productPrefab: {fileID: 4754075658079602206, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
   resultPrefab: {fileID: 4709926376490962013, guid: dfd50e04bb39a73418e31a5ebe6d41dc, type: 3}
