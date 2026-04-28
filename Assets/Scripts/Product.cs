@@ -7,11 +7,13 @@ public class Product : BaseObject, IClickable
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] protected ProductStateSO currentState;
+    [SerializeField] private Sprite defaultSprite;
     
 
     public void Start()
     {
         ApplyState(currentState);
+        defaultSprite = spriteRenderer.sprite;
         range = 0;
     }
 
@@ -58,6 +60,7 @@ public class Product : BaseObject, IClickable
         {
             productType = type,
             productState = productState,
+            productLevel = range,
             icon = spriteRenderer.sprite
         };
     }
@@ -93,9 +96,9 @@ public class Product : BaseObject, IClickable
         Debug.Log("Products combined -> upgraded");
     }
     
-    public SpriteRenderer GetSpriteRenderer()
+    public Sprite GetDefaultSprite()
     {
-        return spriteRenderer;
+        return defaultSprite;
     }
 
     private void DestroySelf()

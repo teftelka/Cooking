@@ -30,7 +30,7 @@ namespace UIScripts
         private void HandleProductAdded(object sender, CookingTool.OnProductAddedEventArgs e)
         {
             iconTemplate.gameObject.SetActive(false);
-            var sprite = e.product.GetSpriteRenderer().sprite;
+            var sprite = e.product.GetDefaultSprite();
             UpdateVisual(sprite);
         }
 

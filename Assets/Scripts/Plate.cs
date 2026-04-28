@@ -93,7 +93,8 @@ public class Plate: BaseObject
         {
             int index = remaining.FindIndex(r =>
                 r.productType == item.productType &&
-                r.productState == item.productState);
+                r.productState == item.productState &&
+                r.productLevel == item.productLevel);
 
             if (index == -1)
                 return false;

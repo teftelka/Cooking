@@ -29,7 +29,7 @@ public class PlateIconsUI : MonoBehaviour
     
     private void HandleProductAdded(object sender, Plate.OnProductAddedEventArgs e)
     {
-        var sprite = e.product.GetSpriteRenderer().sprite;
+        var sprite = e.product.GetDefaultSprite();
         UpdateVisual(sprite);
     }
 
