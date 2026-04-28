@@ -20,7 +20,7 @@ namespace UIScripts
         public void SetRecipe(RecipeSO recipe)
         {
             _recipe = recipe;
-            orderNameText.text = recipe.name;
+            orderNameText.text = recipe.recipeName;
 
             foreach (var ingredient in _recipe.ingredients)
             {

@@ -7,7 +7,7 @@ public class OrderManager: MonoBehaviour
     public static OrderManager Instance { get; set; }
     
     [SerializeField] private RecipeListSO recipeList;
-    private List<RecipeSO> _activeOrders;
+    [SerializeField] private List<RecipeSO> _activeOrders;
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 3f;
     [SerializeField] private int maxActiveOrders = 2;
@@ -65,15 +65,17 @@ public class OrderManager: MonoBehaviour
             {
                 productState = ingredient.productState,
                 productType = ingredient.productType,
-                productLevel = 10,
+                productLevel = 0,
                 productPrefab = ingredient.productPrefab
             };
             recipeItems.Add(recipeItem);
         }
 
         RecipeSO modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
+        
         modifiedRecipeSO.ingredients = recipeItems;
         modifiedRecipeSO.resultPrefab = nextOrderRecipe.resultPrefab;
+        modifiedRecipeSO.recipeName = nextOrderRecipe.recipeName;
         
         return modifiedRecipeSO;
     }
@@ -88,6 +90,7 @@ public class OrderManager: MonoBehaviour
         if (_activeOrders.Contains(recipe))
         {
             _activeOrders.Remove(recipe);
+            recipeList.allRecipes.Remove(recipe);
             OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
             Debug.Log(recipe.name + " order completed!");
         }

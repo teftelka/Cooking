@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DefaultNamespace;
 
 namespace Tables
@@ -22,16 +23,33 @@ namespace Tables
             if (!recipe) return;
 
             var activeOrders = OrderManager.Instance.GetActiveOrders();
-
+            
             foreach (var activeOrder in activeOrders)
             {
-                if (activeOrder == recipe)
-                {
-                    OrderManager.Instance.CompleteOrder(activeOrder);
-                    plate.ResetPlate();
-                    return;
-                }
+                if (!IsExactRecipe(recipe, activeOrder)) continue;
+                OrderManager.Instance.CompleteOrder(activeOrder);
+                plate.ResetPlate();
+                break;
+
             }
+        }
+
+        private bool IsExactRecipe(RecipeSO recipeOnPlate, RecipeSO recipeOrder)
+        {
+            List<RecipeItem> remaining = new(recipeOrder.ingredients);
+            foreach (var item in recipeOnPlate.ingredients)
+            {
+                int index = remaining.FindIndex(r =>
+                    r.productType == item.productType &&
+                    r.productState == item.productState &&
+                    r.productLevel <= item.productLevel);
+
+                if (index == -1)
+                    return false;
+
+                remaining.RemoveAt(index);
+            }
+            return true;
         }
     }
 }

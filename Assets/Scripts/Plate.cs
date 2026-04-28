@@ -9,7 +9,7 @@ public class Plate: BaseObject
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
     [SerializeField] private RecipeListSO recipeList;
-    private RecipeSO completedRecipe;
+    [SerializeField] private RecipeSO completedRecipe;
     private GameObject newRecipe;
     
     public EventHandler<OnProductAddedEventArgs> OnProductAdded;
@@ -93,8 +93,7 @@ public class Plate: BaseObject
         {
             int index = remaining.FindIndex(r =>
                 r.productType == item.productType &&
-                r.productState == item.productState &&
-                r.productLevel == item.productLevel);
+                r.productState == item.productState);
 
             if (index == -1)
                 return false;
@@ -112,9 +111,27 @@ public class Plate: BaseObject
             if (IsExactRecipe(recipe))
             {
                 CreateDish(recipe);
+                MakeModifiedRecipe(recipe);
                 return;
             }
         }
+    }
+    
+    private void MakeModifiedRecipe(RecipeSO recipe)
+    {
+        var recipeItems = new List<RecipeItem>();
+        
+        foreach (var product in _products)
+        {
+            recipeItems.Add(product.GetRecipeKey());
+        }
+        
+        var modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
+        modifiedRecipeSO.ingredients = recipeItems;
+        modifiedRecipeSO.resultPrefab = recipe.resultPrefab;
+        modifiedRecipeSO.recipeName = recipe.recipeName;
+        
+        completedRecipe = modifiedRecipeSO;
     }
     
     private bool IsExactRecipe(RecipeSO recipe)
@@ -136,7 +153,6 @@ public class Plate: BaseObject
         }
         
         newRecipe = Instantiate(recipe.resultPrefab, transform.position, Quaternion.identity);
-        completedRecipe = recipe;
         newRecipe.transform.SetParent(transform);
         newRecipe.transform.localPosition = Vector3.zero;
     }

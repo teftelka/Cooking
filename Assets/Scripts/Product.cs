@@ -60,7 +60,8 @@ public class Product : BaseObject, IClickable
         {
             productType = type,
             productState = productState,
-            productLevel = range
+            productLevel = range,
+            productPrefab = gameObject
         };
     }
     

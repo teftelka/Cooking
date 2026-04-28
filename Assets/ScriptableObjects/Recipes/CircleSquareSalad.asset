@@ -22,3 +22,4 @@ MonoBehaviour:
     productLevel: 0
     productPrefab: {fileID: 4754075658079602206, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
   resultPrefab: {fileID: 4709926376490962013, guid: dfd50e04bb39a73418e31a5ebe6d41dc, type: 3}
+  recipeName: Salad
