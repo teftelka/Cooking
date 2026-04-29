@@ -6,35 +6,52 @@ namespace Tables
 {
     public class SpawnTable: MonoBehaviour, IClickable
     {
-        [SerializeField] private GameObject productPrefab;
+        [SerializeField] private ProductSO productSO;
         [SerializeField] private SpawnerTableUI spawnerTableUI;
         
+        private void Awake()
+        {
+
+        }
+        
+        private void Start()
+        {
+            ResourceManager.Instance.OnResourceChanged += HandleResourceChanged;
+            var initialAmount = ResourceManager.Instance.GetAmount(productSO);
+            spawnerTableUI.UpdateProductAmount(initialAmount);
+        }
+
+        private void HandleResourceChanged(object sender, ResourceManager.OnResourceChangedEventArgs e)
+        {
+            if (productSO != e.productSO) return;
+            spawnerTableUI.UpdateProductAmount(e.newAmount);
+        }
+
         public void OnClick()
         {
             if (!PlayerTest.Instance.HasObject())
             {
-                if (!ResourceManager.Instance.TrySpend(productPrefab, 1))
+                if (!ResourceManager.Instance.TrySpend(productSO, 1))
                     return;
-                var newProduct = Instantiate(productPrefab).GetComponent<BaseObject>();
+                var newProduct = Instantiate(productSO.prefab).GetComponent<BaseObject>();
                 PlayerTest.Instance.HandleObjectTake(newProduct);
             }
         }
 
         private void SetProductSprite()
         {
-            var productSprite = productPrefab.GetComponent<Product>().GetDefaultSprite();
-            spawnerTableUI.SetImage(productSprite);
+            spawnerTableUI.SetProductSprite(productSO.icon);
         }
         
-        public void SetProductPrefab(GameObject prefab)
+        public void SetProductSO(ProductSO product)
         {
-            productPrefab = prefab;
+            productSO = product;
             SetProductSprite();
         }
 
-        public GameObject GetProductPrefab()
+        public ProductSO GetProductSO()
         {
-            return productPrefab;
+            return productSO;
         }
     }
 }

@@ -65,7 +65,7 @@ public class OrderManager: MonoBehaviour
                 productState = ingredient.productState,
                 productType = ingredient.productType,
                 productLevel = 0,
-                productPrefab = ingredient.productPrefab
+                productSO = ingredient.productSO
             };
             recipeItems.Add(recipeItem);
         }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ProductList
   m_EditorClassIdentifier: Assembly-CSharp::ProductList
   allRawProducts:
-  - {fileID: 2054207767618485484, guid: 7f65f1722315ad0498fcd07688e0b370, type: 3}
-  - {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
-  - {fileID: 2054207767618485484, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
+  - {fileID: 11400000, guid: 1d6b4ed67d2b56449b715c6e993ba6a2, type: 2}
+  - {fileID: 11400000, guid: 2f575709ab9d2124d892d33144e5d6dc, type: 2}
+  - {fileID: 11400000, guid: 5422fb2159465bf408e04b730d7dccad, type: 2}

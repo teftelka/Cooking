@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using ScriptableObjects.Products;
 using Tables;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ public class SpawnManager : MonoBehaviour
         
             foreach (var product in productsToSpawn.allRawProducts)
             {
-                //ResourceManager.Instance.Add(product, 5);
+                ResourceManager.Instance.Add(product, 5);
             }
     }
 
@@ -58,10 +59,10 @@ public class SpawnManager : MonoBehaviour
         foreach (var ingredient in recipe.ingredients)
         {
             bool exists = spawners.Any(s =>
-                s.GetComponent<SpawnTable>().GetProductPrefab() == ingredient.productPrefab);
+                s.GetComponent<SpawnTable>().GetProductSO() == ingredient.productSO);
 
             if (!exists)
-                SpawnProductSpawner(ingredient.productPrefab);
+                SpawnProductSpawner(ingredient.productSO);
         }
     }
     
@@ -74,18 +75,13 @@ public class SpawnManager : MonoBehaviour
         spawners.Clear();
     }
 
-    private void SpawnProductSpawner(GameObject productPrefab)
+    private void SpawnProductSpawner(ProductSO productSO)
     {
         Vector3 spawnPos = firstSpawnPoint.position + Vector3.right * (offsetX * spawners.Count);
 
         var newSpawner = Instantiate(spawnerPrefab, spawnPos, Quaternion.identity);
         spawners.Add(newSpawner);
         
-        newSpawner.GetComponent<SpawnTable>().SetProductPrefab(productPrefab);
-    }
-    
-    private void DespawnProductSpawner()
-    {
-        
+        newSpawner.GetComponent<SpawnTable>().SetProductSO(productSO);
     }
 }

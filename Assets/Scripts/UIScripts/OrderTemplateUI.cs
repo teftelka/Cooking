@@ -26,7 +26,7 @@ namespace UIScripts
             {
                 Transform newIcon = Instantiate(iconTemplate, iconsContainer);
                 newIcon.gameObject.SetActive(true);
-                newIcon.GetComponent<Image>().sprite = ingredient.productPrefab.GetComponent<Product>().GetDefaultSprite();
+                newIcon.GetComponent<Image>().sprite = ingredient.productSO.icon;
             }
         }
     

@@ -61,7 +61,7 @@ public class Product : BaseObject, IClickable
             productType = productData.type,
             productState = productState,
             productLevel = range,
-            productPrefab = gameObject
+            productSO = productData
         };
     }
     
