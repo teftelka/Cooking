@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class Product : BaseObject, IClickable
 {
-    [SerializeField] private ProductType type;
+    [SerializeField] private ProductSO productData;
     [SerializeField] private int range;
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] protected ProductStateSO currentState;
-    [SerializeField] private Sprite defaultSprite;
+    private Sprite defaultSprite;
     
 
     public void Start()
     {
         ApplyState(currentState);
-        defaultSprite = spriteRenderer.sprite;
+        defaultSprite = productData.icon;
         range = 0;
     }
 
@@ -42,15 +42,15 @@ public class Product : BaseObject, IClickable
     
     public bool CanApplyAction(ProductAction action)
     {
-        return currentState.HasTransition(action);
+        return productData.CanApply(currentState, action);
     }
     
     public bool ApplyAction(ProductAction action)
     {
-        if (!currentState.TryGetTransition(action, out var nextState))
+        if (!productData.TryGetNextState(currentState, action, out var next))
             return false;
 
-        ApplyState(nextState);
+        ApplyState(next);
         return true;
     }
     
@@ -58,7 +58,7 @@ public class Product : BaseObject, IClickable
     {
         return new RecipeItem
         {
-            productType = type,
+            productType = productData.type,
             productState = productState,
             productLevel = range,
             productPrefab = gameObject
@@ -80,7 +80,7 @@ public class Product : BaseObject, IClickable
     public override bool CanCombineWith(BaseObject other)
     {
         if (other is not Product otherProduct) return false;
-        if (type != otherProduct.type) return false;
+        if (productData.type != otherProduct.productData.type) return false;
         if (otherProduct.productState != ProductState.Raw) return false;
         if (productState != ProductState.Raw) return false;
         if (otherProduct.range != range) return false;

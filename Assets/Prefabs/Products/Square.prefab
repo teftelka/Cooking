@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
   _originalTable: {fileID: 0}
-  type: 1
+  productData: {fileID: 11400000, guid: 5422fb2159465bf408e04b730d7dccad, type: 2}
   range: 0
   productState: 0
   spriteRenderer: {fileID: 1002045464526586862}

@@ -8,7 +8,7 @@ public class ProductStateSO : ScriptableObject
     public ProductState state;
     public Sprite sprite;
 
-    public List<ProductTransition> transitions;
+    /*public List<ProductTransition> transitions;
 
     public bool TryGetTransition(ProductAction action, out ProductStateSO next)
     {
@@ -28,5 +28,5 @@ public class ProductStateSO : ScriptableObject
     public bool HasTransition(ProductAction action)
     {
         return transitions.Any(t => t.action == action);
-    }
+    }*/
 }

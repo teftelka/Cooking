@@ -44,7 +44,6 @@ namespace Tables
         public void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
-
             if (playerProduct)
             {
                 if (_hasObject)
