@@ -83,6 +83,7 @@ public class Product : BaseObject, IClickable
         if (type != otherProduct.type) return false;
         if (otherProduct.productState != ProductState.Raw) return false;
         if (productState != ProductState.Raw) return false;
+        if (otherProduct.range != range) return false;
         
         return true;
     }
