@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
         
             foreach (var product in productsToSpawn.allRawProducts)
             {
-                ResourceManager.Instance.Add(product, 5);
+                //ResourceManager.Instance.Add(product, 5);
             }
     }
 
