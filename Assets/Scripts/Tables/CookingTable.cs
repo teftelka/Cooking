@@ -43,6 +43,14 @@ namespace Tables
                 _objectOnTable.Accept(objectInHand);
                 PlayerTest.Instance.HandleObjectGive();
             }
+
+            if (objectInHand.CanAccept(_objectOnTable))
+            {
+                objectInHand.Accept(_objectOnTable);
+                if (objectInHand is Plate && _objectOnTable is CookingTool) return;
+                _objectOnTable = null;
+                _hasObject = false;
+            }
         }
 
         private void TakeObject(BaseObject objectInHand)

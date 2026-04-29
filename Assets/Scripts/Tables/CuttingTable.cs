@@ -70,6 +70,14 @@ namespace Tables
 
         private void HandleCollision(BaseObject playerProduct)
         {
+            if (playerProduct.CanAccept(_objectOnTable))
+            {
+                playerProduct.Accept(_objectOnTable);
+                if (playerProduct is Plate && _objectOnTable is CookingTool) return;
+                _objectOnTable = null;
+                _hasObject = false;
+            }
+            
             /*if (playerProduct.CanAccept(_objectOnTable))
             {
                 playerProduct.Accept(_objectOnTable);
