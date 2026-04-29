@@ -20,9 +20,9 @@ public class ResourceManager : MonoBehaviour
         Instance = this;
     }
 
-    public int GetAmount(ProductSO productPrefab)
+    public int GetAmount(ProductSO product)
     {
-        _resources.TryGetValue(productPrefab, out int amount);
+        _resources.TryGetValue(product, out int amount);
         return amount;
     }
 
@@ -36,14 +36,14 @@ public class ResourceManager : MonoBehaviour
             { productSO = productPrefab, newAmount = _resources[productPrefab] });
     }
 
-    public bool TrySpend(ProductSO productPrefab, int amount)
+    public bool TrySpend(ProductSO product, int amount)
     {
-        if (GetAmount(productPrefab) < amount)
+        if (GetAmount(product) < amount)
             return false;
 
-        _resources[productPrefab] -= amount;
+        _resources[product] -= amount;
         OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs 
-            { productSO = productPrefab, newAmount = _resources[productPrefab] });
+            { productSO = product, newAmount = _resources[product] });
         return true;
     }
 }

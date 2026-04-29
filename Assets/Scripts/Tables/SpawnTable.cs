@@ -9,11 +9,6 @@ namespace Tables
         [SerializeField] private ProductSO productSO;
         [SerializeField] private SpawnerTableUI spawnerTableUI;
         
-        private void Awake()
-        {
-
-        }
-        
         private void Start()
         {
             ResourceManager.Instance.OnResourceChanged += HandleResourceChanged;
