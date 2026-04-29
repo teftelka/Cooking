@@ -92,6 +92,7 @@ public class OrderManager: MonoBehaviour
             _activeOrders.Remove(recipe);
             recipeList.allRecipes.Remove(recipe);
             OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
+            spawnRecipeTimer = spawnRecipeTimerMax;
             Debug.Log(recipe.name + " order completed!");
         }
     }    

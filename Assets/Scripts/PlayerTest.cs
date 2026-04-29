@@ -72,7 +72,8 @@ namespace DefaultNamespace
         public void CancelHolding()
         {
             if (!hasObject) return;
-
+            if (_product.GetOrigin() == null) return;
+            
             _product.ReturnToOrigin();
             ClearObject();
         }
