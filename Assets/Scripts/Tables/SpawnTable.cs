@@ -7,12 +7,14 @@ namespace Tables
     public class SpawnTable: MonoBehaviour, IClickable
     {
         [SerializeField] private GameObject productPrefab;
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private SpawnerTableUI spawnerTableUI;
         
         public void OnClick()
         {
             if (!PlayerTest.Instance.HasObject())
             {
+                if (!ResourceManager.Instance.TrySpend(productPrefab, 1))
+                    return;
                 var newProduct = Instantiate(productPrefab).GetComponent<BaseObject>();
                 PlayerTest.Instance.HandleObjectTake(newProduct);
             }
@@ -21,7 +23,7 @@ namespace Tables
         private void SetProductSprite()
         {
             var productSprite = productPrefab.GetComponent<Product>().GetDefaultSprite();
-            spriteRenderer.sprite = productSprite;
+            spawnerTableUI.SetImage(productSprite);
         }
         
         public void SetProductPrefab(GameObject prefab)

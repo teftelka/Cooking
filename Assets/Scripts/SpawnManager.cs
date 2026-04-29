@@ -24,6 +24,12 @@ public class SpawnManager : MonoBehaviour
     {
         OrderManager.Instance.OnNewRecipeSpawned += HandleNewRecipeSpawned;
         OrderManager.Instance.OnOrderComplete += HandleOrderComplete;
+        
+        
+            foreach (var product in productsToSpawn.allRawProducts)
+            {
+                ResourceManager.Instance.Add(product, 5);
+            }
     }
 
     private void HandleOrderComplete(object sender, OrderManager.OnOrderCompleteEventArgs e)
