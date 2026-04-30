@@ -9,6 +9,7 @@ public class ProductSO : ScriptableObject
     public Sprite icon;
     public GameObject prefab;
     public int price;
+    public bool isMergable;
 
     [Header("Allowed actions from each state")]
     public List<ProductStateTransitionRule> rules;

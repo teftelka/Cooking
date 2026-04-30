@@ -143,6 +143,7 @@ MonoBehaviour:
   isDirty: 0
   _products: []
   recipeList: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}
+  completedRecipe: {fileID: 0}
 --- !u!58 &196173294005941473
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -305,6 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IconsTemplateUI
   productIcon: {fileID: 2441761214413415129}
+  backgroundImage: {fileID: 77335185317582344}
+  rangeColorsSO: {fileID: 11400000, guid: 42a3574ca831be840a4213299d965932, type: 2}
 --- !u!1 &7032647625677979379
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +461,7 @@ GameObject:
   - component: {fileID: 1985311988766033319}
   - component: {fileID: 3075945144987944929}
   - component: {fileID: 77335185317582344}
+  - component: {fileID: 2072612814474674472}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -522,3 +526,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2072612814474674472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7583558203952148468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0.02, y: 0.02}
+  m_UseGraphicAlpha: 0

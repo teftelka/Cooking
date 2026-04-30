@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4680bd9a46bf9e74ea8ee6544be9a231, type: 3}
+  m_Name: ProductRangeColorsList
+  m_EditorClassIdentifier: Assembly-CSharp::ProductRangeColorsSO
+  _colors:
+  - {fileID: 11400000, guid: fb83fbf7157139c43b86c57a750e75fc, type: 2}
+  - {fileID: 11400000, guid: 3f3246bba590b8748a86246d9f30d0e8, type: 2}
+  - {fileID: 11400000, guid: 02798dc9bc80aa4489282d77f75611db, type: 2}
+  - {fileID: 11400000, guid: 797d1362d7c6be340be3bbdaf2c04f30, type: 2}
+  - {fileID: 11400000, guid: 37fae9d2e22df5f48af554c5fbfcb613, type: 2}

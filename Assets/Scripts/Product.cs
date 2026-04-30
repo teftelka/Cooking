@@ -1,3 +1,4 @@
+using UIScripts;
 using UnityEngine;
 
 public class Product : BaseObject, IClickable
@@ -7,6 +8,7 @@ public class Product : BaseObject, IClickable
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] protected ProductStateSO currentState;
+    [SerializeField] ProductRangeUI productRangeUI;
     private Sprite defaultSprite;
     
 
@@ -32,12 +34,17 @@ public class Product : BaseObject, IClickable
         return type;
     }*/
     
+    public int GetProductRange()
+    {
+        return range;
+    }
+    
     private void ApplyState(ProductStateSO state)
     {
         currentState = state;
         productState = currentState.state;
         spriteRenderer.sprite = state.sprite;
-        spriteRenderer.transform.localScale = new Vector3(0.35f, 0.35f, 1f);
+        //spriteRenderer.transform.localScale = new Vector3(0.35f, 0.35f, 1f);
     }
     
     public bool CanApplyAction(ProductAction action)
@@ -75,23 +82,24 @@ public class Product : BaseObject, IClickable
     public void DisableImage()
     {
         spriteRenderer.gameObject.SetActive(false);
+        productRangeUI.SetActive(false);
     }
     
     public override bool CanCombineWith(BaseObject other)
     {
         if (other is not Product otherProduct) return false;
+        if (!productData.isMergable) return false;
         if (productData.type != otherProduct.productData.type) return false;
         if (otherProduct.productState != ProductState.Raw) return false;
         if (productState != ProductState.Raw) return false;
-        if (otherProduct.range != range) return false;
-        
-        return true;
+        return otherProduct.range == range;
     }
 
     public override void CombineWith(BaseObject other)
     {
         Product otherProduct = (Product)other;
         range++;
+        productRangeUI.UpdateRange(range);
         Destroy(otherProduct.gameObject);
 
         Debug.Log("Products combined -> upgraded");

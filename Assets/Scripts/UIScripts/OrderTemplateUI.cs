@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace UIScripts
         [SerializeField] private TextMeshProUGUI orderNameText;
         [SerializeField] private Transform iconsContainer;
         [SerializeField] private Transform iconTemplate;
+        [SerializeField] private ProductRangeColorsSO rangeColorsSO;
     
         private RecipeSO _recipe;
         
@@ -27,6 +29,8 @@ namespace UIScripts
                 Transform newIcon = Instantiate(iconTemplate, iconsContainer);
                 newIcon.gameObject.SetActive(true);
                 newIcon.GetComponent<Image>().sprite = ingredient.productSO.icon;
+                var rarityImage = newIcon.GetChild(0);
+                rarityImage.GetComponent<Image>().color = rangeColorsSO._colors[ingredient.productLevel].color;
             }
         }
     

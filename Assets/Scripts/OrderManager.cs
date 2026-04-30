@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class OrderManager: MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class OrderManager: MonoBehaviour
             {
                 productState = ingredient.productState,
                 productType = ingredient.productType,
-                productLevel = 0,
+                productLevel = Random.Range(0, 3),
                 productSO = ingredient.productSO
             };
             recipeItems.Add(recipeItem);

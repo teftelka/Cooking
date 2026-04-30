@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IconsTemplateUI
   productIcon: {fileID: 726193320238022025}
+  backgroundImage: {fileID: 3273250303809493763}
+  rangeColorsSO: {fileID: 11400000, guid: 42a3574ca831be840a4213299d965932, type: 2}
 --- !u!1 &1904252598302571668
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InstrumentIconsUI
   cookingTool: {fileID: 6401189907630016858}
   iconTemplate: {fileID: 6088132995354192688}
-  defaultIcon: {fileID: 21300000, guid: c41381829109cd84786a392ea6e3db60, type: 3}
 --- !u!1 &5122114815783676400
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +644,7 @@ GameObject:
   - component: {fileID: 6387631253652315719}
   - component: {fileID: 6492624865212502000}
   - component: {fileID: 3273250303809493763}
+  - component: {fileID: 7252442263767000739}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -707,6 +709,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7252442263767000739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122114815783676400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0.02, y: 0.02}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5756067617065987478
 GameObject:
   m_ObjectHideFlags: 0

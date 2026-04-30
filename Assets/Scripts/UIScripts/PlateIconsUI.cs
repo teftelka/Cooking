@@ -30,13 +30,13 @@ public class PlateIconsUI : MonoBehaviour
     private void HandleProductAdded(object sender, Plate.OnProductAddedEventArgs e)
     {
         var sprite = e.product.GetDefaultSprite();
-        UpdateVisual(sprite);
+        UpdateVisual(sprite, e.product.GetProductRange());
     }
 
-    private void UpdateVisual(Sprite icon)
+    private void UpdateVisual(Sprite icon, int range)
     {
         Transform newIcon = Instantiate(iconTemplate, transform);
-        newIcon.GetComponent<IconsTemplateUI>().SetIcon(icon);
+        newIcon.GetComponent<IconsTemplateUI>().SetIcon(icon, range);
         newIcon.gameObject.SetActive(true);
     }
 }
