@@ -29,7 +29,7 @@ namespace Tables
             {
                 if (!ResourceManager.Instance.TrySpend(productSO, 1))
                 {
-                    if (!ScoreManager.Instance.TrySpendMoney(200)) return;
+                    if (!ScoreManager.Instance.TrySpendMoney(productSO.price)) return;
                 }
                     
                 var newProduct = Instantiate(productSO.prefab).GetComponent<BaseObject>();
@@ -37,15 +37,15 @@ namespace Tables
             }
         }
 
-        private void SetProductSprite()
+        private void ArrangeSpawner()
         {
-            spawnerTableUI.SetProductSprite(productSO.icon);
+            spawnerTableUI.SetSpawnerInfo(productSO.icon, productSO.price);
         }
         
         public void SetProductSO(ProductSO product)
         {
             productSO = product;
-            SetProductSprite();
+            ArrangeSpawner();
         }
 
         public ProductSO GetProductSO()
