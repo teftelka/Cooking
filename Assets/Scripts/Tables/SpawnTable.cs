@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using UIScripts;
 using UnityEngine;
 
 namespace Tables
@@ -27,7 +28,10 @@ namespace Tables
             if (!PlayerTest.Instance.HasObject())
             {
                 if (!ResourceManager.Instance.TrySpend(productSO, 1))
-                    return;
+                {
+                    if (!ScoreManager.Instance.TrySpendMoney(200)) return;
+                }
+                    
                 var newProduct = Instantiate(productSO.prefab).GetComponent<BaseObject>();
                 PlayerTest.Instance.HandleObjectTake(newProduct);
             }

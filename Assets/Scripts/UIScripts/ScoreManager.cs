@@ -37,6 +37,14 @@ namespace UIScripts
             OnExperienceUpdated?.Invoke(this, EventArgs.Empty);
         }
         
+        public bool TrySpendMoney(int amount)
+        {
+            if (currentMoney < amount) return false;
+            
+            MoneyAmountUpdate(-amount);
+            return true;
+        }
+        
         private void MoneyAmountUpdate(int money)
         {
             currentMoney += money;
