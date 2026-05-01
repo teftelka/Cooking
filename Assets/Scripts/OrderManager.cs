@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -92,6 +93,7 @@ public class OrderManager: MonoBehaviour
             recipeList.allRecipes.Remove(recipe);
             OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
             spawnRecipeTimer = spawnRecipeTimerMax;
+            PlayerTest.Instance.HandleObjectGive();
             Debug.Log(recipe.name + " order completed!");
         }
     }    

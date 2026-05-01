@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Tables
@@ -10,6 +11,7 @@ namespace Tables
         private int platesCount = 0;
         [SerializeField] private SinkTableState washingState;
         [SerializeField] private float _timer;
+        [SerializeField] private GameObject indicatorImage;
         
         public EventHandler<OnWashingProgressChangedEventArgs> OnWashingProgressChanged;
         public class OnWashingProgressChangedEventArgs {
@@ -51,7 +53,8 @@ namespace Tables
                 _timer = washTime;
                 return;
             }
-
+            
+            indicatorImage.SetActive(false);
             washingState = SinkTableState.Idle;
         }
 
@@ -75,6 +78,7 @@ namespace Tables
         
         private void AddDirtyPlate()
         {
+            indicatorImage.SetActive(true);
             platesCount++;
         }
     }

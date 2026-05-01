@@ -10,6 +10,7 @@ public class Plate: BaseObject
     [SerializeField] private List<Product> _products;
     [SerializeField] private RecipeListSO recipeList;
     [SerializeField] private RecipeSO completedRecipe;
+    //[SerializeField] private SpriteRenderer stainImage;
     private GameObject newRecipe;
     
     public EventHandler<OnProductAddedEventArgs> OnProductAdded;
@@ -20,13 +21,15 @@ public class Plate: BaseObject
     
     public EventHandler OnEmptyPlate;
 
-    private void GetDirty()
+    public void GetDirty()
     {
-        
+        isDirty = true;
+        //stainImage.gameObject.SetActive(true);
     }
 
     public override bool CanAccept(BaseObject other)
     {
+        if (isDirty) return false;
         switch (other)
         {
             case Product product:
@@ -172,7 +175,11 @@ public class Plate: BaseObject
         
         _products.Clear();
         
-        GetDirty();
         OnEmptyPlate?.Invoke(this, EventArgs.Empty);
+    }
+    
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

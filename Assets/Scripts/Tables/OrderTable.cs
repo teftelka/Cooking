@@ -28,7 +28,7 @@ namespace Tables
             {
                 if (!IsExactRecipe(recipe, activeOrder)) continue;
                 OrderManager.Instance.CompleteOrder(activeOrder);
-                plate.ResetPlate();
+                plate.DestroySelf();
                 break;
 
             }
