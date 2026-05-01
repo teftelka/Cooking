@@ -7,19 +7,39 @@ namespace UIScripts
     public class ProgressBarTableUI : MonoBehaviour
     {
         [SerializeField] private Image progressBarFill;
-        [SerializeField] private CuttingTable cuttingTable;
-    
+        [SerializeField] private BaseTable table;
 
         private void Start()
         {
             SetVisibility(false);
-            cuttingTable.OnCuttingProgressChanged += HandleCuttingStateChanged;
+            switch (table)
+            {
+                case CuttingTable cuttingTable:
+                    cuttingTable.OnCuttingProgressChanged += HandleCuttingStateChanged;
+                    break;
+                case SinkTable sinkTable:
+                    sinkTable.OnWashingProgressChanged += OnWashingProgressChanged;
+                    break;
+                default:
+                    Debug.LogError("Table type not implemented for ProgressBarTableUI");
+                    break;
+            }
+        }
+
+        private void OnWashingProgressChanged(object sender, SinkTable.OnWashingProgressChangedEventArgs e)
+        {
+            ProgressChanged(e.washingProgress);
         }
 
         private void HandleCuttingStateChanged(object sender, CuttingTable.OnCuttingProgressChangedEventArgs e)
         {
+            ProgressChanged(e.cuttingProgress);
+        }
+        
+        private void ProgressChanged(float progress)
+        {
             SetVisibility(!(progressBarFill.fillAmount >= 0.99f));
-            progressBarFill.fillAmount = e.cuttingProgress;
+            progressBarFill.fillAmount = progress;
         }
     
         private void SetVisibility(bool isVisible)

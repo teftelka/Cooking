@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0032, y: 0.0411}
-  m_SizeDelta: {x: 1.9313, y: 0.2011}
+  m_AnchoredPosition: {x: -0.0103, y: 0.0411}
+  m_SizeDelta: {x: 1.6619, y: 0.2011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4268436537178909541
 CanvasRenderer:
@@ -319,7 +319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.651}
+  m_AnchoredPosition: {x: 0, y: -0.409}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6115550097646956080
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBarUI
   progressBarFill: {fileID: 5693135072791487015}
-  cuttingTable: {fileID: 765033002963000862}
+  table: {fileID: 765033002963000862}
 --- !u!1 &9131998054293291024
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,8 +433,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0032, y: 0.041100025}
-  m_SizeDelta: {x: 1.9313, y: 0.2011}
+  m_AnchoredPosition: {x: -0.0103, y: 0.041100025}
+  m_SizeDelta: {x: 1.6619, y: 0.2011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &734333798530417828
 CanvasRenderer:

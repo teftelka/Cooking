@@ -24,7 +24,6 @@ public class OrderManager: MonoBehaviour
     {
         public RecipeSO recipeConplete;
     }
-
     
     private void Awake()
     {
