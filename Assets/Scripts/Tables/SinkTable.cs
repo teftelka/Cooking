@@ -16,6 +16,8 @@ namespace Tables
             public float washingProgress; 
         }
         
+        public EventHandler OnWashingCompleted;
+        
         private enum SinkTableState
         {
             Idle,
@@ -55,6 +57,7 @@ namespace Tables
 
         private void FinishWashing()
         {
+            OnWashingCompleted?.Invoke(this, EventArgs.Empty);
             platesCount--;
         }
 
