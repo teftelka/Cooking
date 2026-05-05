@@ -101,6 +101,8 @@ public class Product : BaseObject, IClickable
         range++;
         productRangeUI.UpdateRange(range);
         Destroy(otherProduct.gameObject);
+        
+        ProductExperienceManager.Instance.AddExperience(productData, 50);
 
         Debug.Log("Products combined -> upgraded");
     }

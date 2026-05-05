@@ -26,14 +26,14 @@ public class ResourceManager : MonoBehaviour
         return amount;
     }
 
-    public void Add(ProductSO productPrefab, int amount)
+    public void Add(ProductSO product, int amount)
     {
-        if (!_resources.ContainsKey(productPrefab))
-            _resources[productPrefab] = 0;
+        if (!_resources.ContainsKey(product))
+            _resources[product] = 0;
 
-        _resources[productPrefab] += amount;
+        _resources[product] += amount;
         OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs 
-            { productSO = productPrefab, newAmount = _resources[productPrefab] });
+            { productSO = product, newAmount = _resources[product] });
     }
 
     public bool TrySpend(ProductSO product, int amount)
