@@ -9,15 +9,24 @@ namespace DefaultNamespace
         [SerializeField] private PlateTable plateTable;
         [SerializeField] private SinkTable sinkTable;
         [SerializeField] private GameObject platePrefab;
-        
+
         private void Start()
         {
             sinkTable.OnWashingCompleted += HandleWashingCompleted;
+            AddPlates(3);
         }
 
         private void HandleWashingCompleted(object sender, EventArgs e)
         {
-            plateTable.AddCleanPlates(platePrefab);
+            AddPlates(1);
+        }
+        
+        private void AddPlates(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                plateTable.AddCleanPlates(platePrefab);
+            }
         }
     }
 }
