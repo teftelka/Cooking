@@ -29,8 +29,12 @@ namespace UIScripts
                 Transform newIcon = Instantiate(iconTemplate, iconsContainer);
                 newIcon.gameObject.SetActive(true);
                 newIcon.GetComponent<Image>().sprite = ingredient.productSO.icon;
-                var rarityImage = newIcon.GetChild(0);
-                rarityImage.GetComponent<Image>().color = rangeColorsSO._colors[ingredient.productLevel].color;
+                if (ingredient.productSO.isMergable && ingredient.productLevel > 0)
+                {
+                    var rarityImage = newIcon.GetChild(0);
+                    rarityImage.gameObject.SetActive(true);
+                    rarityImage.GetComponent<Image>().color = rangeColorsSO._colors[ingredient.productLevel].color;
+                }
             }
         }
     

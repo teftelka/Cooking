@@ -13,7 +13,10 @@ namespace UIScripts
         public void SetIcon(Sprite icon, int range)
         {
             productIcon.sprite = icon;
-            backgroundImage.GetComponent<Outline>().effectColor = rangeColorsSO._colors[range].color;
+            if (range > 0)
+            {
+                backgroundImage.GetComponent<Outline>().effectColor = rangeColorsSO._colors[range].color;
+            }
         }
     }
 }
