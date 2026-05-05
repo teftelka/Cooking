@@ -66,6 +66,7 @@ namespace Tables
 
         public void OnClick()
         {
+            if (washingState == SinkTableState.Washing) return;
             if (platesCount == 0) return;
             StartWashing();
         }
