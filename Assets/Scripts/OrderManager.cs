@@ -61,11 +61,18 @@ public class OrderManager: MonoBehaviour
 
         foreach (var ingredient in nextOrderRecipe.ingredients)
         {
+            var randomState = Random.Range(0, 3);
+            
+            if (!ingredient.productSO.isMergable)
+            {
+                randomState = 0;
+            }
+            
             var recipeItem = new RecipeItem
             {
                 productState = ingredient.productState,
                 productType = ingredient.productType,
-                productLevel = Random.Range(0, 3),
+                productLevel = randomState,
                 productSO = ingredient.productSO
             };
             recipeItems.Add(recipeItem);

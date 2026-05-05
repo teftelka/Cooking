@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: -5259316447295819836, guid: f6ef0548b5bfb584e8a8b40a82f57e57, type: 3}
   prefab: {fileID: 4754075658079602206, guid: 7f65f1722315ad0498fcd07688e0b370, type: 3}
   price: 100
-  isMergable: 1
+  isMergable: 0
   rules:
   - fromState: {fileID: 11400000, guid: d1e468daaf2ed044098d12d1f64d7074, type: 2}
     action: 4
