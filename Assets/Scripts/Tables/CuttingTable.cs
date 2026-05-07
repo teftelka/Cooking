@@ -76,12 +76,6 @@ namespace Tables
                 _objectOnTable = null;
                 _hasObject = false;
             }
-            
-            /*if (playerProduct.CanAccept(_objectOnTable))
-            {
-                playerProduct.Accept(_objectOnTable);
-                GiveObject();
-            }*/
         }
 
         private void TakeObject(BaseObject obj)

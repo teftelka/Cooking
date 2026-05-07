@@ -12,28 +12,28 @@ namespace UIScripts
         [SerializeField] private TextMeshProUGUI rangeText;
         [SerializeField] private ProductRangeColorsSO rangeColorsSO;
         
-        private void Start()
+        private void Awake()
         {
             SetActive(false);
         }
         
-        public void SetActive(bool isActive)
-        {
-            gameObject.SetActive(isActive);
-        }
-        
         public void UpdateRange(int range)
         {
-            if (range <= 0f)
+            if (range <= 0)
             {
                 gameObject.SetActive(false);
                 return;
             }
-            
             SetActive(true);
             rangeText.text = range.ToString();
             var a = rangeColorsSO._colors[range].color;
             backgroundImage.color = a;
+        }
+        
+        public void SetActive(bool isActive)
+        {
+            rangeText.gameObject.SetActive(isActive);
+            backgroundImage.gameObject.SetActive(isActive);
         }
     }
 }

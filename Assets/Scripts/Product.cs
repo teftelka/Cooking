@@ -1,60 +1,61 @@
+using System;
 using UIScripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Product : BaseObject, IClickable
+public class Product : BaseObject
 {
     [SerializeField] private ProductSO productData;
-    [SerializeField] private int range;
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] protected ProductStateSO currentState;
-    [SerializeField] ProductRangeUI productRangeUI;
-    private Sprite defaultSprite;
+    [SerializeField] private ProductStateSO currentStateSO;
     
-
+    [SerializeField] private bool isMergable;
+    [SerializeField] private int range = 0;
+    [SerializeField] ProductRangeUI productRangeUI;
+    
     public void Start()
     {
-        ApplyState(currentState);
-        defaultSprite = productData.icon;
-        range = 0;
-    }
-
-    public void OnClick()
-    {
-        
+        isMergable = productData.isMergable;
+        ApplyState(currentStateSO);
     }
     
-    /*private ProductState GetProductState()
+    public ProductSO GetProductData()
     {
-        return productState;
+        return productData;
     }
-    
-    private ProductType GetObjectType()
-    {
-        return type;
-    }*/
     
     public int GetProductRange()
     {
         return range;
     }
     
+    public void SetRange(int rarity)
+    {
+        range = rarity;
+        productRangeUI.UpdateRange(rarity);
+    }
+    
     private void ApplyState(ProductStateSO state)
     {
-        currentState = state;
-        productState = currentState.state;
+        currentStateSO = state;
+        productState = currentStateSO.state;
         spriteRenderer.sprite = state.sprite;
-        //spriteRenderer.transform.localScale = new Vector3(0.35f, 0.35f, 1f);
+        
+        if (productState != ProductState.Raw)
+        {
+            isMergable = false;
+        }
     }
     
     public bool CanApplyAction(ProductAction action)
     {
-        return productData.CanApply(currentState, action);
+        return productData.CanApply(currentStateSO, action);
     }
     
     public bool ApplyAction(ProductAction action)
     {
-        if (!productData.TryGetNextState(currentState, action, out var next))
+        if (!productData.TryGetNextState(currentStateSO, action, out var next))
             return false;
 
         ApplyState(next);
@@ -87,11 +88,9 @@ public class Product : BaseObject, IClickable
     
     public override bool CanCombineWith(BaseObject other)
     {
+        if (!isMergable) return false;
         if (other is not Product otherProduct) return false;
-        if (!productData.isMergable) return false;
         if (productData.type != otherProduct.productData.type) return false;
-        if (otherProduct.productState != ProductState.Raw) return false;
-        if (productState != ProductState.Raw) return false;
         return otherProduct.range == range;
     }
 
@@ -106,13 +105,18 @@ public class Product : BaseObject, IClickable
 
         Debug.Log("Products combined -> upgraded");
     }
-    
+
     public Sprite GetDefaultSprite()
     {
-        return defaultSprite;
+        return productData.icon;
+    }
+    
+    public bool GetIsMergable()
+    {
+        return isMergable;
     }
 
-    private void DestroySelf()
+    public void DestroySelf()
     {
         Destroy(this.gameObject);
     }

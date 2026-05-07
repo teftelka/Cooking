@@ -379,10 +379,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Product
   _originalTable: {fileID: 0}
   productData: {fileID: 11400000, guid: 2f575709ab9d2124d892d33144e5d6dc, type: 2}
-  range: 0
   productState: 0
   spriteRenderer: {fileID: 1002045464526586862}
-  currentState: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
+  currentStateSO: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
+  isMergable: 0
+  range: 0
   productRangeUI: {fileID: 6693760806042290313}
 --- !u!58 &1431536606494937217
 CircleCollider2D:
