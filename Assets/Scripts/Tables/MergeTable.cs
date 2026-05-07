@@ -11,7 +11,15 @@ namespace Tables
         [SerializeField] private GameObject secondPosition;
         [SerializeField] private MergeState mergingState;
         
+        [SerializeField] private float mergingTime = 10f;
+        [SerializeField] private float _timer;
+        
         private List<Product> productsOnMerge = new List<Product>();
+        
+        public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+        public class OnProgressChangedEventArgs {
+            public float progress; 
+        }
         
         
         private enum MergeState
@@ -22,20 +30,37 @@ namespace Tables
         
         public void OnClick()
         {
+            if (mergingState == MergeState.Merging) return;
+            
             var playerProduct = PlayerTest.Instance.GetProduct();
-            if (playerProduct is Product product)
+            if (playerProduct is Product product && product.GetIsMergable())
             {
-                if (product.GetIsMergable())
+                if (!_hasObject)
                 {
                     SetProductToMerge(product);
                     return;
                 }
+                return;
             }
 
             if (_hasObject)
             {
                 HandleObjectGive();
             }
+
+        }
+        
+        private void Update()
+        {
+            if (mergingState != MergeState.Merging) return;
+            
+            _timer -= Time.deltaTime;
+            OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { progress = 1 - (_timer / mergingTime) });
+            
+            if (_timer > 0f) return;
+            
+            mergingState = MergeState.Idle;
+            SpawnMergedProduct(productsOnMerge[0]);
         }
 
         private void HandleObjectGive()
@@ -59,7 +84,9 @@ namespace Tables
                 productsOnMerge.Add(product);
                 product.transform.position = secondPosition.transform.position;
                 PlayerTest.Instance.HandleObjectGive();
-                SpawnMergedProduct(product);
+                
+                mergingState = MergeState.Merging;
+                _timer = mergingTime;
             }
         }
         
@@ -74,21 +101,11 @@ namespace Tables
         
         private void ClearTable()
         {
-            foreach (var a in productsOnMerge)
+            foreach (var mergedProduct in productsOnMerge)
             {
-                a.DestroySelf();
+                mergedProduct.DestroySelf();
             }
             productsOnMerge.Clear();
         }
-
-
-        public override void SetObjectOnTable(BaseObject _object)
-        {
-            _hasObject = true;
-            _objectOnTable = _object;
-            _object.transform.position = spawnPosition.transform.position;
-            _object.RememberOrigin(this);
-        }
-
     }
 }

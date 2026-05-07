@@ -20,10 +20,18 @@ namespace UIScripts
                 case SinkTable sinkTable:
                     sinkTable.OnWashingProgressChanged += OnWashingProgressChanged;
                     break;
+                case MergeTable mergeTable:
+                    mergeTable.OnProgressChanged += OnMergingProgressChanged;
+                    break;
                 default:
                     Debug.LogError("Table type not implemented for ProgressBarTableUI");
                     break;
             }
+        }
+
+        private void OnMergingProgressChanged(object sender, MergeTable.OnProgressChangedEventArgs e)
+        {
+            ProgressChanged(e.progress);
         }
 
         private void OnWashingProgressChanged(object sender, SinkTable.OnWashingProgressChangedEventArgs e)
