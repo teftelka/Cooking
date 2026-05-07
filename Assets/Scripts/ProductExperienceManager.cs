@@ -33,7 +33,6 @@ public class ProductExperienceManager: MonoBehaviour
 
         experienceDict[productSO] += amount;
         
-        Debug.Log(productSO.name + " " + experienceDict[productSO]);
         OnExperienceChanged?.Invoke(this, new OnExperienceChangedEventArgs 
             { productSO = productSO, exp = experienceDict[productSO] });
     }

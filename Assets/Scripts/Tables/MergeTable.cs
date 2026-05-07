@@ -95,7 +95,7 @@ namespace Tables
             var newProduct = Instantiate(product.GetProductData().prefab).GetComponent<Product>();
             SetObjectOnTable(newProduct);
             newProduct.SetRange(product.GetProductRange() + 1);
-            
+            ProductExperienceManager.Instance.AddExperience(newProduct.GetProductData(), 50);
             ClearTable();
         }
         
