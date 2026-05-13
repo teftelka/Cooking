@@ -66,7 +66,6 @@ public class Product : BaseObject
     {
         return new RecipeItem
         {
-            productType = productData.type,
             productState = productState,
             productLevel = range,
             productSO = productData

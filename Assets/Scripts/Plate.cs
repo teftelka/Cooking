@@ -95,7 +95,7 @@ public class Plate: BaseObject
         foreach (var item in items)
         {
             int index = remaining.FindIndex(r =>
-                r.productType == item.productType &&
+                r.productSO == item.productSO &&
                 r.productState == item.productState);
 
             if (index == -1)

@@ -71,7 +71,6 @@ public class OrderManager: MonoBehaviour
             var recipeItem = new RecipeItem
             {
                 productState = ingredient.productState,
-                productType = ingredient.productType,
                 productLevel = randomState,
                 productSO = ingredient.productSO
             };

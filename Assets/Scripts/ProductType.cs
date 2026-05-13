@@ -3,5 +3,6 @@ public enum ProductType
     Circle,
     Square,
     Capsule,
-    Tomato
+    Tomato,
+    Cabbage
 }

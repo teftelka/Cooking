@@ -40,7 +40,7 @@ namespace Tables
             foreach (var item in recipeOnPlate.ingredients)
             {
                 int index = remaining.FindIndex(r =>
-                    r.productType == item.productType &&
+                    r.productSO == item.productSO &&
                     r.productState == item.productState &&
                     r.productLevel <= item.productLevel);
 

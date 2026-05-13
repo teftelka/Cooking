@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4409797101718878941}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -514965794205521623, guid: 1bd974480fe400c469663ceae2076709, type: 3}
+  m_Sprite: {fileID: 159068718711766808, guid: 7406481a2973a4844ba92e688fbadadf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 2054207767618485484}
   - component: {fileID: 1431536606494937217}
   m_Layer: 0
-  m_Name: Tomato
+  m_Name: Cabbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,10 +378,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Product
   _originalTable: {fileID: 0}
-  productData: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+  productData: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
   productState: 0
   spriteRenderer: {fileID: 1002045464526586862}
-  currentStateSO: {fileID: 11400000, guid: 35fbdd5d665bf234eac4380da0d918f4, type: 2}
+  currentStateSO: {fileID: 11400000, guid: 348527beb496c5a469c8f3a471c657ac, type: 2}
   isMergable: 0
   range: 0
   productRangeUI: {fileID: 6693760806042290313}
