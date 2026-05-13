@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ProductSO", menuName = "Scriptable Objects/ProductSO")]
 public class ProductSO : ScriptableObject
 {
-    public ProductType type;
-
     public Sprite icon;
     public GameObject prefab;
     public int price;

@@ -89,7 +89,7 @@ public class Product : BaseObject
     {
         if (!isMergable) return false;
         if (other is not Product otherProduct) return false;
-        if (productData.type != otherProduct.productData.type) return false;
+        if (productData != otherProduct.productData) return false;
         return otherProduct.range == range;
     }
 
