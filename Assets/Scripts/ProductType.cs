@@ -2,5 +2,6 @@ public enum ProductType
 {
     Circle,
     Square,
-    Capsule
+    Capsule,
+    Tomato
 }

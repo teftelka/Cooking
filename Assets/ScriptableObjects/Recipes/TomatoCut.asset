@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9029e959aa1f773498df6b262e1d44f6, type: 3}
+  m_Name: TomatoCut
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  ingredients:
+  - productType: 3
+    productState: 1
+    productLevel: 0
+    productSO: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+  resultPrefab: {fileID: 4709926376490962013, guid: 2265e7a4d6aaff049ae57f76f1a22841, type: 3}
+  recipeName: Tomato cut

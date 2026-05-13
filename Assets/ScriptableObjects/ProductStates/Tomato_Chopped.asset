@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340465d9bb5082e40b6f95a76813da52, type: 3}
+  m_Name: Tomato_Chopped
+  m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
+  state: 1
+  sprite: {fileID: 769923478898671489, guid: da60f2dc53657094aaf7bee156ce8f07, type: 3}

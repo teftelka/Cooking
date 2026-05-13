@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: TomatoSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  type: 3
+  icon: {fileID: -514965794205521623, guid: 1bd974480fe400c469663ceae2076709, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: f615cbf1794e1a24f81733e7f5d7c2d5, type: 3}
+  price: 87
+  isMergable: 1
+  rules:
+  - fromState: {fileID: 11400000, guid: 35fbdd5d665bf234eac4380da0d918f4, type: 2}
+    action: 0
+    toState: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
