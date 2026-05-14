@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate: BaseObject
+public class Plate: BaseObject, IProductContainer
 {
     [SerializeField] private bool hasObject;
     [SerializeField] private bool isDirty;
@@ -34,30 +34,35 @@ public class Plate: BaseObject
         {
             case Product product:
                 return CanAddProducts(new List<Product> { product });
-            case CookingTool tool:
-                return CanAddProducts(tool.GetProducts());
+            case IProductContainer container:
+                if (container.GetProducts().Count == 0) return false;
+                return CanAddProducts(container.GetProducts());
             default:
                 return false;
         }
     }
 
+    public List<Product> GetProducts()
+    {
+        return _products;
+    }
+
     public override void Accept(BaseObject other)
     {
-        if (other is CookingTool cookingTool)
-        {
-            foreach (var productInTool in cookingTool.GetProducts())
-            {
-                AddProductToPlate(productInTool);
-            }
-            cookingTool.EmptyTool();
-            return;
-        }
-
         if (other is Product product)
         {
             AddProductToPlate(product);
+            return;
         }
-        
+
+        if (other is IProductContainer container)
+        {
+            foreach (var productInContainer in container.GetProducts())
+            {
+                AddProductToPlate(productInContainer);
+            }
+            container.EmptyContainer();
+        }
         Debug.Log("Product added to plate");
     }
     
@@ -167,12 +172,16 @@ public class Plate: BaseObject
 
     public void ResetPlate()
     {
-        completedRecipe = null;
-        Destroy(newRecipe);
-        
         foreach (var p in _products)
             Destroy(p.gameObject);
         
+        EmptyContainer();
+    }
+    
+    public void EmptyContainer()
+    {
+        completedRecipe = null;
+        Destroy(newRecipe);
         _products.Clear();
         
         OnEmptyPlate?.Invoke(this, EventArgs.Empty);

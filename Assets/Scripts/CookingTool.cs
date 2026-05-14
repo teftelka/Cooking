@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CookingTool : BaseObject
+public class CookingTool : BaseObject, IProductContainer
 {
     public EventHandler OnEmptyTool;
     public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
@@ -94,7 +94,7 @@ public class CookingTool : BaseObject
         return _products;
     }
 
-    public void EmptyTool()
+    public void EmptyContainer()
     {
         _state = CookingProgressState.Idle;
         _products.Clear();
@@ -108,7 +108,7 @@ public class CookingTool : BaseObject
            Destroy(product.gameObject); 
         }
 
-        EmptyTool();
+        EmptyContainer();
     }
     
     public override bool CanAccept(BaseObject other)
