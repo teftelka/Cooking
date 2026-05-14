@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Tomato_Raw
   m_EditorClassIdentifier: Assembly-CSharp::ProductStateSO
   state: 0
-  sprite: {fileID: -514965794205521623, guid: 1bd974480fe400c469663ceae2076709, type: 3}
+  sprite: {fileID: 6570087508288920115, guid: 3f338f2ca0b2c66418dc2f88b4cf89bc, type: 3}

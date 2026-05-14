@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1bd974480fe400c469663ceae2076709
+guid: 3f338f2ca0b2c66418dc2f88b4cf89bc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -514965794205521623
-    second: tomato+size_0
+      213: 6570087508288920115
+    second: tomato+_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tomato+size_0
+      name: tomato+_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 25
-        width: 204
-        height: 197
+        x: 29
+        y: 28
+        width: 198
+        height: 190
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92927eca6597ad8f0800000000000000
-      internalID: -514965794205521623
+      spriteID: 33adaca67c3ad2b50800000000000000
+      internalID: 6570087508288920115
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tomato+size_0: -514965794205521623
+      tomato+_0: 6570087508288920115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

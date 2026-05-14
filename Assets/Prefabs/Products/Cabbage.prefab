@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 8
   m_MaskInteraction: 0
   m_Sprite: {fileID: 159068718711766808, guid: 7406481a2973a4844ba92e688fbadadf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -381,7 +381,6 @@ MonoBehaviour:
   productData: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
   productState: 0
   spriteRenderer: {fileID: 1002045464526586862}
-  currentStateSO: {fileID: 11400000, guid: 348527beb496c5a469c8f3a471c657ac, type: 2}
   isMergable: 0
   range: 0
   productRangeUI: {fileID: 6693760806042290313}
