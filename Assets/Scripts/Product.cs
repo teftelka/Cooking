@@ -8,7 +8,7 @@ public class Product : BaseObject
     [SerializeField] private ProductSO productData;
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private ProductStateSO currentStateSO;
+    private ProductStateSO currentStateSO;
     
     [SerializeField] private bool isMergable;
     [SerializeField] private int range = 0;
@@ -17,6 +17,7 @@ public class Product : BaseObject
     public void Start()
     {
         isMergable = productData.isMergable;
+        currentStateSO = productData.startState;
         ApplyState(currentStateSO);
     }
     

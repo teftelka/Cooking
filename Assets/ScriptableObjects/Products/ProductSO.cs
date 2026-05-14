@@ -8,6 +8,7 @@ public class ProductSO : ScriptableObject
     public GameObject prefab;
     public int price;
     public bool isMergable;
+    public ProductStateSO startState;
 
     [Header("Allowed actions from each state")]
     public List<ProductStateTransitionRule> rules;
