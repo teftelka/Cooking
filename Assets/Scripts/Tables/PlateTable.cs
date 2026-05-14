@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 

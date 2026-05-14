@@ -1,5 +1,7 @@
 using System;
 using DefaultNamespace;
+using Interfaces;
+using Managers;
 using Unity.Mathematics;
 using UnityEngine;
 

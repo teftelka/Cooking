@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using Interfaces;
 using UnityEngine;
 
 namespace Tables

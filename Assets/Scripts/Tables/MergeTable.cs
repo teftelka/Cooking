@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Interfaces;
+using Managers;
 using UnityEngine;
 
 namespace Tables

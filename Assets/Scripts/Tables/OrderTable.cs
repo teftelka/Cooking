@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using DefaultNamespace;
+using Interfaces;
+using Managers;
 
 namespace Tables
 {

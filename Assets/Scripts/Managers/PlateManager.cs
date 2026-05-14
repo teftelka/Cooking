@@ -2,7 +2,7 @@ using System;
 using Tables;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Managers
 {
     public class PlateManager: MonoBehaviour
     {
