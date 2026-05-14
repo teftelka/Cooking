@@ -34,6 +34,7 @@ public class Product : BaseObject
     
     public void SetRange(int rarity)
     {
+        //ResourceManager.Instance.Add(productData, 5);
         range = rarity;
         productRangeUI.UpdateRange(rarity);
     }
