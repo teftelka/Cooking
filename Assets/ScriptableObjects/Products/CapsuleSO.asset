@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
   m_Name: CapsuleSO
   m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Capsule
   icon: {fileID: -5259316447295819836, guid: f6ef0548b5bfb584e8a8b40a82f57e57, type: 3}
   prefab: {fileID: 4754075658079602206, guid: 7f65f1722315ad0498fcd07688e0b370, type: 3}
   price: 100

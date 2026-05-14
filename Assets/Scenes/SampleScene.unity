@@ -318,6 +318,53 @@ Transform:
   - {fileID: 1646083903}
   m_Father: {fileID: 323015417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &35368055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 35368056}
+  - component: {fileID: 35368057}
+  m_Layer: 0
+  m_Name: GardenPlateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35368056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35368055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472612931}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &35368057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35368055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37ea9ddcce740cda8fac1e3e3d9fd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.GardenPlateManager
+  gardenPlatePrefab: {fileID: 5405144334371027208, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+  firstSpawnPoint: {fileID: 1388999408}
+  productSO: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
 --- !u!1001 &35717627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3537,6 +3584,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4402386226375084514, guid: a6be473b1dcb8974aac2e18362d706a3, type: 3}
   m_PrefabInstance: {fileID: 1796234257}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1388999407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388999408}
+  m_Layer: 0
+  m_Name: GardenPlateSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1388999408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388999407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.84, y: 1.94, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1426971796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,6 +4054,7 @@ Transform:
   - {fileID: 1876464157}
   - {fileID: 2136176107}
   - {fileID: 102797219}
+  - {fileID: 35368056}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480931499
@@ -5785,6 +5864,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb287d9e89b775a49b7345b472259fd9, type: 3}
+--- !u!1001 &6001926055019864811
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5405144334371027208, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_Name
+      value: GardenPlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086782664009216083, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 42f56558593d680479eb2d2084bc947e, type: 3}
 --- !u!1001 &7074015887063637719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5954,3 +6090,5 @@ SceneRoots:
   - {fileID: 1472612931}
   - {fileID: 1583387566}
   - {fileID: 1944744095}
+  - {fileID: 6001926055019864811}
+  - {fileID: 1388999408}

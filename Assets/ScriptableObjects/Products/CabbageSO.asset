@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
   m_Name: CabbageSO
   m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Cabbage
   icon: {fileID: 159068718711766808, guid: 7406481a2973a4844ba92e688fbadadf, type: 3}
   prefab: {fileID: 4754075658079602206, guid: b15a1da1c10773a4eacb1430cf7f3315, type: 3}
   price: 35

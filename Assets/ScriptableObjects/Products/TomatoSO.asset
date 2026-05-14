@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
   m_Name: TomatoSO
   m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Tomato
   icon: {fileID: 6570087508288920115, guid: 3f338f2ca0b2c66418dc2f88b4cf89bc, type: 3}
   prefab: {fileID: 4754075658079602206, guid: f615cbf1794e1a24f81733e7f5d7c2d5, type: 3}
   price: 87

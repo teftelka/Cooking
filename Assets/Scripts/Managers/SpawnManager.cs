@@ -27,8 +27,7 @@ namespace Managers
         {
             OrderManager.Instance.OnNewRecipeSpawned += HandleNewRecipeSpawned;
             OrderManager.Instance.OnOrderComplete += HandleOrderComplete;
-        
-        
+            
             foreach (var product in productsToSpawn.allRawProducts)
             {
                 ResourceManager.Instance.Add(product, 5);

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
   m_Name: SquareSO
   m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Square
   icon: {fileID: 991191668737955923, guid: ac95c76946e870a44abd2bf9dc34685e, type: 3}
   prefab: {fileID: 4754075658079602206, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
   price: 46
