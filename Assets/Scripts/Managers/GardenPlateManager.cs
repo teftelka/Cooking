@@ -9,7 +9,7 @@ namespace Managers
         [SerializeField] private Transform firstSpawnPoint;
         [SerializeField] private ProductSO productSO;
         
-        public static GardenPlateManager Instance { get; set; }
+        public static GardenPlateManager Instance { get; private  set; }
         
         private void Awake()
         {
