@@ -16,13 +16,12 @@ namespace Tables
         [SerializeField] private float mergingTime = 10f;
         [SerializeField] private float _timer;
         
-        private List<Product> productsOnMerge = new List<Product>();
+        [SerializeField] private List<Product> productsOnMerge = new List<Product>();
         
         public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
         public class OnProgressChangedEventArgs {
             public float progress; 
         }
-        
         
         private enum MergeState
         {
@@ -37,19 +36,22 @@ namespace Tables
             var playerProduct = PlayerTest.Instance.GetProduct();
             if (playerProduct is Product product && product.GetIsMergable())
             {
-                if (!_hasObject)
-                {
-                    SetProductToMerge(product);
-                    return;
-                }
+                if (_hasObject) return;
+                SetProductToMerge(product);
                 return;
             }
 
             if (_hasObject)
             {
                 HandleObjectGive();
+                return;
             }
 
+            if (productsOnMerge.Count > 0)
+            {
+                _objectOnTable = productsOnMerge[0];
+                HandleObjectGive();
+            }
         }
         
         private void Update()
@@ -68,6 +70,7 @@ namespace Tables
         private void HandleObjectGive()
         {
             PlayerTest.Instance.HandleObjectTake(GiveObject());
+            productsOnMerge.Clear();
         }
 
         private void SetProductToMerge(Product product)
@@ -107,7 +110,7 @@ namespace Tables
             {
                 mergedProduct.DestroySelf();
             }
-            productsOnMerge.Clear();
+            //productsOnMerge.Clear();
         }
     }
 }
