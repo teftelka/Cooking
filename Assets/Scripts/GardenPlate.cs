@@ -34,6 +34,7 @@ public class GardenPlate: MonoBehaviour
         productSO = nextProductSO;
         _timer = timeToAddAmount;
         SetVisuals();
+        
         _isInitialized = true;
     }
 

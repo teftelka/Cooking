@@ -12,6 +12,7 @@ namespace UIScripts
         [SerializeField] private Image productIcon;
         [SerializeField] private TextMeshProUGUI productName;
         [SerializeField] private TextMeshProUGUI productAmount;
+        [SerializeField] private TextMeshProUGUI productExperience;
         [SerializeField] private Image progressBarFill;
 
         private ProductSO currentSO;
@@ -19,8 +20,17 @@ namespace UIScripts
         
         private void Start()
         {
-            ResourceManager.Instance.OnResourceChanged += OnOnResourceChanged;
+            ResourceManager.Instance.OnResourceChanged += OnResourceChanged;
+            ProductExperienceManager.Instance.OnExperienceChanged += OnOnExperienceChanged;
             gardenPlate.OnProgressChanged += OnProgressChanged;
+        }
+
+        private void OnOnExperienceChanged(object sender, ProductExperienceManager.OnExperienceChangedEventArgs e)
+        {
+            if (e.productSO == currentSO)
+            {
+                UpdateProductExp(e.exp);
+            }
         }
 
         private void OnProgressChanged(object sender, GardenPlate.OnProgressChangedEventArgs e)
@@ -28,7 +38,7 @@ namespace UIScripts
             ProgressChanged(e.spawningProgress);
         }
 
-        private void OnOnResourceChanged(object sender, ResourceManager.OnResourceChangedEventArgs e)
+        private void OnResourceChanged(object sender, ResourceManager.OnResourceChangedEventArgs e)
         {
             if (e.productSO == currentSO)
             {
@@ -41,12 +51,18 @@ namespace UIScripts
             currentSO = productSo;
             productIcon.sprite = productSo.icon;
             productName.text = productSo.productName;
+            productExperience.text  = "0";
             UpdateProductAmount();
         }
 
         private void UpdateProductAmount()
         {
             productAmount.text = ResourceManager.Instance.GetAmount(currentSO).ToString();
+        }
+        
+        private void UpdateProductExp(int exp)
+        {
+            productExperience.text  = exp.ToString();
         }
         
         private void ProgressChanged(float progress)
