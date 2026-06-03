@@ -8,12 +8,12 @@ namespace Tables
     {
         private void HandleMerge(BaseObject productInHand, BaseObject productOnTable)
         {
-            if (productOnTable.CanCombineWith(productInHand))
+            /*if (productOnTable.CanCombineWith(productInHand))
             {
                 productOnTable.CombineWith(productInHand);
                 PlayerTest.Instance.HandleObjectGive();
                 return;
-            }
+            }*/
             
             if (productOnTable.CanAccept(productInHand)) // && productInHand.CanBeAcceptedBy(productOnTable))
             {
