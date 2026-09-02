@@ -10,8 +10,8 @@ public class Product : BaseObject
     [SerializeField] private ProductState productState;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private ProductStateSO currentStateSO;
+    private bool isMergable;
     
-    [SerializeField] private bool isMergable;
     [SerializeField] private int range = 0;
     [SerializeField] ProductRangeUI productRangeUI;
     
