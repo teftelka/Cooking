@@ -9,6 +9,7 @@ public class GardenPlate: MonoBehaviour
     [SerializeField] private GardenPlateUI gardenPlateUI;
     [SerializeField] private float timeToAddAmount = 10f;
     [SerializeField] private float _timer;
+    [SerializeField] private int productRange;
     private bool _isInitialized;
 
     
@@ -25,7 +26,7 @@ public class GardenPlate: MonoBehaviour
         OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { spawningProgress = 1 - (_timer / timeToAddAmount) });
         
         if (_timer > 0f) return;
-        ResourceManager.Instance.Add(productSO, 1);
+        ProduceResource();
         _timer = timeToAddAmount;
     }
 
@@ -36,6 +37,12 @@ public class GardenPlate: MonoBehaviour
         SetVisuals();
         
         _isInitialized = true;
+    }
+    
+    private void ProduceResource()
+    {
+        int productRange = ProductExperienceManager.Instance.GetLevel(productSO);
+        ResourceManager.Instance.AddResource(productSO, productRange, 1);
     }
 
     private void SetVisuals()

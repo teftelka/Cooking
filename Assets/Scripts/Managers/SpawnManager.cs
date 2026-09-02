@@ -30,7 +30,7 @@ namespace Managers
             
             foreach (var product in productsToSpawn.allRawProducts)
             {
-                ResourceManager.Instance.Add(product, 5);
+                ResourceManager.Instance.AddResource(product, 0, 5);
             }
         }
 
