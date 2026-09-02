@@ -312,6 +312,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CookingTool
   _originalTable: {fileID: 0}
   toolAction: 1
+  compatibleStations:
+  - {fileID: 11400000, guid: fc220a71729725749911cc95b16ebf50, type: 2}
   _products: []
   capacity: 1
   cookingTime: 5

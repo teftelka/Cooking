@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8301887, g: 0.08223567, b: 0.11244978, a: 1}
+  m_Color: {r: 0.83137256, g: 0.8246835, b: 0.08235294, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 7778108747072511158}
   - component: {fileID: 8002176312521266429}
   m_Layer: 0
-  m_Name: TableCook
+  m_Name: TableDeepFry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
