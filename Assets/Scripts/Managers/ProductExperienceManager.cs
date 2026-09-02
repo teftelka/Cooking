@@ -32,8 +32,8 @@ namespace Managers
         {
             Instance = this;
         }
-        
-        public int GetExperience(ProductSO productSO)
+
+        private int GetExperience(ProductSO productSO)
         {
             experienceDict.TryGetValue(productSO, out int exp);
             return exp;
@@ -45,17 +45,11 @@ namespace Managers
             return level;
         }
 
-        public int GetExperienceToNextLevel(ProductSO productSO)
+        private int GetExperienceToNextLevel(ProductSO productSO)
         {
             int level = GetLevel(productSO);
             return baseExperienceToLevelUp + level * extraExperiencePerLevel;
         }
-
-        /*public int GetAmount(ProductSO product)
-        {
-            experienceDict.TryGetValue(product, out int amount);
-            return amount;
-        }*/
         
         public void AddExperience(ProductSO productSO, int amount)
         {
@@ -67,8 +61,7 @@ namespace Managers
 
             if (amount <= 0) return;
 
-            if (!experienceDict.ContainsKey(productSO))
-                experienceDict[productSO] = 0;
+            experienceDict.TryAdd(productSO, 0);
 
             experienceDict[productSO] += amount;
 
