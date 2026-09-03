@@ -25,3 +25,6 @@ MonoBehaviour:
   - fromState: {fileID: 11400000, guid: 790e6aeb37f949b458111e2ec91b2f25, type: 2}
     action: 5
     toState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}
+  - fromState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}
+    action: 2
+    toState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}

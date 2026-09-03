@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: SpagettiSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Spagetti
+  icon: {fileID: 4629813989355640592, guid: 424ce9ec10efa3c4fbd1269ee60b84dd, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: 0d11f6334461f1d4b971fc823b71a498, type: 3}
+  price: 22
+  isMergable: 0
+  startState: {fileID: 11400000, guid: 40cc0f8866b02bd4b834391c7269e72b, type: 2}
+  rules:
+  - fromState: {fileID: 11400000, guid: 40cc0f8866b02bd4b834391c7269e72b, type: 2}
+    action: 4
+    toState: {fileID: 11400000, guid: 52d94f5ac1418ef45a635a1ac5a3ab04, type: 2}
