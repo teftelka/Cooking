@@ -8,12 +8,13 @@ namespace Managers
     {
         public static ResourceManager Instance { get; private set; }
 
-        private Dictionary<ProductSO, int> _resources = new();
+        private readonly Dictionary<ProductResourceKey, int> _resources = new();
 
         public event EventHandler<OnResourceChangedEventArgs> OnResourceChanged;
         public class OnResourceChangedEventArgs : EventArgs
         {
             public ProductSO productSO;
+            public int range;
             public int newAmount;
         }
 
@@ -22,30 +23,51 @@ namespace Managers
             Instance = this;
         }
 
-        public int GetAmount(ProductSO product)
+        public int GetAmount(ProductSO productSO, int range)
         {
-            _resources.TryGetValue(product, out int amount);
+            var key = new ProductResourceKey(productSO, range);
+            _resources.TryGetValue(key, out int amount);
             return amount;
         }
 
-        public void Add(ProductSO product, int amount)
+        public void AddResource(ProductSO productSO, int range, int amount)
         {
-            if (!_resources.ContainsKey(product))
-                _resources[product] = 0;
+            if (amount <= 0) return;
 
-            _resources[product] += amount;
-            OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs 
-                { productSO = product, newAmount = _resources[product] });
+            var key = new ProductResourceKey(productSO, range);
+
+            if (!_resources.ContainsKey(key))
+                _resources[key] = 0;
+
+            _resources[key] += amount;
+
+            OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs
+            {
+                productSO = productSO,
+                range = range,
+                newAmount = _resources[key]
+            });
         }
 
-        public bool TrySpend(ProductSO product, int amount)
+        public bool TrySpendResource(ProductSO productSO, int range, int amount)
         {
-            if (GetAmount(product) < amount)
+            if (productSO == null) return false;
+            if (amount <= 0) return false;
+
+            var key = new ProductResourceKey(productSO, range);
+
+            if (GetAmount(productSO, range) < amount)
                 return false;
 
-            _resources[product] -= amount;
-            OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs 
-                { productSO = product, newAmount = _resources[product] });
+            _resources[key] -= amount;
+
+            OnResourceChanged?.Invoke(this, new OnResourceChangedEventArgs
+            {
+                productSO = productSO,
+                range = range,
+                newAmount = _resources[key]
+            });
+
             return true;
         }
     }

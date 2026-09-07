@@ -13,6 +13,7 @@ namespace UIScripts
         [SerializeField] private TextMeshProUGUI productName;
         [SerializeField] private TextMeshProUGUI productAmount;
         [SerializeField] private TextMeshProUGUI productExperience;
+        [SerializeField] private TextMeshProUGUI productLevel;
         [SerializeField] private Image progressBarFill;
 
         private ProductSO currentSO;
@@ -22,7 +23,17 @@ namespace UIScripts
         {
             ResourceManager.Instance.OnResourceChanged += OnResourceChanged;
             ProductExperienceManager.Instance.OnExperienceChanged += OnOnExperienceChanged;
+            ProductExperienceManager.Instance.OnLevelChanged += InstanceOnLevelChanged;
             gardenPlate.OnProgressChanged += OnProgressChanged;
+        }
+
+        private void InstanceOnLevelChanged(object sender, ProductExperienceManager.OnLevelChangedEventArgs e)
+        {
+            if (e.productSO == currentSO)
+            {
+                UpdateProductAmount();
+                productLevel.text = e.level.ToString();
+            }
         }
 
         private void OnOnExperienceChanged(object sender, ProductExperienceManager.OnExperienceChangedEventArgs e)
@@ -57,7 +68,8 @@ namespace UIScripts
 
         private void UpdateProductAmount()
         {
-            productAmount.text = ResourceManager.Instance.GetAmount(currentSO).ToString();
+            int productRange = ProductExperienceManager.Instance.GetLevel(currentSO);
+            productAmount.text = ResourceManager.Instance.GetAmount(currentSO, productRange).ToString();
         }
         
         private void UpdateProductExp(int exp)

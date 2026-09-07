@@ -15,8 +15,14 @@ namespace Tables
         private void Start()
         {
             ResourceManager.Instance.OnResourceChanged += HandleResourceChanged;
-            var initialAmount = ResourceManager.Instance.GetAmount(productSO);
+            ProductExperienceManager.Instance.OnLevelChanged += HandleLevelChanged;
+            var initialAmount = ResourceManager.Instance.GetAmount(productSO, 0);
             spawnerTableUI.UpdateProductAmount(initialAmount);
+        }
+
+        private void HandleLevelChanged(object sender, ProductExperienceManager.OnLevelChangedEventArgs e)
+        {
+            spawnerTableUI.UpdateProductAmount(0);
         }
 
         private void HandleResourceChanged(object sender, ResourceManager.OnResourceChangedEventArgs e)
@@ -29,12 +35,14 @@ namespace Tables
         {
             if (!PlayerTest.Instance.HasObject())
             {
-                if (!ResourceManager.Instance.TrySpend(productSO, 1))
+                int productRange = ProductExperienceManager.Instance.GetLevel(productSO);
+                if (!ResourceManager.Instance.TrySpendResource(productSO, productRange, 1))
                 {
                     if (!ScoreManager.Instance.TrySpendMoney(productSO.price)) return;
                 }
                     
                 var newProduct = Instantiate(productSO.prefab).GetComponent<BaseObject>();
+                newProduct.GetComponent<Product>().SetRange(productRange);
                 PlayerTest.Instance.HandleObjectTake(newProduct);
             }
         }

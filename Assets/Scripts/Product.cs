@@ -34,7 +34,6 @@ public class Product : BaseObject
     
     public void SetRange(int rarity)
     {
-        //ResourceManager.Instance.Add(productData, 5);
         range = rarity;
         productRangeUI.UpdateRange(rarity);
     }
@@ -96,7 +95,7 @@ public class Product : BaseObject
         return otherProduct.range == range;
     }
 
-    public override void CombineWith(BaseObject other)
+    /*public override void CombineWith(BaseObject other)
     {
         Product otherProduct = (Product)other;
         range++;
@@ -106,7 +105,7 @@ public class Product : BaseObject
         ProductExperienceManager.Instance.AddExperience(productData, 50);
 
         Debug.Log("Products combined -> upgraded");
-    }
+    }*/
 
     public Sprite GetDefaultSprite()
     {
