@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Interfaces;
+using ScriptableObjects;
 using UnityEngine;
 
 public class CookingTool : BaseObject, IProductContainer
@@ -18,6 +19,8 @@ public class CookingTool : BaseObject, IProductContainer
     }
     
     [SerializeField] private ProductAction toolAction;
+    [SerializeField] private List<CookingStationTypeSO> compatibleStations;
+    
     [SerializeField] private List<Product> _products;
     [SerializeField] private int capacity = 3;
     [SerializeField] private float cookingTime = 5f;
@@ -88,6 +91,11 @@ public class CookingTool : BaseObject, IProductContainer
                 product.ApplyAction(ProductAction.Burn);
             }
         }
+    }
+    
+    public bool CanWorkWith(CookingStationTypeSO stationType)
+    {
+        return compatibleStations.Contains(stationType);
     }
 
     public List<Product> GetProducts()

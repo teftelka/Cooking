@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: PotatoSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Potato
+  icon: {fileID: -5661783315169486296, guid: 96370d633a97421428423c27b279b2c3, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: 56011ead902509840906e1f3032c80fa, type: 3}
+  price: 10
+  isMergable: 0
+  startState: {fileID: 11400000, guid: 99ca4996a94987445bacdb20cf1fc05a, type: 2}
+  rules:
+  - fromState: {fileID: 11400000, guid: 99ca4996a94987445bacdb20cf1fc05a, type: 2}
+    action: 0
+    toState: {fileID: 11400000, guid: 790e6aeb37f949b458111e2ec91b2f25, type: 2}
+  - fromState: {fileID: 11400000, guid: 790e6aeb37f949b458111e2ec91b2f25, type: 2}
+    action: 5
+    toState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}
+  - fromState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}
+    action: 2
+    toState: {fileID: 11400000, guid: 0c38a27199527cc48a9fc910905b30d1, type: 2}

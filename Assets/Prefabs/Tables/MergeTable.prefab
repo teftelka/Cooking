@@ -538,8 +538,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4402386226375084514}
-  - component: {fileID: 8002176312521266429}
   - component: {fileID: 3258840503322263175}
+  - component: {fileID: 8002176312521266429}
   m_Layer: 0
   m_Name: MergeTable
   m_TagString: Untagged
@@ -568,6 +568,27 @@ Transform:
   - {fileID: 3446541678888784911}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3258840503322263175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594231211741092091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9a010e5aca4a1e89f4483d0ca5d92f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tables.MergeTable
+  spawnPosition: {fileID: 2059074074510434004}
+  _hasObject: 0
+  _objectOnTable: {fileID: 0}
+  firstPosition: {fileID: 4761940039353996377}
+  secondPosition: {fileID: 6080320417023015334}
+  mergingState: 0
+  mergingTime: 10
+  _timer: 0
+  productsOnMerge: []
 --- !u!61 &8002176312521266429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -614,24 +635,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3258840503322263175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5594231211741092091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9a010e5aca4a1e89f4483d0ca5d92f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tables.MergeTable
-  spawnPosition: {fileID: 2059074074510434004}
-  _hasObject: 0
-  _objectOnTable: {fileID: 0}
-  firstPosition: {fileID: 4761940039353996377}
-  secondPosition: {fileID: 6080320417023015334}
-  mergingState: 0
 --- !u!1 &6080320417023015334
 GameObject:
   m_ObjectHideFlags: 0

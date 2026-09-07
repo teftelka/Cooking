@@ -131,8 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4402386226375084514}
-  - component: {fileID: 8002176312521266429}
   - component: {fileID: 2393126139474822919}
+  - component: {fileID: 8002176312521266429}
   m_Layer: 0
   m_Name: RecycleBinTable
   m_TagString: Untagged
@@ -157,6 +157,21 @@ Transform:
   - {fileID: 2118749925483865977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2393126139474822919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594231211741092091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ee0199cbf34416858c10c232633b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tables.RecycleBinTable
+  spawnPosition: {fileID: 2059074074510434004}
+  _hasObject: 0
+  _objectOnTable: {fileID: 0}
 --- !u!61 &8002176312521266429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -203,18 +218,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2393126139474822919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5594231211741092091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ee0199cbf34416858c10c232633b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tables.RecycleBinTable
-  spawnPosition: {fileID: 2059074074510434004}
-  _hasObject: 0
-  _objectOnTable: {fileID: 0}

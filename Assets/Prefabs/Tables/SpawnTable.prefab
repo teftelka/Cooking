@@ -64,8 +64,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 187991631756362886}
-  - component: {fileID: 8801092927199148266}
   - component: {fileID: 7473264493622641293}
+  - component: {fileID: 8801092927199148266}
   m_Layer: 0
   m_Name: SpawnTable
   m_TagString: Untagged
@@ -91,6 +91,20 @@ Transform:
   - {fileID: 7607569072849223366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7473264493622641293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466817302855053645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a813e7528c4bfe9ff2b9ab70c6bcfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tables.SpawnTable
+  productSO: {fileID: 0}
+  spawnerTableUI: {fileID: 6987904028843975957}
 --- !u!61 &8801092927199148266
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,20 +151,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7473264493622641293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466817302855053645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a813e7528c4bfe9ff2b9ab70c6bcfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tables.SpawnTable
-  productSO: {fileID: 0}
-  spawnerTableUI: {fileID: 6987904028843975957}
 --- !u!1 &2009150006582672905
 GameObject:
   m_ObjectHideFlags: 0

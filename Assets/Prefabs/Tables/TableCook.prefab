@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4402386226375084514}
+  - component: {fileID: 4837858129998719297}
   - component: {fileID: 7778108747072511158}
   - component: {fileID: 8002176312521266429}
   m_Layer: 0
@@ -157,7 +158,7 @@ Transform:
   - {fileID: 2118749925483865977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7778108747072511158
+--- !u!114 &4837858129998719297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,6 +166,22 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5594231211741092091}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a32c465e2d1487cbd7f50c6ef8e447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CookingStation
+  spawnPosition: {fileID: 2059074074510434004}
+  _hasObject: 0
+  _objectOnTable: {fileID: 0}
+  stationType: {fileID: 11400000, guid: fc220a71729725749911cc95b16ebf50, type: 2}
+--- !u!114 &7778108747072511158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594231211741092091}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3b35b47e93b415aa829f8c6c0fa3a5d, type: 3}
   m_Name: 
