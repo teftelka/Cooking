@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using Managers;
 using UnityEngine;
 
 public class Plate: BaseObject, IProductContainer
@@ -88,36 +89,18 @@ public class Plate: BaseObject, IProductContainer
         
         foreach (var recipe in recipeList.allRecipes)
         {
-            if (IsSubsetOfRecipe(futureItems, recipe))
+            if (RecipeMatcher.IsSubset(futureItems, recipe))
                 return true;
         }
 
         return false;
     }
     
-    private bool IsSubsetOfRecipe(List<RecipeItem> items, RecipeSO recipe)
-    {
-        List<RecipeItem> remaining = new(recipe.ingredients);
-        foreach (var item in items)
-        {
-            int index = remaining.FindIndex(r =>
-                r.productSO == item.productSO &&
-                r.productState == item.productState);
-
-            if (index == -1)
-                return false;
-
-            remaining.RemoveAt(index);
-        }
-
-        return true;
-    }
-    
     private void TryCompleteRecipe()
     {
         foreach (var recipe in recipeList.allRecipes)
         {
-            if (IsExactRecipe(recipe))
+            if (RecipeMatcher.IsExact(_products.ConvertAll(p => p.GetRecipeKey()), recipe))
             {
                 CreateDish(recipe);
                 MakeModifiedRecipe(recipe);
@@ -141,14 +124,6 @@ public class Plate: BaseObject, IProductContainer
         modifiedRecipeSO.recipeName = recipe.recipeName;
         
         completedRecipe = modifiedRecipeSO;
-    }
-    
-    private bool IsExactRecipe(RecipeSO recipe)
-    {
-        if (_products.Count != recipe.ingredients.Count)
-            return false;
-
-        return IsSubsetOfRecipe(_products.ConvertAll(p => p.GetRecipeKey()), recipe);
     }
     
     private void CreateDish(RecipeSO recipe)

@@ -50,7 +50,7 @@ public class Product : BaseObject
         }
     }
     
-    public bool CanApplyAction(ProductAction action)
+    public virtual bool CanApplyAction(ProductAction action)
     {
         return productData.CanApply(currentStateSO, action);
     }
