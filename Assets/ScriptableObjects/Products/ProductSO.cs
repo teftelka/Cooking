@@ -11,6 +11,19 @@ public class ProductSO : ScriptableObject
     public bool isMergable;
     public ProductStateSO startState;
 
+    [Header("Ingredient base (zero capacity means an ordinary product)")]
+    [Min(0)] public int ingredientCapacity;
+    public List<ProductState> ingredientReceivingStates = new() { ProductState.Raw };
+    [Tooltip("Allowed ingredient types and states. Product level is ignored. Empty list accepts nothing.")]
+    public List<RecipeItem> allowedIngredients = new();
+
+    public bool CanReceiveIngredient(ProductState state, RecipeItem ingredient)
+    {
+        return ingredientCapacity > 0 && ingredientReceivingStates.Contains(state) &&
+               allowedIngredients.Exists(item => item.productSO == ingredient.productSO &&
+                                                 item.productState == ingredient.productState);
+    }
+
     [Header("Allowed actions from each state")]
     public List<ProductStateTransitionRule> rules;
 

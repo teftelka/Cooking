@@ -18,6 +18,9 @@ MonoBehaviour:
   price: 46
   isMergable: 1
   startState: {fileID: 11400000, guid: 0c11ca9ac0fddcb499feb83d1e9339f4, type: 2}
+  ingredientCapacity: 0
+  ingredientReceivingStates: 
+  allowedIngredients: []
   rules:
   - fromState: {fileID: 11400000, guid: 0c11ca9ac0fddcb499feb83d1e9339f4, type: 2}
     action: 1

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Interfaces;
 using Managers;
 using UIScripts;
 using UnityEngine;
@@ -11,11 +13,16 @@ public class Product : BaseObject
     [SerializeField] private SpriteRenderer spriteRenderer;
     private ProductStateSO currentStateSO;
     private bool isMergable;
+    [SerializeField] private List<Product> ingredients = new();
+    [SerializeField] private Transform ingredientRoot;
+
+    public IReadOnlyList<Product> Ingredients => ingredients.AsReadOnly();
+    public event EventHandler OnIngredientsChanged;
     
     [SerializeField] private int range = 0;
     [SerializeField] ProductRangeUI productRangeUI;
     
-    public void Start()
+    public void Awake()
     {
         isMergable = productData.isMergable;
         currentStateSO = productData.startState;
@@ -73,6 +80,62 @@ public class Product : BaseObject
             productSO = productData
         };
     }
+
+    // A food base stays a single product during transfers, but contributes its full recipe.
+    public void AddRecipeItemsTo(List<RecipeItem> items)
+    {
+        items.Add(GetRecipeKey());
+        foreach (var ingredient in ingredients)
+            ingredient.AddRecipeItemsTo(items);
+    }
+
+    public override bool CanAccept(BaseObject other)
+    {
+        if (other == null || other == this) return false;
+        if (other is Product product)
+            return CanAddIngredients(new List<Product> { product });
+        if (other is IProductContainer container)
+            return CanAddIngredients(container.GetProducts());
+        return false;
+    }
+
+    private bool CanAddIngredients(List<Product> incoming)
+    {
+        if (incoming.Count == 0 || ingredients.Count + incoming.Count > productData.ingredientCapacity)
+            return false;
+
+        var unique = new HashSet<Product>();
+        foreach (var product in incoming)
+        {
+            if (product == null || product == this || !unique.Add(product) ||
+                ingredients.Contains(product) || transform.IsChildOf(product.transform) ||
+                !productData.CanReceiveIngredient(productState, product.GetRecipeKey()))
+                return false;
+        }
+        return true;
+    }
+
+    public override void Accept(BaseObject other)
+    {
+        if (!CanAccept(other)) return;
+        if (other is Product product)
+        {
+            AddIngredient(product);
+        }
+        else if (other is IProductContainer container)
+        {
+            foreach (var ingredient in new List<Product>(container.GetProducts()))
+                AddIngredient(ingredient);
+            container.EmptyContainer();
+        }
+        OnIngredientsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void AddIngredient(Product ingredient)
+    {
+        ingredients.Add(ingredient);
+        ingredient.SetToParent(ingredientRoot != null ? ingredientRoot : transform);
+    }
     
     public void SetToParent(Transform parent)
     {
@@ -83,14 +146,17 @@ public class Product : BaseObject
 
     public void DisableImage()
     {
+        foreach (var ingredient in ingredients)
+            ingredient.DisableImage();
         spriteRenderer.gameObject.SetActive(false);
         productRangeUI.SetActive(false);
     }
     
     public override bool CanCombineWith(BaseObject other)
     {
-        if (!isMergable) return false;
+        if (!GetIsMergable()) return false;
         if (other is not Product otherProduct) return false;
+        if (!otherProduct.GetIsMergable()) return false;
         if (productData != otherProduct.productData) return false;
         return otherProduct.range == range;
     }
@@ -114,7 +180,7 @@ public class Product : BaseObject
     
     public bool GetIsMergable()
     {
-        return isMergable;
+        return isMergable && ingredients.Count == 0;
     }
 
     public void DestroySelf()

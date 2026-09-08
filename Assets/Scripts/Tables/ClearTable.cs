@@ -18,7 +18,7 @@ namespace Tables
             if (productOnTable.CanAccept(productInHand)) // && productInHand.CanBeAcceptedBy(productOnTable))
             {
                 productOnTable.Accept(productInHand);
-                if (productOnTable is IProductContainer && productInHand is IProductContainer) return;
+                if (productInHand is IProductContainer && productInHand is not Product) return;
                 PlayerTest.Instance.HandleObjectGive();
                 
                 return;
@@ -27,7 +27,7 @@ namespace Tables
             if (productInHand.CanAccept(productOnTable)) // && productOnTable.CanBeAcceptedBy(productInHand))
             {
                 productInHand.Accept(productOnTable);
-                if (productInHand is IProductContainer && productOnTable is IProductContainer) return;
+                if (productOnTable is IProductContainer && productOnTable is not Product) return;
                 _objectOnTable = null;
                 _hasObject = false;
 

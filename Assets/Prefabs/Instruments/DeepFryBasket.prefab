@@ -322,6 +322,7 @@ MonoBehaviour:
   _state: 0
   _timer: 0
   _isOnHeat: 0
+  canBeTaken: 1
 --- !u!65 &5982224618109729493
 BoxCollider:
   m_ObjectHideFlags: 0

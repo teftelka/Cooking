@@ -30,6 +30,9 @@ public class CookingTool : BaseObject, IProductContainer
     [SerializeField] private float _timer;
     [SerializeField] private bool _isOnHeat;
     
+    
+    [SerializeField] private bool canBeTaken;
+    
     private enum CookingProgressState
     {
         Idle,
@@ -96,6 +99,11 @@ public class CookingTool : BaseObject, IProductContainer
     public bool CanWorkWith(CookingStationTypeSO stationType)
     {
         return compatibleStations.Contains(stationType);
+    }
+    
+    public bool CanMove()
+    {
+        return canBeTaken;
     }
 
     public List<Product> GetProducts()

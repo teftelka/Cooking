@@ -31,6 +31,7 @@ public class Plate: BaseObject, IProductContainer
 
     public override bool CanAccept(BaseObject other)
     {
+        if (other == null || other == this) return false;
         if (isDirty) return false;
         switch (other)
         {
@@ -51,6 +52,7 @@ public class Plate: BaseObject, IProductContainer
 
     public override void Accept(BaseObject other)
     {
+        if (!CanAccept(other)) return;
         if (other is Product product)
         {
             AddProductToPlate(product);
@@ -82,10 +84,10 @@ public class Plate: BaseObject, IProductContainer
         List<RecipeItem> futureItems = new();
 
         foreach (var product in _products)
-            futureItems.Add(product.GetRecipeKey());
+            product.AddRecipeItemsTo(futureItems);
 
         foreach (var product in incomingProducts)
-            futureItems.Add(product.GetRecipeKey());
+            product.AddRecipeItemsTo(futureItems);
         
         foreach (var recipe in recipeList.allRecipes)
         {
@@ -100,7 +102,10 @@ public class Plate: BaseObject, IProductContainer
     {
         foreach (var recipe in recipeList.allRecipes)
         {
-            if (RecipeMatcher.IsExact(_products.ConvertAll(p => p.GetRecipeKey()), recipe))
+            var items = new List<RecipeItem>();
+            foreach (var product in _products)
+                product.AddRecipeItemsTo(items);
+            if (RecipeMatcher.IsExact(items, recipe))
             {
                 CreateDish(recipe);
                 MakeModifiedRecipe(recipe);
@@ -115,7 +120,7 @@ public class Plate: BaseObject, IProductContainer
         
         foreach (var product in _products)
         {
-            recipeItems.Add(product.GetRecipeKey());
+            product.AddRecipeItemsTo(recipeItems);
         }
         
         var modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();

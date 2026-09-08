@@ -403,7 +403,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.23921567, g: 0.40564376, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.6454003, b: 0.23921567, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 6401189907630016858}
   - component: {fileID: 5982224618109729493}
   m_Layer: 0
-  m_Name: BoilingPot
+  m_Name: BakingSheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,9 +461,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CookingTool
   _originalTable: {fileID: 0}
-  toolAction: 4
+  toolAction: 7
   compatibleStations:
-  - {fileID: 11400000, guid: fc220a71729725749911cc95b16ebf50, type: 2}
+  - {fileID: 11400000, guid: c16cc22bc132b2b40ad62b5bf24d96d0, type: 2}
   _products: []
   capacity: 2
   cookingTime: 5
@@ -472,7 +472,6 @@ MonoBehaviour:
   _state: 0
   _timer: 0
   _isOnHeat: 0
-  canBeTaken: 1
 --- !u!65 &5982224618109729493
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -31,6 +31,16 @@ public class PlateIconsUI : MonoBehaviour
     {
         var sprite = e.product.GetDefaultSprite();
         UpdateVisual(sprite, e.product.GetProductRange());
+        AddIngredientIcons(e.product);
+    }
+
+    private void AddIngredientIcons(Product product)
+    {
+        foreach (var ingredient in product.Ingredients)
+        {
+            UpdateVisual(ingredient.GetDefaultSprite(), ingredient.GetProductRange());
+            AddIngredientIcons(ingredient);
+        }
     }
 
     private void UpdateVisual(Sprite icon, int range)

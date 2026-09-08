@@ -34,8 +34,8 @@ namespace Managers
         private static bool Matches(RecipeItem a, RecipeItem b)
         {
             return a.productSO == b.productSO &&
-                   a.productState == b.productState &&
-                   a.productLevel == b.productLevel;
+                   a.productState == b.productState;
+            //a.productLevel == b.productLevel;
         }
     }
 }

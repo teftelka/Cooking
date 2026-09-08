@@ -61,8 +61,14 @@ public class CookingStation : BaseTable, IClickable
     private void HandleObjectGive()
     {
         if (_objectOnTable is CookingTool tool)
+        {
+            if (!tool.CanMove())
+            {
+                return;
+            }
             tool.SetHeat(false);
-
+        }
+        
         PlayerTest.Instance.HandleObjectTake(GiveObject());
     }
 
@@ -71,13 +77,15 @@ public class CookingStation : BaseTable, IClickable
         if (_objectOnTable.CanAccept(objectInHand))
         {
             _objectOnTable.Accept(objectInHand);
+            if (objectInHand is IProductContainer && objectInHand is not Product) return;
             PlayerTest.Instance.HandleObjectGive();
+            return;
         }
 
         if (objectInHand.CanAccept(_objectOnTable))
         {
             objectInHand.Accept(_objectOnTable);
-            if (objectInHand is Plate && _objectOnTable is CookingTool) return;
+            if (_objectOnTable is IProductContainer && _objectOnTable is not Product) return;
             _objectOnTable = null;
             _hasObject = false;
         }
