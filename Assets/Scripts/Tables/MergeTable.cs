@@ -33,8 +33,8 @@ namespace Tables
         {
             if (mergingState == MergeState.Merging) return;
             
-            var playerProduct = PlayerTest.Instance.GetProduct();
-            if (playerProduct is Product product && product.GetIsMergable())
+            var playerObject = PlayerTest.Instance.GetProduct();
+            if (playerObject is Product product && product.GetIsMergable())
             {
                 if (_hasObject) return;
                 SetProductToMerge(product);
@@ -67,9 +67,33 @@ namespace Tables
             SpawnMergedProduct(productsOnMerge[0]);
         }
 
-        private void HandleObjectGive()
+        private void HandleObjectGive(BaseObject objectInHand)
         {
-            PlayerTest.Instance.HandleObjectTake(GiveObject());
+            BaseObject objectToGive = _hasObject ? _objectOnTable
+                : productsOnMerge.Count > 0 ? productsOnMerge[0] : null;
+
+            if (objectToGive == null) return;
+
+            if (objectInHand == null)
+            {
+                PlayerTest.Instance.HandleObjectTake(objectToGive);
+            }
+            else if (objectInHand.CanAccept(objectToGive))
+            {
+                objectInHand.Accept(objectToGive);
+            }
+            else
+            {
+                return;
+            }
+
+            ReleaseTable();
+        }
+
+        private void ReleaseTable()
+        {
+            _hasObject = false;
+            _objectOnTable = null;
             productsOnMerge.Clear();
         }
 
@@ -110,7 +134,7 @@ namespace Tables
             {
                 mergedProduct.DestroySelf();
             }
-            //productsOnMerge.Clear();
+            productsOnMerge.Clear();
         }
     }
 }
