@@ -68,18 +68,18 @@ public class CookingStation : BaseTable, IClickable
 
     private void HandleCollision(BaseObject objectInHand)
     {
-        if (_objectOnTable.CanAccept(objectInHand))
+        if (_objectOnTable is not CookingTool tool) return;
+        
+        if (tool.CanAccept(objectInHand))
         {
-            _objectOnTable.Accept(objectInHand);
+            tool.Accept(objectInHand);
             PlayerTest.Instance.HandleObjectGive();
+            return;
         }
-
-        if (objectInHand.CanAccept(_objectOnTable))
+        
+        if (objectInHand.CanAccept(tool))
         {
-            objectInHand.Accept(_objectOnTable);
-            if (objectInHand is Plate && _objectOnTable is CookingTool) return;
-            _objectOnTable = null;
-            _hasObject = false;
+            objectInHand.Accept(tool);
         }
     }
 }
