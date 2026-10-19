@@ -16,19 +16,38 @@ namespace Tables
         {
             ResourceManager.Instance.OnResourceChanged += HandleResourceChanged;
             ProductExperienceManager.Instance.OnLevelChanged += HandleLevelChanged;
-            var initialAmount = ResourceManager.Instance.GetAmount(productSO, 0);
-            spawnerTableUI.UpdateProductAmount(initialAmount);
+            RefreshAmount();
+        }
+
+        private void OnDestroy()
+        {
+            // Spawners are destroyed and recreated on every completed order,
+            // so we must unsubscribe from long-lived managers here.
+            // Explicit != null (not ?.) respects Unity's destroyed-object check.
+            if (ResourceManager.Instance != null)
+                ResourceManager.Instance.OnResourceChanged -= HandleResourceChanged;
+            if (ProductExperienceManager.Instance != null)
+                ProductExperienceManager.Instance.OnLevelChanged -= HandleLevelChanged;
         }
 
         private void HandleLevelChanged(object sender, ProductExperienceManager.OnLevelChangedEventArgs e)
         {
-            spawnerTableUI.UpdateProductAmount(0);
+            if (productSO != e.productSO) return;
+            RefreshAmount();
         }
 
         private void HandleResourceChanged(object sender, ResourceManager.OnResourceChangedEventArgs e)
         {
             if (productSO != e.productSO) return;
-            spawnerTableUI.UpdateProductAmount(e.newAmount);
+            RefreshAmount();
+        }
+
+        // Shows the stock of the level this spawner actually spends from.
+        private void RefreshAmount()
+        {
+            if (!productSO) return;
+            int level = ProductExperienceManager.Instance.GetLevel(productSO);
+            spawnerTableUI.UpdateProductAmount(ResourceManager.Instance.GetAmount(productSO, level));
         }
 
         public void OnClick()

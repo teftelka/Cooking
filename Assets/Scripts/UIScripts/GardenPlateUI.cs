@@ -27,6 +27,19 @@ namespace UIScripts
             gardenPlate.OnProgressChanged += OnProgressChanged;
         }
 
+        private void OnDestroy()
+        {
+            if (ResourceManager.Instance != null)
+                ResourceManager.Instance.OnResourceChanged -= OnResourceChanged;
+            if (ProductExperienceManager.Instance != null)
+            {
+                ProductExperienceManager.Instance.OnExperienceChanged -= OnOnExperienceChanged;
+                ProductExperienceManager.Instance.OnLevelChanged -= InstanceOnLevelChanged;
+            }
+            if (gardenPlate != null)
+                gardenPlate.OnProgressChanged -= OnProgressChanged;
+        }
+
         private void InstanceOnLevelChanged(object sender, ProductExperienceManager.OnLevelChangedEventArgs e)
         {
             if (e.productSO == currentSO)

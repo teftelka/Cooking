@@ -26,8 +26,10 @@ public class GardenPlate: MonoBehaviour
         OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { spawningProgress = 1 - (_timer / timeToAddAmount) });
         
         if (_timer > 0f) return;
-        ProduceResource();
+        // Reset the timer before producing, so an exception in a resource
+        // subscriber can't make the plate produce every frame.
         _timer = timeToAddAmount;
+        ProduceResource();
     }
 
     public void SetupGardenPlate(ProductSO nextProductSO)
