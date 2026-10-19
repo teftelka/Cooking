@@ -41,17 +41,7 @@ namespace Tables
                 return;
             }
 
-            if (_hasObject)
-            {
-                HandleObjectGive();
-                return;
-            }
-
-            if (productsOnMerge.Count > 0)
-            {
-                _objectOnTable = productsOnMerge[0];
-                HandleObjectGive();
-            }
+            HandleObjectGive(playerObject);
         }
         
         private void Update()
