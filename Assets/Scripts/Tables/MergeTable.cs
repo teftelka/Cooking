@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Interfaces;
 using Managers;
 using UnityEngine;
 
 namespace Tables
 {
-    public class MergeTable: BaseTable, IClickable
+    public class MergeTable: BaseTable
     {
         [SerializeField] private GameObject firstPosition;
         [SerializeField] private GameObject secondPosition;
@@ -29,7 +28,7 @@ namespace Tables
             Merging
         }
         
-        public void OnClick()
+        public override void OnClick()
         {
             if (mergingState == MergeState.Merging) return;
             
@@ -44,6 +43,10 @@ namespace Tables
             HandleObjectGive(playerObject);
         }
         
+        // Right-click may bring the merge result back only when the table is completely free
+        public override bool CanReturn(BaseObject obj) =>
+            mergingState == MergeState.Idle && productsOnMerge.Count == 0;
+
         private void Update()
         {
             if (mergingState != MergeState.Merging) return;
@@ -66,7 +69,7 @@ namespace Tables
 
             if (objectInHand == null)
             {
-                PlayerTest.Instance.HandleObjectTake(objectToGive);
+                if (!PlayerTest.Instance.HandleObjectTake(objectToGive)) return;
             }
             else if (objectInHand.CanAccept(objectToGive))
             {
@@ -127,4 +130,4 @@ namespace Tables
             productsOnMerge.Clear();
         }
     }
-}
+}

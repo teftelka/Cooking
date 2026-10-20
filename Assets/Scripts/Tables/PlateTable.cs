@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace Tables
 {
-    public class PlateTable: BaseTable, IClickable
+    public class PlateTable: BaseTable
     {
         private List<Plate> platesOnTable = new List<Plate>();
 
@@ -16,7 +15,7 @@ namespace Tables
             public int plateCount; 
         }
         
-        public void OnClick()
+        public override void OnClick()
         {
             if (PlayerTest.Instance.HasObject()) return;
             if (platesOnTable.Count == 0) return;
@@ -46,6 +45,14 @@ namespace Tables
             OnPlateCountChanged?.Invoke(this, new OnPlateCountChangedEventArgs { plateCount = platesOnTable.Count });
         }
         
+        // Plates are stacked, so a plate can be returned even when others are already here
+        public override bool TryReturnObject(BaseObject obj)
+        {
+            if (obj is not Plate) return false;
+            SetObjectOnTable(obj);
+            return true;
+        }
+
         protected override BaseObject GiveObject()
         {
             BaseObject objectOnTable = _objectOnTable;
@@ -62,4 +69,4 @@ namespace Tables
             return objectOnTable;
         }
     }
-}
+}

@@ -1,12 +1,11 @@
 using System;
 using DefaultNamespace;
-using Interfaces;
 
 namespace Tables
 {
-    public class RecycleBinTable: BaseTable, IClickable
+    public class RecycleBinTable: BaseTable
     {
-        public void OnClick()
+        public override void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
             if (playerProduct)
@@ -32,4 +31,4 @@ namespace Tables
             }
         }
     }
-}
+}

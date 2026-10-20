@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using DefaultNamespace;
-using Interfaces;
 using Managers;
 using Recipes;
 
 namespace Tables
 {
-    public class OrderTable: BaseTable, IClickable
+    public class OrderTable: BaseTable
     {
-        public void OnClick()
+        public override void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
             if (playerProduct)
@@ -37,4 +36,4 @@ namespace Tables
             }
         }
     }
-}
+}
