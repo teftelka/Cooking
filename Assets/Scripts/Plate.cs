@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using Recipes;
 using UnityEngine;
 
 public class Plate: BaseObject, IProductContainer
@@ -78,77 +79,38 @@ public class Plate: BaseObject, IProductContainer
     
     private bool CanAddProducts(List<Product> incomingProducts)
     {
-        List<RecipeItem> futureItems = new();
+        var futureItems = CollectRecipeItems(_products);
+        futureItems.AddRange(CollectRecipeItems(incomingProducts));
 
-        foreach (var product in _products)
-            futureItems.Add(product.GetRecipeKey());
-
-        foreach (var product in incomingProducts)
-            futureItems.Add(product.GetRecipeKey());
-        
-        foreach (var recipe in recipeList.allRecipes)
-        {
-            if (IsSubsetOfRecipe(futureItems, recipe))
-                return true;
-        }
-
-        return false;
+        return RecipeMatcher.FitsAnyRecipe(futureItems, recipeList);
     }
-    
-    private bool IsSubsetOfRecipe(List<RecipeItem> items, RecipeSO recipe)
+
+    private static List<RecipeItem> CollectRecipeItems(List<Product> products)
     {
-        List<RecipeItem> remaining = new(recipe.ingredients);
-        foreach (var item in items)
-        {
-            int index = remaining.FindIndex(r =>
-                r.productSO == item.productSO &&
-                r.productState == item.productState);
-
-            if (index == -1)
-                return false;
-
-            remaining.RemoveAt(index);
-        }
-
-        return true;
+        var items = new List<RecipeItem>();
+        foreach (var product in products)
+            items.AddRange(product.GetRecipeItems());
+        return items;
     }
     
     private void TryCompleteRecipe()
     {
-        foreach (var recipe in recipeList.allRecipes)
-        {
-            if (IsExactRecipe(recipe))
-            {
-                CreateDish(recipe);
-                MakeModifiedRecipe(recipe);
-                return;
-            }
-        }
+        var items = CollectRecipeItems(_products);
+        var recipe = RecipeMatcher.FindExactRecipe(items, recipeList);
+        if (recipe == null) return;
+
+        CreateDish(recipe);
+        MakeModifiedRecipe(recipe, items);
     }
     
-    private void MakeModifiedRecipe(RecipeSO recipe)
+    private void MakeModifiedRecipe(RecipeSO recipe, List<RecipeItem> recipeItems)
     {
-        var recipeItems = new List<RecipeItem>();
-        
-        foreach (var product in _products)
-        {
-            recipeItems.Add(product.GetRecipeKey());
-        }
-        
         var modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
         modifiedRecipeSO.ingredients = recipeItems;
         modifiedRecipeSO.resultPrefab = recipe.resultPrefab;
         modifiedRecipeSO.recipeName = recipe.recipeName;
         
         completedRecipe = modifiedRecipeSO;
-    }
-    
-    private bool IsExactRecipe(RecipeSO recipe)
-    {
-        if (_products.Count != recipe.ingredients.Count)
-            return false;
-
-        return IsSubsetOfRecipe(_products.ConvertAll(p => p.GetRecipeKey()), recipe);
     }
     
     private void CreateDish(RecipeSO recipe)

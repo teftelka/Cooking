@@ -98,11 +98,10 @@ namespace Managers
             if (_activeOrders.Contains(recipe))
             {
                 _activeOrders.Remove(recipe);
-                recipeList.allRecipes.Remove(recipe);
                 OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
                 spawnRecipeTimer = spawnRecipeTimerMax;
                 PlayerTest.Instance.HandleObjectGive();
-                Debug.Log(recipe.name + " order completed!");
+                Debug.Log(recipe.recipeName + " order completed!");
             }
         }    
     }

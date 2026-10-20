@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Managers;
 using UIScripts;
 using UnityEngine;
@@ -72,6 +73,13 @@ public class Product : BaseObject
             productLevel = range,
             productSO = productData
         };
+    }
+
+    // Everything this product contributes to a recipe. A plain product is one ingredient;
+    // composite products (e.g. a pizza base with toppings) will override this.
+    public virtual IEnumerable<RecipeItem> GetRecipeItems()
+    {
+        yield return GetRecipeKey();
     }
     
     public void SetToParent(Transform parent)
