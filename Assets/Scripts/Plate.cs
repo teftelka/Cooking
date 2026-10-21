@@ -231,6 +231,25 @@ public class Plate: BaseObject, IProductContainer
         EmptyContainer();
     }
     
+    // The base on the plate, if it is the only thing there (e.g. a pizza ready for the oven)
+    public Product GetSingleBase()
+    {
+        if (_products.Count != 1) return null;
+        var product = _products[0];
+        return product != null && product.IsBase ? product : null;
+    }
+
+    // Takes the single base off the plate without destroying it (it goes into cookware)
+    public Product ReleaseSingleBase()
+    {
+        var baseProduct = GetSingleBase();
+        if (baseProduct == null) return null;
+
+        ClearDish();        // shows the base again if a dish picture was on
+        EmptyContainer();   // clears the list and updates the icons
+        return baseProduct;
+    }
+
     public void EmptyContainer()
     {
         completedRecipe = null;

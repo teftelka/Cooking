@@ -120,9 +120,25 @@ public class CookingTool : BaseObject, IProductContainer
         EmptyContainer();
     }
     
+    // A product from hand, or the single base lying on a plate (pizza from a plate into the oven).
+    // Ordinary products never go from a plate into cookware.
+    private static Product GetIncomingProduct(BaseObject other)
+    {
+        switch (other)
+        {
+            case Product product:
+                return product;
+            case Plate plate:
+                return plate.GetSingleBase();
+            default:
+                return null;
+        }
+    }
+
     public override bool CanAccept(BaseObject other)
     {
-        if (other is not Product product) return false;
+        var product = GetIncomingProduct(other);
+        if (product == null) return false;
         if (_products.Count >= capacity) return false;
         if (_state == CookingProgressState.Burned) return false;
         
@@ -131,7 +147,9 @@ public class CookingTool : BaseObject, IProductContainer
 
     public override void Accept(BaseObject other)
     {
-        Product product = (Product)other;
+        Product product = other is Plate plate ? plate.ReleaseSingleBase() : other as Product;
+        if (product == null) return;
+
         _products.Add(product);
         OnProductAdded?.Invoke(this, new OnProductAddedEventArgs { product = product });
 
