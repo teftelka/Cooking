@@ -42,3 +42,13 @@ MonoBehaviour:
       - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
         state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
       sprite: {fileID: 540359954090746561, guid: daeb314de081fe34191b8d6354438fe1, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      sprite: {fileID: -4194065731805595357, guid: 2e30a11600810f44dbe236b65053d4fe, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: -62333963766848911, guid: 895a03cd7affde943aee76e7301aa4fb, type: 3}

@@ -36,3 +36,5 @@ MonoBehaviour:
     acceptsInState: {fileID: 11400000, guid: b3109e90d55850c4884cb5ad0f9e118b, type: 2}
     maxContents: 4
     recipes: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}
+    dishState: {fileID: 0}
+    spritesByContents: []
