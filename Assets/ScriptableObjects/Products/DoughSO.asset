@@ -36,3 +36,9 @@ MonoBehaviour:
     acceptsInState: {fileID: 11400000, guid: c902f6c595db6634ea9cd3a0f74edd84, type: 2}
     maxContents: 4
     recipes: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}
+    dishState: {fileID: 11400000, guid: 944e66e9c6053f242852008ab5a919a4, type: 2}
+    spritesByContents:
+    - ingredients:
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 540359954090746561, guid: daeb314de081fe34191b8d6354438fe1, type: 3}
