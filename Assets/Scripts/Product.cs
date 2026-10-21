@@ -98,16 +98,38 @@ public class Product : BaseObject
 
     // ---- Base: accepting ingredients ----
 
+    // The base is in the state in which it takes ingredients (e.g. cut dough, raw bun)
+    public bool IsAcceptingIngredients =>
+        IsBase &&
+        productData.baseConfig.acceptsInState != null &&
+        currentStateSO == productData.baseConfig.acceptsInState;
+
     // A base takes a plain product, or everything cooked in a pan / pot (the cookware stays where it is)
     public override bool CanAccept(BaseObject other)
     {
-        if (!IsBase) return false;
-
-        var config = productData.baseConfig;
-        if (config.acceptsInState == null || currentStateSO != config.acceptsInState) return false;
-
         var incoming = GetIncomingProducts(other);
         if (incoming == null || incoming.Count == 0) return false;
+        return CanAcceptProducts(incoming);
+    }
+
+    public override void Accept(BaseObject other)
+    {
+        var incoming = GetIncomingProducts(other);
+        if (incoming == null || incoming.Count == 0) return;
+
+        AcceptProducts(incoming);
+
+        if (other is CookingTool cookware)
+            cookware.EmptyContainer();
+    }
+
+    // Can these products become ingredients of this base? An empty list checks only the
+    // base itself (used by a plate: "can this base still become a recipe?")
+    public bool CanAcceptProducts(IReadOnlyList<Product> incoming)
+    {
+        if (!IsAcceptingIngredients) return false;
+
+        var config = productData.baseConfig;
         if (contents.Count + incoming.Count > config.maxContents) return false;
 
         var fillings = new List<RecipeItem>();
@@ -117,19 +139,19 @@ public class Product : BaseObject
         foreach (var product in incoming)
         {
             // Only plain products: a base with its own ingredients can't be put inside another base
-            if (product == this || product.HasContents) return false;
+            if (product == null || product == this || product.HasContents) return false;
             fillings.Add(product.GetRecipeKey());
         }
 
         return RecipeMatcher.FitsAnyRecipeWithBase(productData, fillings, config.recipes);
     }
 
-    public override void Accept(BaseObject other)
+    // Turns the products into ingredient records of this base and removes their objects
+    public void AcceptProducts(IReadOnlyList<Product> incoming)
     {
-        var incoming = GetIncomingProducts(other);
         if (incoming == null || incoming.Count == 0) return;
 
-        // Copy: emptying the cookware clears its list
+        // Copy: the caller may clear its own list afterwards (cookware, plate)
         foreach (var product in new List<Product>(incoming))
         {
             contents.Add(new IngredientData
@@ -142,9 +164,6 @@ public class Product : BaseObject
             // The ingredient now lives only as data inside this base
             Destroy(product.gameObject);
         }
-
-        if (other is CookingTool cookware)
-            cookware.EmptyContainer();
 
         OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }

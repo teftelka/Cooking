@@ -23,6 +23,9 @@ public class Plate: BaseObject, IProductContainer
     
     public EventHandler OnEmptyPlate;
 
+    // Raised after any change of what is on the plate (including ingredients added to a base on it)
+    public event EventHandler OnContentsChanged;
+
     public void GetDirty()
     {
         isDirty = true;
@@ -32,15 +35,65 @@ public class Plate: BaseObject, IProductContainer
     public override bool CanAccept(BaseObject other)
     {
         if (isDirty) return false;
+
+        var incoming = GetIncomingProducts(other);
+        if (incoming == null || incoming.Count == 0) return false;
+
+        // 1. A base is on the plate: everything goes into the base, nothing else is accepted
+        var baseOnPlate = GetBaseOnPlate();
+        if (baseOnPlate != null)
+            return baseOnPlate.CanAccept(other);
+
+        // 2. A base arrives
+        var incomingBase = FindBase(incoming);
+        if (incomingBase != null)
+        {
+            if (incoming.Count != 1) return false;          // a base arrives alone
+            if (other is Plate) return false;               // a base can't be moved from one plate to another
+            return CanTakeBase(incomingBase);
+        }
+
+        // 3. No base involved: as before
+        return CanAddProducts(incoming);
+    }
+
+    private bool CanTakeBase(Product incomingBase)
+    {
+        // Still being assembled: it will absorb whatever is already on the plate
+        if (incomingBase.IsAcceptingIngredients)
+            return incomingBase.CanAcceptProducts(_products);
+
+        // Finished (e.g. baked pizza): only onto an empty plate and only as an exact recipe.
+        // A burned base matches no recipe, so it is refused.
+        if (_products.Count > 0) return false;
+        var items = new List<RecipeItem>(incomingBase.GetRecipeItems());
+        return RecipeMatcher.FindExactRecipe(items, recipeList) != null;
+    }
+
+    private Product GetBaseOnPlate()
+    {
+        return FindBase(_products);
+    }
+
+    private static Product FindBase(IReadOnlyList<Product> products)
+    {
+        foreach (var product in products)
+        {
+            if (product != null && product.IsBase) return product;
+        }
+        return null;
+    }
+
+    private static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)
+    {
         switch (other)
         {
             case Product product:
-                return CanAddProducts(new List<Product> { product });
+                return new[] { product };
             case IProductContainer container:
-                if (container.GetProducts().Count == 0) return false;
-                return CanAddProducts(container.GetProducts());
+                return container.GetProducts();
             default:
-                return false;
+                return null;
         }
     }
 
@@ -51,21 +104,38 @@ public class Plate: BaseObject, IProductContainer
 
     public override void Accept(BaseObject other)
     {
-        if (other is Product product)
+        var incoming = GetIncomingProducts(other);
+        if (incoming == null || incoming.Count == 0) return;
+
+        // 1. A base is on the plate: the base takes the product / the cookware contents
+        var baseOnPlate = GetBaseOnPlate();
+        if (baseOnPlate != null)
         {
-            AddProductToPlate(product);
+            baseOnPlate.Accept(other);
+            TryCompleteRecipe();
+            OnContentsChanged?.Invoke(this, EventArgs.Empty);
             return;
         }
 
-        if (other is IProductContainer container)
+        // Copy: emptying the container clears its list
+        var arriving = new List<Product>(incoming);
+
+        // 2. An unfinished base arrives on a plate with products: they become its ingredients
+        var incomingBase = FindBase(arriving);
+        if (incomingBase != null && incomingBase.IsAcceptingIngredients && _products.Count > 0)
         {
-            foreach (var productInContainer in container.GetProducts())
-            {
-                AddProductToPlate(productInContainer);
-            }
-            container.EmptyContainer();
+            var onPlate = new List<Product>(_products);
+            _products.Clear();
+            incomingBase.AcceptProducts(onPlate);
         }
-        Debug.Log("Product added to plate");
+
+        foreach (var product in arriving)
+            AddProductToPlate(product);
+
+        if (other is IProductContainer container)
+            container.EmptyContainer();
+
+        OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
     
     private void AddProductToPlate(Product product)
@@ -77,7 +147,7 @@ public class Plate: BaseObject, IProductContainer
         TryCompleteRecipe();
     }
     
-    private bool CanAddProducts(List<Product> incomingProducts)
+    private bool CanAddProducts(IReadOnlyList<Product> incomingProducts)
     {
         var futureItems = CollectRecipeItems(_products);
         futureItems.AddRange(CollectRecipeItems(incomingProducts));
@@ -85,7 +155,7 @@ public class Plate: BaseObject, IProductContainer
         return RecipeMatcher.FitsAnyRecipe(futureItems, recipeList);
     }
 
-    private static List<RecipeItem> CollectRecipeItems(List<Product> products)
+    private static List<RecipeItem> CollectRecipeItems(IReadOnlyList<Product> products)
     {
         var items = new List<RecipeItem>();
         foreach (var product in products)
@@ -168,6 +238,7 @@ public class Plate: BaseObject, IProductContainer
         _products.Clear();
         
         OnEmptyPlate?.Invoke(this, EventArgs.Empty);
+        OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
     
     public void DestroySelf()
