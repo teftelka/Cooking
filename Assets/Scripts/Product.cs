@@ -192,6 +192,14 @@ public class Product : BaseObject
         spriteRenderer.gameObject.SetActive(false);
         productRangeUI.SetActive(false);
     }
+
+    public void EnableImage()
+    {
+        spriteRenderer.gameObject.SetActive(true);
+        // The level badge is shown only for levels above zero
+        if (range > 0)
+            productRangeUI.SetActive(true);
+    }
     
     public override bool CanCombineWith(BaseObject other)
     {

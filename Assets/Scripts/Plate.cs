@@ -93,14 +93,34 @@ public class Plate: BaseObject, IProductContainer
         return items;
     }
     
+    // Re-evaluated after every change: the plate shows a dish only while its contents
+    // exactly form a recipe. If a product is added and the set no longer matches,
+    // the previous dish is removed so it can't be served by mistake.
     private void TryCompleteRecipe()
     {
         var items = CollectRecipeItems(_products);
         var recipe = RecipeMatcher.FindExactRecipe(items, recipeList);
-        if (recipe == null) return;
+        if (recipe == null)
+        {
+            ClearDish();
+            return;
+        }
 
         CreateDish(recipe);
         MakeModifiedRecipe(recipe, items);
+    }
+
+    private void ClearDish()
+    {
+        if (newRecipe != null)
+        {
+            Destroy(newRecipe);
+            newRecipe = null;
+        }
+        completedRecipe = null;
+
+        foreach (var p in _products)
+            p.EnableImage();
     }
     
     private void MakeModifiedRecipe(RecipeSO recipe, List<RecipeItem> recipeItems)
