@@ -38,8 +38,10 @@ namespace Interaction
                 return true;
             }
 
-            // 2. Put what is on the table into what is in hand
-            if (table.CanTake() && inHand.CanAccept(onTable))
+            // 2. Put what is on the table into what is in hand.
+            // CanTake matters only if the object leaves the table: from a container
+            // (pan, fixed baking sheet) only its contents move and the container stays
+            if (inHand.CanAccept(onTable) && (onTable is IProductContainer || table.CanTake()))
             {
                 inHand.Accept(onTable);
                 if (!(onTable is IProductContainer))
@@ -59,9 +61,8 @@ namespace Interaction
 
         private static bool TryTake(BaseTable table, PlayerTest hand)
         {
-            if (!table.HasObject || !table.CanTake()) return false;
-
-            var taken = table.TakeObject();
+            var taken = table.TakeForEmptyHand();
+            if (taken == null) return false;
             return hand.HandleObjectTake(taken);
         }
 

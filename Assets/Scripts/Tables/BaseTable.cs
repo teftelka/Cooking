@@ -42,6 +42,14 @@ namespace Tables
             OnPlaced(_object);
         }
 
+        // What an empty hand gets when clicking this table. By default: the object on it.
+        // A station with a fixed tool gives the tool's contents instead.
+        public virtual BaseObject TakeForEmptyHand()
+        {
+            if (!_hasObject || !CanTake()) return null;
+            return TakeObject();
+        }
+
         // Removes the object from the table and notifies the table
         public BaseObject TakeObject()
         {

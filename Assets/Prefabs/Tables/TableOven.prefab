@@ -174,6 +174,7 @@ MonoBehaviour:
   _hasObject: 0
   _objectOnTable: {fileID: 0}
   stationType: {fileID: 11400000, guid: c16cc22bc132b2b40ad62b5bf24d96d0, type: 2}
+  fixedTool: {fileID: 2276823641238886560}
 --- !u!61 &8002176312521266429
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -282,3 +283,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4983734048028768509, guid: e5d44a46aa2da7041bb2742daa152314, type: 3}
   m_PrefabInstance: {fileID: 5137902695911985658}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2276823641238886560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6401189907630016858, guid: e5d44a46aa2da7041bb2742daa152314, type: 3}
+  m_PrefabInstance: {fileID: 5137902695911985658}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81660a07ff70d748bdc67928a278b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CookingTool
