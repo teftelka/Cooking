@@ -65,6 +65,7 @@ public class Product : BaseObject
         currentStateSO = state;
         productState = currentStateSO.state;
         spriteRenderer.sprite = state.sprite;
+        ApplyContentsSprite();
         
         if (productState != ProductState.Raw)
         {
@@ -210,7 +211,20 @@ public class Product : BaseObject
             Destroy(product.gameObject);
         }
 
+        ApplyContentsSprite();
         OnContentsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    // While a base accepts ingredients, its picture depends on what is on it
+    private void ApplyContentsSprite()
+    {
+        if (currentStateSO == null) return;
+
+        Sprite sprite = null;
+        if (IsAcceptingIngredients)
+            sprite = productData.baseConfig.FindSpriteFor(contents);
+
+        spriteRenderer.sprite = sprite != null ? sprite : currentStateSO.sprite;
     }
 
     private static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)

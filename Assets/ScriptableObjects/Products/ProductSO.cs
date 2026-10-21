@@ -61,4 +61,77 @@ public class ProductBaseConfig
 
     [Tooltip("In this state the base turns into the dish of its recipe and shows the recipe's result prefab (e.g. baked dough). Empty = never")]
     public ProductStateSO dishState;
+
+    [Tooltip("Pictures of the base with ingredients on it, while it accepts ingredients. " +
+             "The order in which ingredients were added does not matter. If there is no exact match, " +
+             "the entry with the most matching ingredients is used; if none, the state sprite")]
+    public List<BaseContentsSprite> spritesByContents = new List<BaseContentsSprite>();
+
+    // Best picture for these ingredients, or null to use the state sprite
+    public Sprite FindSpriteFor(IReadOnlyList<IngredientData> contents)
+    {
+        if (spritesByContents == null || contents == null || contents.Count == 0) return null;
+
+        BaseContentsSprite best = null;
+        foreach (var entry in spritesByContents)
+        {
+            if (entry == null || entry.sprite == null || entry.ingredients == null || entry.ingredients.Count == 0)
+                continue;
+            if (!entry.IsSubsetOf(contents)) continue;
+
+            if (entry.ingredients.Count == contents.Count)
+                return entry.sprite;                      // exact match
+
+            if (best == null || entry.ingredients.Count > best.ingredients.Count)
+                best = entry;                             // largest subset so far (first wins on a tie)
+        }
+        return best?.sprite;
+    }
+}
+
+[System.Serializable]
+public class BaseContentsSprite
+{
+    public List<BaseIngredientKey> ingredients = new List<BaseIngredientKey>();
+    public Sprite sprite;
+
+    // Every listed ingredient has its own matching ingredient on the base (levels ignored)
+    public bool IsSubsetOf(IReadOnlyList<IngredientData> contents)
+    {
+        if (ingredients.Count > contents.Count) return false;
+
+        var used = new bool[contents.Count];
+
+        // Keys with a specific state first, so "any state" keys don't take their ingredients
+        foreach (var pass in new[] { true, false })
+        {
+            foreach (var key in ingredients)
+            {
+                if (key == null || key.product == null) return false;
+                bool specific = key.state != null;
+                if (specific != pass) continue;
+
+                int found = -1;
+                for (int i = 0; i < contents.Count; i++)
+                {
+                    if (used[i] || contents[i].product != key.product) continue;
+                    if (specific && contents[i].state != key.state) continue;
+                    found = i;
+                    break;
+                }
+                if (found == -1) return false;
+                used[found] = true;
+            }
+        }
+        return true;
+    }
+}
+
+[System.Serializable]
+public class BaseIngredientKey
+{
+    public ProductSO product;
+
+    [Tooltip("Empty = any state")]
+    public ProductStateSO state;
 }
