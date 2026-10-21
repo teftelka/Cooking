@@ -58,4 +58,7 @@ public class ProductBaseConfig
 
     [Tooltip("An ingredient is accepted only if the result can still become one of these recipes")]
     public RecipeListSO recipes;
+
+    [Tooltip("In this state the base turns into the dish of its recipe and shows the recipe's result prefab (e.g. baked dough). Empty = never")]
+    public ProductStateSO dishState;
 }

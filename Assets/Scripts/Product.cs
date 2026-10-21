@@ -20,6 +20,9 @@ public class Product : BaseObject
     // Ingredients put on this product. Used only when the product is a base (see ProductSO.baseConfig)
     [SerializeField] private List<IngredientData> contents = new List<IngredientData>();
 
+    // Picture of the recipe's dish, shown by a base in its dish state (e.g. a baked pizza)
+    private GameObject dishVisual;
+
     public event EventHandler OnContentsChanged;
     public event EventHandler OnStateChanged;
     public event EventHandler OnLevelChanged;
@@ -68,7 +71,43 @@ public class Product : BaseObject
             isMergable = false;
         }
 
+        RefreshDishVisual();
         OnStateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    // A base in its dish state shows the result prefab of the recipe it exactly forms,
+    // so different pizzas look different right after baking. Otherwise the state sprite is used.
+    private void RefreshDishVisual()
+    {
+        if (dishVisual != null)
+        {
+            Destroy(dishVisual);
+            dishVisual = null;
+        }
+
+        bool showDish = false;
+        if (IsBase)
+        {
+            var config = productData.baseConfig;
+            if (config.dishState != null && currentStateSO == config.dishState)
+            {
+                var recipe = RecipeMatcher.FindExactRecipe(new List<RecipeItem>(GetRecipeItems()), config.recipes);
+                if (recipe != null && recipe.resultPrefab != null)
+                {
+                    // Same way the plate places a dish: keep the prefab's world scale
+                    dishVisual = Instantiate(recipe.resultPrefab, transform.position, Quaternion.identity);
+                    dishVisual.transform.SetParent(transform, true);
+                    dishVisual.transform.localPosition = Vector3.zero;
+                    showDish = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"{name}: no recipe matches this base in its dish state, the state sprite is shown", this);
+                }
+            }
+        }
+
+        spriteRenderer.enabled = !showDish;
     }
     
     public bool CanApplyAction(ProductAction action)
@@ -231,11 +270,13 @@ public class Product : BaseObject
     {
         spriteRenderer.gameObject.SetActive(false);
         productRangeUI.SetActive(false);
+        if (dishVisual != null) dishVisual.SetActive(false);
     }
 
     public void EnableImage()
     {
         spriteRenderer.gameObject.SetActive(true);
+        if (dishVisual != null) dishVisual.SetActive(true);
         // The level badge is shown only for levels above zero
         if (range > 0)
             productRangeUI.SetActive(true);
