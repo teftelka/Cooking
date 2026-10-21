@@ -2322,6 +2322,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325286062769040177, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2938728590476823835, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
       propertyPath: m_Name
       value: DeepFryBasket
@@ -5919,6 +5943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a86c038505143a8b02bb17406cf570f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductExperienceManager
+  baseExperienceToLevelUp: 100
+  extraExperiencePerLevel: 50
 --- !u!1001 &1974219144951639709
 PrefabInstance:
   m_ObjectHideFlags: 0

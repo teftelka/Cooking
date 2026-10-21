@@ -32,7 +32,7 @@ MonoBehaviour:
     toState: {fileID: 11400000, guid: b2552280407fb3240b39c011fbe968b3, type: 2}
     requiresRecipe: 0
   baseConfig:
-    isBase: 0
-    acceptsInState: {fileID: 0}
+    isBase: 1
+    acceptsInState: {fileID: 11400000, guid: b3109e90d55850c4884cb5ad0f9e118b, type: 2}
     maxContents: 4
-    recipes: {fileID: 0}
+    recipes: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}

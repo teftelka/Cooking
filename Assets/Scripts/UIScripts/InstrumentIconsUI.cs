@@ -14,31 +14,32 @@ namespace UIScripts
             cookingTool.OnEmptyTool += HandleEmptyTool;
         }
 
+        private void OnDestroy()
+        {
+            if (cookingTool != null)
+            {
+                cookingTool.OnProductAdded -= HandleProductAdded;
+                cookingTool.OnEmptyTool -= HandleEmptyTool;
+            }
+        }
+
         private void HandleEmptyTool(object sender, EventArgs e)
         {
-            foreach (Transform child in transform)
-            {
-                if (child == iconTemplate)
-                {
-                    iconTemplate.gameObject.SetActive(true);
-                    continue;
-                }
-                Destroy(child.gameObject);
-            }
+            Rebuild();
         }
 
         private void HandleProductAdded(object sender, CookingTool.OnProductAddedEventArgs e)
         {
-            iconTemplate.gameObject.SetActive(false);
-            var sprite = e.product.GetDefaultSprite();
-            UpdateVisual(sprite, e.product.GetProductRange());
+            Rebuild();
         }
 
-        private void UpdateVisual(Sprite icon, int range)
+        private void Rebuild()
         {
-            Transform newIcon = Instantiate(iconTemplate, transform);
-            newIcon.GetComponent<IconsTemplateUI>().SetIcon(icon, range);
-            newIcon.gameObject.SetActive(true);
+            // The template doubles as the "empty" placeholder: hidden while clones are made
+            iconTemplate.gameObject.SetActive(false);
+            int count = IconsListBuilder.Rebuild(transform, iconTemplate, IconsListBuilder.CollectItems(cookingTool.GetProducts()));
+            if (count == 0)
+                iconTemplate.gameObject.SetActive(true);
         }
     }
 }

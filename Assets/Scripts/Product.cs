@@ -22,6 +22,11 @@ public class Product : BaseObject
 
     public event EventHandler OnContentsChanged;
     public event EventHandler OnStateChanged;
+    public event EventHandler OnLevelChanged;
+    public event EventHandler OnContainmentChanged;
+
+    // True while the product lies inside a plate or cookware: their own icon panel shows it then
+    public bool IsInsideContainer { get; private set; }
 
     public IReadOnlyList<IngredientData> Contents => contents;
     public bool IsBase => productData != null && productData.IsBase;
@@ -49,6 +54,7 @@ public class Product : BaseObject
     {
         range = rarity;
         productRangeUI.UpdateRange(rarity);
+        OnLevelChanged?.Invoke(this, EventArgs.Empty);
     }
     
     private void ApplyState(ProductStateSO state)
@@ -199,11 +205,26 @@ public class Product : BaseObject
             yield return ingredient.ToRecipeItem();
     }
     
+    // Called by a plate or cookware when the product goes inside it
     public void SetToParent(Transform parent)
     {
-        //DisableImage();
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
+        SetInsideContainer(true);
+    }
+
+    // The product leaves a plate or cookware (e.g. a pizza taken out of the oven by hand)
+    public void DetachFromContainer()
+    {
+        transform.SetParent(null);
+        SetInsideContainer(false);
+    }
+
+    private void SetInsideContainer(bool inside)
+    {
+        if (IsInsideContainer == inside) return;
+        IsInsideContainer = inside;
+        OnContainmentChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void DisableImage()
