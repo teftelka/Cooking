@@ -49,6 +49,40 @@ namespace Recipes
             return false;
         }
 
+        /// <summary>
+        /// Fillings of a base can still become a recipe that contains this base product.
+        /// The base is matched by product only: its state changes later (dough is cut while
+        /// assembling and baked afterwards), so the final state is checked when the dish is served.
+        /// </summary>
+        public static bool FitsAnyRecipeWithBase(ProductSO baseProduct, IReadOnlyList<RecipeItem> fillings, RecipeListSO list)
+        {
+            if (baseProduct == null || list == null || list.allRecipes == null) return false;
+            foreach (var recipe in list.allRecipes)
+            {
+                if (FitsRecipeWithBase(baseProduct, fillings, recipe)) return true;
+            }
+            return false;
+        }
+
+        private static bool FitsRecipeWithBase(ProductSO baseProduct, IReadOnlyList<RecipeItem> fillings, RecipeSO recipe)
+        {
+            if (recipe == null || recipe.ingredients == null) return false;
+
+            var remaining = new List<RecipeItem>(recipe.ingredients);
+            int baseIndex = remaining.FindIndex(r => r.productSO == baseProduct);
+            if (baseIndex == -1) return false;
+            remaining.RemoveAt(baseIndex);
+
+            if (fillings.Count > remaining.Count) return false;
+            foreach (var item in fillings)
+            {
+                int index = remaining.FindIndex(r => SameIngredient(r, item));
+                if (index == -1) return false;
+                remaining.RemoveAt(index);
+            }
+            return true;
+        }
+
         /// <summary>First recipe from the list that the items form exactly, or null.</summary>
         public static RecipeSO FindExactRecipe(IReadOnlyList<RecipeItem> items, RecipeListSO list)
         {

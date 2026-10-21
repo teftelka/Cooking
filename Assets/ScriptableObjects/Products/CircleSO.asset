@@ -22,9 +22,17 @@ MonoBehaviour:
   - fromState: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
     action: 0
     toState: {fileID: 11400000, guid: b3109e90d55850c4884cb5ad0f9e118b, type: 2}
+    requiresRecipe: 0
   - fromState: {fileID: 11400000, guid: b3109e90d55850c4884cb5ad0f9e118b, type: 2}
     action: 1
     toState: {fileID: 11400000, guid: bc879355e3aaf4944b70f91076ab1478, type: 2}
+    requiresRecipe: 0
   - fromState: {fileID: 11400000, guid: bc879355e3aaf4944b70f91076ab1478, type: 2}
     action: 2
     toState: {fileID: 11400000, guid: b2552280407fb3240b39c011fbe968b3, type: 2}
+    requiresRecipe: 0
+  baseConfig:
+    isBase: 0
+    acceptsInState: {fileID: 0}
+    maxContents: 4
+    recipes: {fileID: 0}

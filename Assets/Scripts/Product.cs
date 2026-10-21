@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using Recipes;
 using UIScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,6 +16,17 @@ public class Product : BaseObject
     
     [SerializeField] private int range = 0;
     [SerializeField] ProductRangeUI productRangeUI;
+
+    // Ingredients put on this product. Used only when the product is a base (see ProductSO.baseConfig)
+    [SerializeField] private List<IngredientData> contents = new List<IngredientData>();
+
+    public event EventHandler OnContentsChanged;
+    public event EventHandler OnStateChanged;
+
+    public IReadOnlyList<IngredientData> Contents => contents;
+    public bool IsBase => productData != null && productData.IsBase;
+    public bool HasContents => contents.Count > 0;
+    public ProductStateSO GetCurrentState() => currentStateSO;
     
     public void Start()
     {
@@ -49,20 +61,105 @@ public class Product : BaseObject
         {
             isMergable = false;
         }
+
+        OnStateChanged?.Invoke(this, EventArgs.Empty);
     }
     
     public bool CanApplyAction(ProductAction action)
     {
-        return productData.CanApply(currentStateSO, action);
+        var rule = productData.FindRule(currentStateSO, action);
+        return rule != null && (!rule.requiresRecipe || FormsRecipeAfter(rule));
     }
     
     public bool ApplyAction(ProductAction action)
     {
-        if (!productData.TryGetNextState(currentStateSO, action, out var next))
-            return false;
+        var rule = productData.FindRule(currentStateSO, action);
+        if (rule == null) return false;
+        if (rule.requiresRecipe && !FormsRecipeAfter(rule)) return false;
 
-        ApplyState(next);
+        ApplyState(rule.toState);
         return true;
+    }
+
+    // After the transition, the base with its ingredients would exactly form a recipe
+    private bool FormsRecipeAfter(ProductStateTransitionRule rule)
+    {
+        if (!IsBase || rule.toState == null) return false;
+
+        var items = new List<RecipeItem>
+        {
+            new RecipeItem { productSO = productData, productState = rule.toState.state, productLevel = range }
+        };
+        foreach (var ingredient in contents)
+            items.Add(ingredient.ToRecipeItem());
+
+        return RecipeMatcher.FindExactRecipe(items, productData.baseConfig.recipes) != null;
+    }
+
+    // ---- Base: accepting ingredients ----
+
+    // A base takes a plain product, or everything cooked in a pan / pot (the cookware stays where it is)
+    public override bool CanAccept(BaseObject other)
+    {
+        if (!IsBase) return false;
+
+        var config = productData.baseConfig;
+        if (config.acceptsInState == null || currentStateSO != config.acceptsInState) return false;
+
+        var incoming = GetIncomingProducts(other);
+        if (incoming == null || incoming.Count == 0) return false;
+        if (contents.Count + incoming.Count > config.maxContents) return false;
+
+        var fillings = new List<RecipeItem>();
+        foreach (var ingredient in contents)
+            fillings.Add(ingredient.ToRecipeItem());
+
+        foreach (var product in incoming)
+        {
+            // Only plain products: a base with its own ingredients can't be put inside another base
+            if (product == this || product.HasContents) return false;
+            fillings.Add(product.GetRecipeKey());
+        }
+
+        return RecipeMatcher.FitsAnyRecipeWithBase(productData, fillings, config.recipes);
+    }
+
+    public override void Accept(BaseObject other)
+    {
+        var incoming = GetIncomingProducts(other);
+        if (incoming == null || incoming.Count == 0) return;
+
+        // Copy: emptying the cookware clears its list
+        foreach (var product in new List<Product>(incoming))
+        {
+            contents.Add(new IngredientData
+            {
+                product = product.productData,
+                state = product.currentStateSO,
+                level = product.range
+            });
+
+            // The ingredient now lives only as data inside this base
+            Destroy(product.gameObject);
+        }
+
+        if (other is CookingTool cookware)
+            cookware.EmptyContainer();
+
+        OnContentsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)
+    {
+        switch (other)
+        {
+            case Product product:
+                return new[] { product };
+            case CookingTool cookware:
+                return cookware.GetProducts();
+            default:
+                return null;
+        }
     }
     
     public RecipeItem GetRecipeKey()
@@ -75,11 +172,12 @@ public class Product : BaseObject
         };
     }
 
-    // Everything this product contributes to a recipe. A plain product is one ingredient;
-    // composite products (e.g. a pizza base with toppings) will override this.
-    public virtual IEnumerable<RecipeItem> GetRecipeItems()
+    // Everything this product contributes to a recipe: itself plus the ingredients on it
+    public IEnumerable<RecipeItem> GetRecipeItems()
     {
         yield return GetRecipeKey();
+        foreach (var ingredient in contents)
+            yield return ingredient.ToRecipeItem();
     }
     
     public void SetToParent(Transform parent)
@@ -99,6 +197,7 @@ public class Product : BaseObject
     {
         if (!isMergable) return false;
         if (other is not Product otherProduct) return false;
+        if (HasContents || otherProduct.HasContents) return false;
         if (productData != otherProduct.productData) return false;
         return otherProduct.range == range;
     }

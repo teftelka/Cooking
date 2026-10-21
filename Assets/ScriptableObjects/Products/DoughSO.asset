@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: DoughSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Dough
+  icon: {fileID: 736644971566567550, guid: 822e671cb0c00c84395962d0c09b3be6, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: 1bea9a96406e2c043b114de0e1667285, type: 3}
+  price: 13
+  isMergable: 0
+  startState: {fileID: 11400000, guid: 134703077795f6f49aeec63e230c7762, type: 2}
+  rules:
+  - fromState: {fileID: 11400000, guid: 134703077795f6f49aeec63e230c7762, type: 2}
+    action: 0
+    toState: {fileID: 11400000, guid: c902f6c595db6634ea9cd3a0f74edd84, type: 2}
+    requiresRecipe: 0
+  baseConfig:
+    isBase: 0
+    acceptsInState: {fileID: 0}
+    maxContents: 4
+    recipes: {fileID: 0}
