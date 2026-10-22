@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Tables;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,14 @@ namespace Managers
             public Dish completedOrder;
         }
     
+        public event EventHandler<OnOrderRejectedEventArgs> OnOrderRejected;
+        public class OnOrderRejectedEventArgs : EventArgs
+        {
+            public OrderRejectReason reason;
+            public Dish dish;          // the finished dish on the plate, or null if there is none
+            public OrderTable table;   // where it happened, to show the message there
+        }
+
         private void Awake()
         {
             Instance = this;
@@ -98,6 +107,11 @@ namespace Managers
                 PlayerTest.Instance.HandleObjectGive();
                 Debug.Log(order.Name + " order completed!");
             }
+        }
+
+        public void RejectOrder(OrderRejectReason reason, Dish dish, OrderTable table)
+        {
+            OnOrderRejected?.Invoke(this, new OnOrderRejectedEventArgs { reason = reason, dish = dish, table = table });
         }    
     }
 }

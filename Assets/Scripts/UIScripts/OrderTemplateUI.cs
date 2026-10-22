@@ -1,3 +1,4 @@
+using System.Collections;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace UIScripts
         [SerializeField] private ProductRangeColorsSO rangeColorsSO;
     
         private Dish _order;
+        private Coroutine shakeRoutine;
         
         private void Awake()
         {
@@ -41,6 +43,30 @@ namespace UIScripts
         public Dish GetOrder()
         {
             return _order;
+        }
+
+        // A short wobble. Rotation is used because the cards' positions are controlled by a layout group
+        public void Shake()
+        {
+            if (shakeRoutine != null) StopCoroutine(shakeRoutine);
+            shakeRoutine = StartCoroutine(ShakeRoutine());
+        }
+
+        private IEnumerator ShakeRoutine()
+        {
+            const float duration = 0.4f;
+            const float maxAngle = 8f;
+            const float frequency = 30f;
+
+            for (float t = 0f; t < duration; t += Time.deltaTime)
+            {
+                float damping = 1f - t / duration;
+                transform.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(t * frequency) * maxAngle * damping);
+                yield return null;
+            }
+
+            transform.localRotation = Quaternion.identity;
+            shakeRoutine = null;
         }
     }
 }

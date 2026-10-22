@@ -21,6 +21,20 @@ namespace UIScripts
         {
             OrderManager.Instance.OnNewRecipeSpawned += HandleNewRecipeSpawned;
             OrderManager.Instance.OnOrderComplete += HandleOrderComplete;
+            OrderManager.Instance.OnOrderRejected += HandleOrderRejected;
+        }
+
+        // Level too low: shake the cards of this recipe, so the player looks at the required levels
+        private void HandleOrderRejected(object sender, OrderManager.OnOrderRejectedEventArgs e)
+        {
+            if (e.reason != OrderRejectReason.LevelTooLow || e.dish == null) return;
+
+            foreach (var orderTemplate in _activeOrderTemplates)
+            {
+                var card = orderTemplate.GetComponent<OrderTemplateUI>();
+                if (card.GetOrder() != null && card.GetOrder().recipe == e.dish.recipe)
+                    card.Shake();
+            }
         }
 
         private void HandleOrderComplete(object sender, OrderManager.OnOrderCompleteEventArgs e)
