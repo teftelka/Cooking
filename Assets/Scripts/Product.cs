@@ -176,8 +176,8 @@ public class Product : BaseObject
     {
         if (!IsAcceptingIngredients) return false;
 
+        // No separate capacity: the recipes limit how much fits on the base
         var config = productData.baseConfig;
-        if (contents.Count + incoming.Count > config.maxContents) return false;
 
         var fillings = new List<RecipeItem>();
         foreach (var ingredient in contents)

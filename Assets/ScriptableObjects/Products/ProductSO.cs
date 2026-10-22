@@ -280,9 +280,6 @@ public class ProductBaseConfig
     [Tooltip("The base accepts ingredients only while it is in this state")]
     public ProductStateSO acceptsInState;
 
-    [Min(1)]
-    public int maxContents = 4;
-
     [Tooltip("An ingredient is accepted only if the result can still become one of these recipes")]
     public RecipeListSO recipes;
 
