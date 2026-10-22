@@ -234,6 +234,14 @@ PrefabInstance:
       value: BakingSheet
       objectReference: {fileID: 0}
     - target: {fileID: 4983734048028768509, guid: e5d44a46aa2da7041bb2742daa152314, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983734048028768509, guid: e5d44a46aa2da7041bb2742daa152314, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983734048028768509, guid: e5d44a46aa2da7041bb2742daa152314, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}

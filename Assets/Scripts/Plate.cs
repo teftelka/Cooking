@@ -49,7 +49,6 @@ public class Plate: BaseObject, IProductContainer
         if (incomingBase != null)
         {
             if (incoming.Count != 1) return false;          // a base arrives alone
-            if (other is Plate) return false;               // a base can't be moved from one plate to another
             return CanTakeBase(incomingBase);
         }
 

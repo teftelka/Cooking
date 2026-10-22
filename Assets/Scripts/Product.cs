@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Interfaces;
 using Managers;
 using Recipes;
 using UIScripts;
@@ -150,7 +151,7 @@ public class Product : BaseObject
         productData.baseConfig.acceptsInState != null &&
         currentStateSO == productData.baseConfig.acceptsInState;
 
-    // A base takes a plain product, or everything cooked in a pan / pot (the cookware stays where it is)
+    // A base takes a plain product, or everything from a pan / pot / another plate (the container stays where it is)
     public override bool CanAccept(BaseObject other)
     {
         var incoming = GetIncomingProducts(other);
@@ -165,8 +166,8 @@ public class Product : BaseObject
 
         AcceptProducts(incoming);
 
-        if (other is CookingTool cookware)
-            cookware.EmptyContainer();
+        if (other is IProductContainer container)
+            container.EmptyContainer();
     }
 
     // Can these products become ingredients of this base? An empty list checks only the
@@ -233,8 +234,8 @@ public class Product : BaseObject
         {
             case Product product:
                 return new[] { product };
-            case CookingTool cookware:
-                return cookware.GetProducts();
+            case IProductContainer container:   // pan, pot, plate
+                return container.GetProducts();
             default:
                 return null;
         }
