@@ -12,19 +12,19 @@ namespace UIScripts
         [SerializeField] private Transform iconTemplate;
         [SerializeField] private ProductRangeColorsSO rangeColorsSO;
     
-        private RecipeSO _recipe;
+        private Dish _order;
         
         private void Awake()
         {
             iconTemplate.gameObject.SetActive(false);
         }
     
-        public void SetRecipe(RecipeSO recipe)
+        public void SetOrder(Dish order)
         {
-            _recipe = recipe;
-            orderNameText.text = recipe.recipeName;
+            _order = order;
+            orderNameText.text = order.Name;
 
-            foreach (var ingredient in _recipe.ingredients)
+            foreach (var ingredient in _order.ingredients)
             {
                 Transform newIcon = Instantiate(iconTemplate, iconsContainer);
                 newIcon.gameObject.SetActive(true);
@@ -38,9 +38,9 @@ namespace UIScripts
             }
         }
     
-        public RecipeSO GetRecipe()
+        public Dish GetOrder()
         {
-            return _recipe;
+            return _order;
         }
     }
 }

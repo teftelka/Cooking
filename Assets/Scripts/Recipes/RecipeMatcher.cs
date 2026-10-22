@@ -98,15 +98,15 @@ namespace Recipes
         /// The dish fulfils the order: same number of ingredients, same products and states,
         /// and every dish ingredient is at least the level the order requires.
         /// </summary>
-        public static bool SatisfiesOrder(IReadOnlyList<RecipeItem> dish, RecipeSO order)
+        public static bool SatisfiesOrder(IReadOnlyList<RecipeItem> dish, IReadOnlyList<RecipeItem> order)
         {
-            if (order == null || order.ingredients == null) return false;
-            if (dish.Count != order.ingredients.Count) return false;
+            if (dish == null || order == null) return false;
+            if (dish.Count != order.Count) return false;
 
             // Most demanding requirements first, and each one takes the weakest dish item
             // that still satisfies it. This keeps high-level items for high requirements
             // when a recipe has the same product more than once.
-            var requirements = new List<RecipeItem>(order.ingredients);
+            var requirements = new List<RecipeItem>(order);
             requirements.Sort((a, b) => b.productLevel.CompareTo(a.productLevel));
 
             var available = new List<RecipeItem>(dish);

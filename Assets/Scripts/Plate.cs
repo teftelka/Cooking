@@ -11,7 +11,8 @@ public class Plate: BaseObject, IProductContainer
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
     [SerializeField] private RecipeListSO recipeList;
-    [SerializeField] private RecipeSO completedRecipe;
+    // Not serialized on purpose: Unity would turn a null serializable class into an empty object
+    private Dish completedDish;
     //[SerializeField] private SpriteRenderer stainImage;
     private GameObject newRecipe;
     
@@ -186,7 +187,7 @@ public class Plate: BaseObject, IProductContainer
             Destroy(newRecipe);
             newRecipe = null;
         }
-        completedRecipe = null;
+        completedDish = null;
 
         foreach (var p in _products)
             p.EnableImage();
@@ -194,12 +195,7 @@ public class Plate: BaseObject, IProductContainer
     
     private void MakeModifiedRecipe(RecipeSO recipe, List<RecipeItem> recipeItems)
     {
-        var modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
-        modifiedRecipeSO.ingredients = recipeItems;
-        modifiedRecipeSO.resultPrefab = recipe.resultPrefab;
-        modifiedRecipeSO.recipeName = recipe.recipeName;
-        
-        completedRecipe = modifiedRecipeSO;
+        completedDish = new Dish(recipe, recipeItems);
     }
     
     private void CreateDish(RecipeSO recipe)
@@ -217,9 +213,10 @@ public class Plate: BaseObject, IProductContainer
         newRecipe.transform.localPosition = Vector3.zero;
     }
     
-    public RecipeSO GetRecipeOnPlate()
+    // The finished dish on the plate (with the actual ingredient levels), or null if nothing is finished
+    public Dish GetDishOnPlate()
     {
-        return completedRecipe;
+        return completedDish;
     }
 
     public void ResetPlate()
@@ -251,7 +248,7 @@ public class Plate: BaseObject, IProductContainer
 
     public void EmptyContainer()
     {
-        completedRecipe = null;
+        completedDish = null;
         Destroy(newRecipe);
         _products.Clear();
         

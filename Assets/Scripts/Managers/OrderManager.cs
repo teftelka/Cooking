@@ -11,7 +11,7 @@ namespace Managers
         public static OrderManager Instance { get; set; }
     
         [SerializeField] private RecipeListSO recipeList;
-        [SerializeField] private List<RecipeSO> _activeOrders;
+        [SerializeField] private List<Dish> _activeOrders;
         private float spawnRecipeTimer;
         private float spawnRecipeTimerMax = 3f;
         [SerializeField] private int maxActiveOrders = 2;
@@ -19,19 +19,19 @@ namespace Managers
         public EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
         public class OnNewRecipeSpawnedEventArgs : EventArgs
         {
-            public RecipeSO newRecipe;
+            public Dish newOrder;
         }
     
         public EventHandler<OnOrderCompleteEventArgs> OnOrderComplete;
         public class OnOrderCompleteEventArgs : EventArgs
         {
-            public RecipeSO recipeConplete;
+            public Dish completedOrder;
         }
     
         private void Awake()
         {
             Instance = this;
-            _activeOrders = new List<RecipeSO>();
+            _activeOrders = new List<Dish>();
         }
     
         private void Update()
@@ -50,14 +50,15 @@ namespace Managers
         private void SpawnNewOrder()
         {
             var nextOrderRecipe = recipeList.allRecipes[UnityEngine.Random.Range(0, recipeList.allRecipes.Count)];
-            var modifiedRecipeSO = RecipeModification(nextOrderRecipe);
+            var order = CreateOrder(nextOrderRecipe);
         
-            OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newRecipe = modifiedRecipeSO });
+            OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newOrder = order });
         
-            _activeOrders.Add(modifiedRecipeSO);
+            _activeOrders.Add(order);
         }
 
-        private RecipeSO RecipeModification(RecipeSO nextOrderRecipe)
+        // An order is the recipe with a random required level for every mergeable ingredient
+        private Dish CreateOrder(RecipeSO nextOrderRecipe)
         {
             var recipeItems = new List<RecipeItem>();
 
@@ -79,29 +80,23 @@ namespace Managers
                 recipeItems.Add(recipeItem);
             }
 
-            RecipeSO modifiedRecipeSO = ScriptableObject.CreateInstance<RecipeSO>();
-        
-            modifiedRecipeSO.ingredients = recipeItems;
-            modifiedRecipeSO.resultPrefab = nextOrderRecipe.resultPrefab;
-            modifiedRecipeSO.recipeName = nextOrderRecipe.recipeName;
-        
-            return modifiedRecipeSO;
+            return new Dish(nextOrderRecipe, recipeItems);
         }
 
-        public List<RecipeSO> GetActiveOrders()
+        public List<Dish> GetActiveOrders()
         {
             return _activeOrders;
         }   
         
-        public void CompleteOrder(RecipeSO recipe)
+        public void CompleteOrder(Dish order)
         {
-            if (_activeOrders.Contains(recipe))
+            if (_activeOrders.Contains(order))
             {
-                _activeOrders.Remove(recipe);
-                OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { recipeConplete = recipe });
+                _activeOrders.Remove(order);
+                OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { completedOrder = order });
                 spawnRecipeTimer = spawnRecipeTimerMax;
                 PlayerTest.Instance.HandleObjectGive();
-                Debug.Log(recipe.recipeName + " order completed!");
+                Debug.Log(order.Name + " order completed!");
             }
         }    
     }

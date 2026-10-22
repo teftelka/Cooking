@@ -27,7 +27,7 @@ namespace UIScripts
         {
             foreach (var order in _activeOrderTemplates)
             {
-                if (e.recipeConplete == order.GetComponent<OrderTemplateUI>().GetRecipe())
+                if (e.completedOrder == order.GetComponent<OrderTemplateUI>().GetOrder())
                 {
                     _activeOrderTemplates.Remove(order);
                     Destroy(order.gameObject);
@@ -38,15 +38,14 @@ namespace UIScripts
 
         private void HandleNewRecipeSpawned(object sender, OrderManager.OnNewRecipeSpawnedEventArgs e)
         {
-            RecipeSO newRecipe = e.newRecipe;
-            UpdateVisual(newRecipe);
+            UpdateVisual(e.newOrder);
         }
 
-        private void UpdateVisual(RecipeSO recipeToSpawn)
+        private void UpdateVisual(Dish orderToShow)
         {
             Transform newOrder = Instantiate(orderTemplate, container);
             newOrder.gameObject.SetActive(true);
-            newOrder.GetComponent<OrderTemplateUI>().SetRecipe(recipeToSpawn);
+            newOrder.GetComponent<OrderTemplateUI>().SetOrder(orderToShow);
         
             _activeOrderTemplates.Add(newOrder);
         

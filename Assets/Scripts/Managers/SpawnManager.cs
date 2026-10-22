@@ -36,28 +36,28 @@ namespace Managers
 
         private void HandleOrderComplete(object sender, OrderManager.OnOrderCompleteEventArgs e)
         {
-            var activeRecipes = OrderManager.Instance.GetActiveOrders();
+            var activeOrders = OrderManager.Instance.GetActiveOrders();
         
             ClearProductSpawners();
-            foreach (var activeRecipe in activeRecipes)
+            foreach (var activeOrder in activeOrders)
             {
-                RespawnProductSpawners(activeRecipe);
+                RespawnProductSpawners(activeOrder);
             }
         }
     
-        private void RespawnProductSpawners(RecipeSO recipe)
+        private void RespawnProductSpawners(Dish order)
         {
-            SpawnIfNotExists(recipe);
+            SpawnIfNotExists(order);
         }
 
         private void HandleNewRecipeSpawned(object sender, OrderManager.OnNewRecipeSpawnedEventArgs e)
         {
-            SpawnIfNotExists(e.newRecipe);
+            SpawnIfNotExists(e.newOrder);
         }
     
-        private void SpawnIfNotExists(RecipeSO recipe)
+        private void SpawnIfNotExists(Dish order)
         {
-            foreach (var ingredient in recipe.ingredients)
+            foreach (var ingredient in order.ingredients)
             {
                 bool exists = spawners.Any(s =>
                     s.GetComponent<SpawnTable>().GetProductSO() == ingredient.productSO);

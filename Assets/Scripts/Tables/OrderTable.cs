@@ -21,14 +21,14 @@ namespace Tables
         
         private void HandleOrderComplete(Plate plate)
         {
-            var recipe = plate.GetRecipeOnPlate();
-            if (!recipe) return;
+            var dish = plate.GetDishOnPlate();
+            if (dish == null) return;
 
             var activeOrders = OrderManager.Instance.GetActiveOrders();
             
             foreach (var activeOrder in activeOrders)
             {
-                if (!RecipeMatcher.SatisfiesOrder(recipe.ingredients, activeOrder)) continue;
+                if (!RecipeMatcher.SatisfiesOrder(dish.ingredients, activeOrder.ingredients)) continue;
                 OrderManager.Instance.CompleteOrder(activeOrder);
                 plate.DestroySelf();
                 break;
