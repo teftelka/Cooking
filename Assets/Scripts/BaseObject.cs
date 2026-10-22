@@ -10,9 +10,10 @@ public abstract class BaseObject: MonoBehaviour
         _originalTable = table;
     }
 
-    public void ReturnToOrigin()
+    // Returns false if there is no origin or the origin table refuses the object
+    public bool ReturnToOrigin()
     {
-        _originalTable?.SetObjectOnTable(this);
+        return _originalTable != null && _originalTable.TryReturnObject(this);
     }
     
     public BaseTable GetOrigin()
@@ -27,4 +28,4 @@ public abstract class BaseObject: MonoBehaviour
 
     public virtual bool CanCombineWith(BaseObject other) => false;
     public virtual void CombineWith(BaseObject other) { }
-}
+}

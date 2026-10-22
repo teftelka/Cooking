@@ -1,11 +1,9 @@
 using System;
-using DefaultNamespace;
-using Interfaces;
 using UnityEngine;
 
 namespace Tables
 {
-    public class CuttingTable: BaseTable, IClickable
+    public class CuttingTable: BaseTable
     {
         
         public EventHandler<OnCuttingProgressChangedEventArgs> OnCuttingProgressChanged;
@@ -42,64 +40,28 @@ namespace Tables
             cuttingState = CuttingTableState.Cut;
         }
 
-        public void OnClick()
-        {
-            var playerProduct = PlayerTest.Instance.GetProduct();
-            if (playerProduct)
-            {
-                if (_hasObject)
-                {
-                    HandleCollision(playerProduct);
-                    return;
-                }
-                TakeObject(playerProduct);
-                return;
-            }
-            if (_hasObject)
-            {
-                HandleObjectGive();
-            }
-        }
+        // Only products that can be cut
+        public override bool CanPlace(BaseObject obj) =>
+            obj is Product product && product.CanApplyAction(ProductAction.Cut);
 
-        private void HandleObjectGive()
-        {
-            if (cuttingState == CuttingTableState.Cutting) return;
-            PlayerTest.Instance.HandleObjectTake(GiveObject());
-            cuttingState = CuttingTableState.Idle;
-        }
+        // Nothing leaves the board while it is being cut (not even into a plate)
+        public override bool CanTake() => cuttingState != CuttingTableState.Cutting;
 
-        private void HandleCollision(BaseObject playerProduct)
-        {
-            if (playerProduct.CanAccept(_objectOnTable))
-            {
-                playerProduct.Accept(_objectOnTable);
-                if (playerProduct is Plate && _objectOnTable is CookingTool) return;
-                _objectOnTable = null;
-                _hasObject = false;
-            }
-        }
+        // Right-click may bring back any product taken from here, e.g. an already chopped one
+        public override bool CanReturn(BaseObject obj) => obj is Product;
 
-        private void TakeObject(BaseObject obj)
+        protected override void OnPlaced(BaseObject obj)
         {
-            if (obj is not Product product) return;
-            if (!product.CanApplyAction(ProductAction.Cut)) return;
-
-            SetObjectOnTable(obj);
-            PlayerTest.Instance.HandleObjectGive();
-        }
-        
-        public override void SetObjectOnTable(BaseObject _object)
-        {
-            _hasObject = true;
-            _objectOnTable = _object;
-            _object.transform.position = spawnPosition.transform.position;
-            _object.RememberOrigin(this);
-
-            if (_object is Product product && product.CanApplyAction(ProductAction.Cut)) 
+            if (obj is Product product && product.CanApplyAction(ProductAction.Cut))
             {
                 _timer = cuttingTime;
                 cuttingState = CuttingTableState.Cutting;
             }
+        }
+
+        protected override void OnTaken(BaseObject obj)
+        {
+            cuttingState = CuttingTableState.Idle;
         }
     }
 }

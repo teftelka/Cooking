@@ -14,29 +14,25 @@ public class PlateIconsUI : MonoBehaviour
     
     private void Start()
     {
-        plate.OnProductAdded += HandleProductAdded;
-        plate.OnEmptyPlate += HandleEmptyPlate;
+        // Redraw from the full contents on every change: ingredients can be added
+        // to a base that is already on the plate, without a new product arriving
+        plate.OnContentsChanged += HandleContentsChanged;
+        Rebuild();
     }
 
-    private void HandleEmptyPlate(object sender, EventArgs e)
+    private void OnDestroy()
     {
-        foreach (Transform child in transform) 
-        {
-            if (child == iconTemplate) continue;
-            Destroy(child.gameObject);
-        }
-    }
-    
-    private void HandleProductAdded(object sender, Plate.OnProductAddedEventArgs e)
-    {
-        var sprite = e.product.GetDefaultSprite();
-        UpdateVisual(sprite, e.product.GetProductRange());
+        if (plate != null)
+            plate.OnContentsChanged -= HandleContentsChanged;
     }
 
-    private void UpdateVisual(Sprite icon, int range)
+    private void HandleContentsChanged(object sender, EventArgs e)
     {
-        Transform newIcon = Instantiate(iconTemplate, transform);
-        newIcon.GetComponent<IconsTemplateUI>().SetIcon(icon, range);
-        newIcon.gameObject.SetActive(true);
+        Rebuild();
+    }
+
+    private void Rebuild()
+    {
+        IconsListBuilder.Rebuild(transform, iconTemplate, IconsListBuilder.CollectItems(plate.GetProducts()));
     }
 }

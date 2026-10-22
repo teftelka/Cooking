@@ -46,17 +46,21 @@ namespace DefaultNamespace
             _product = null;
         }
         
-        public void HandleObjectGive()
+        // Returns false if the hand was already empty
+        public bool HandleObjectGive()
         {
-            if (!hasObject) return;
+            if (!hasObject) return false;
 
             ClearObject();
+            return true;
         }
         
-        public void HandleObjectTake(BaseObject product)
+        // Returns false if the hand is busy: the caller must not remove the object from its place
+        public bool HandleObjectTake(BaseObject product)
         {
-            if (hasObject) return;
+            if (hasObject || product == null) return false;
             SetObject(product);
+            return true;
         }
         
         private void MoveHeldObject()
@@ -72,10 +76,10 @@ namespace DefaultNamespace
         public void CancelHolding()
         {
             if (!hasObject) return;
-            if (_product.GetOrigin() == null) return;
             
-            _product.ReturnToOrigin();
-            ClearObject();
+            // The origin table may refuse (occupied, or the object no longer fits there)
+            if (_product.ReturnToOrigin())
+                ClearObject();
         }
     }
-}
+}

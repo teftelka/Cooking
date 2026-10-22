@@ -1,13 +1,12 @@
 using System;
 using DefaultNamespace;
-using Interfaces;
 using Managers;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace Tables
 {
-    public class SinkTable: BaseTable, IClickable
+    public class SinkTable: BaseTable
     {
         private float washTime = 3;
         private int platesCount = 0;
@@ -66,7 +65,7 @@ namespace Tables
             platesCount--;
         }
 
-        public void OnClick()
+        public override void OnClick()
         {
             if (washingState == SinkTableState.Washing) return;
             if (platesCount == 0) return;
@@ -85,4 +84,4 @@ namespace Tables
             platesCount++;
         }
     }
-}
+}

@@ -1,85 +1,63 @@
-using DefaultNamespace;
-using Interfaces;
 using ScriptableObjects;
 using Tables;
 using UnityEngine;
 
-public class CookingStation : BaseTable, IClickable
+public class CookingStation : BaseTable
 {
     [SerializeField]
     private CookingStationTypeSO stationType;
 
-    public void OnClick()
+    [Tooltip("A tool that always stays on this station, e.g. the baking sheet inside an oven. " +
+             "Must be a child object of the station (not a prefab asset). Leave empty for a normal stove.")]
+    [SerializeField]
+    private CookingTool fixedTool;
+
+    private bool HasFixedTool => fixedTool != null;
+
+    private void Start()
     {
-        var playerObject = PlayerTest.Instance.GetProduct();
+        if (!HasFixedTool) return;
 
-        if (playerObject)
+        if (!fixedTool.gameObject.scene.IsValid())
         {
-            if (_hasObject)
-            {
-                HandleCollision(playerObject);
-                return;
-            }
-
-            TakeObject(playerObject);
+            Debug.LogError($"{name}: the fixed tool must be a child object of the station, not a prefab asset", this);
+            fixedTool = null;
             return;
         }
 
-        if (_hasObject)
-        {
-            HandleObjectGive();
-        }
+        SetObjectOnTable(fixedTool);   // OnPlaced turns the heat on, and it stays on
     }
 
-    private void TakeObject(BaseObject objectInHand)
-    {
-        if (!CanAcceptTool(objectInHand))
-            return;
+    public override bool CanPlace(BaseObject obj) =>
+        !HasFixedTool && obj is CookingTool tool && tool.CanWorkWith(stationType);
 
-        PlayerTest.Instance.HandleObjectGive();
-        SetObjectOnTable(objectInHand);
+    // A fixed tool never leaves the station (no taking, no swapping)
+    public override bool CanTake() => !HasFixedTool;
+
+    // With a fixed tool, an empty hand takes what is inside it (e.g. the pizza), not the tool itself.
+    // Only a single product can be taken by hand; with more, use a plate.
+    public override BaseObject TakeForEmptyHand()
+    {
+        if (!HasFixedTool) return base.TakeForEmptyHand();
+
+        var products = fixedTool.GetProducts();
+        if (products.Count != 1) return null;
+
+        var product = products[0];
+        fixedTool.EmptyContainer();
+        product.DetachFromContainer();
+        return product;
     }
 
-    private bool CanAcceptTool(BaseObject obj)
+    protected override void OnPlaced(BaseObject obj)
     {
-        return obj is CookingTool tool &&
-               tool.CanWorkWith(stationType);
-    }
-
-    public override void SetObjectOnTable(BaseObject obj)
-    {
-        _hasObject = true;
-        _objectOnTable = obj;
-
-        obj.transform.position = spawnPosition.transform.position;
-        obj.RememberOrigin(this);
-
         if (obj is CookingTool tool)
             tool.SetHeat(true);
     }
 
-    private void HandleObjectGive()
+    protected override void OnTaken(BaseObject obj)
     {
-        if (_objectOnTable is CookingTool tool)
+        if (obj is CookingTool tool)
             tool.SetHeat(false);
-
-        PlayerTest.Instance.HandleObjectTake(GiveObject());
-    }
-
-    private void HandleCollision(BaseObject objectInHand)
-    {
-        if (_objectOnTable is not CookingTool tool) return;
-        
-        if (tool.CanAccept(objectInHand))
-        {
-            tool.Accept(objectInHand);
-            PlayerTest.Instance.HandleObjectGive();
-            return;
-        }
-        
-        if (objectInHand.CanAccept(tool))
-        {
-            objectInHand.Accept(tool);
-        }
     }
 }

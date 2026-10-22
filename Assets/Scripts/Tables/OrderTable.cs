@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using DefaultNamespace;
-using Interfaces;
 using Managers;
+using Recipes;
 
 namespace Tables
 {
-    public class OrderTable: BaseTable, IClickable
+    public class OrderTable: BaseTable
     {
-        public void OnClick()
+        public override void OnClick()
         {
             var playerProduct = PlayerTest.Instance.GetProduct();
             if (playerProduct)
@@ -28,30 +28,12 @@ namespace Tables
             
             foreach (var activeOrder in activeOrders)
             {
-                if (!IsExactRecipe(recipe, activeOrder)) continue;
+                if (!RecipeMatcher.SatisfiesOrder(recipe.ingredients, activeOrder)) continue;
                 OrderManager.Instance.CompleteOrder(activeOrder);
                 plate.DestroySelf();
                 break;
 
             }
         }
-
-        private bool IsExactRecipe(RecipeSO recipeOnPlate, RecipeSO recipeOrder)
-        {
-            List<RecipeItem> remaining = new(recipeOrder.ingredients);
-            foreach (var item in recipeOnPlate.ingredients)
-            {
-                int index = remaining.FindIndex(r =>
-                    r.productSO == item.productSO &&
-                    r.productState == item.productState &&
-                    r.productLevel <= item.productLevel);
-
-                if (index == -1)
-                    return false;
-
-                remaining.RemoveAt(index);
-            }
-            return true;
-        }
     }
-}
+}
