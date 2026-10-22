@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: BunSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Bun
+  icon: {fileID: 1633917850492232148, guid: 8b63d41787ea5d748936c0ca2f38a2b2, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: dfd4082a0e3afc4419e18ce8754ef5f5, type: 3}
+  price: 9
+  isMergable: 0
+  startState: {fileID: 11400000, guid: 752bf1112ff6c194b91d0cb1736da5b9, type: 2}
+  rules: []
+  baseConfig:
+    isBase: 1
+    acceptsInState: {fileID: 11400000, guid: 752bf1112ff6c194b91d0cb1736da5b9, type: 2}
+    maxContents: 4
+    recipes: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}
+    dishState: {fileID: 0}
+    spritesByContents:
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      sprite: {fileID: 407996022406147843, guid: c717a62711491bf4f885b5e2344443b3, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      sprite: {fileID: 4617509927854921374, guid: f2af52cb04555c84c80dad0fd00812d1, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      sprite: {fileID: -4577949260944829474, guid: 856d516559f633c4ca88ba943914a4b1, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      sprite: {fileID: 3861803131758571596, guid: d0380fbd1a639624d96f74a9e2b4d46a, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      sprite: {fileID: 5467224638103847375, guid: d4d90b710bb1b764c9845405962ba218, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      sprite: {fileID: 1159663256367151541, guid: 2b1339d66dd27de4ca83b71219805cf1, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      sprite: {fileID: -8189654986712948149, guid: b96e1ba60bb9a7349a0b93c1bcbc475b, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 6948002679293019059, guid: 900449fbc1c364e42875de523acaa8f6, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 5401861650038777777, guid: 5365e8e58434b1a4c8bd5c379e16b516, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 8653736557328789900, guid: 08b78ce421ce85b4cb5ab236b514be84, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 8713460928300378272, guid: 7de47a2bf0b569b4693dafe75aa853c8, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 4365930640225516280, guid: 704544ae2579e84448e525974e74034c, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: -3483173085129565579, guid: f9fe3ce1076ffbe48950af7889d1eef6, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: 5000527840595771449, guid: f9f924451bba1c54a819210237fc42be, type: 3}
+    - ingredients:
+      - product: {fileID: 11400000, guid: a839774e1fb75e545b075f7daca2cf98, type: 2}
+        state: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+      - product: {fileID: 11400000, guid: 42676bb3aa33c4847a1fd6bbbf6752cc, type: 2}
+        state: {fileID: 11400000, guid: 765a1eec40c6a544bb204fc80ff5b8b4, type: 2}
+      - product: {fileID: 11400000, guid: e2b1bc9ce20b66b49bb855c2aef6ba5e, type: 2}
+        state: {fileID: 11400000, guid: 7352e184eeea09c4f8f2d0db0296a1e8, type: 2}
+      - product: {fileID: 11400000, guid: 126cbdd5411c04245ad17a03ddd3bcc7, type: 2}
+        state: {fileID: 11400000, guid: 2d28ee4a0bf8d514ab4af033f4bd0a67, type: 2}
+      sprite: {fileID: -5414442669768994528, guid: 90531ad65bb35a24c9dd0464730dcd3b, type: 3}

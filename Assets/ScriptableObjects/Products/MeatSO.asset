@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40426a9b152e421429770bfe0f4f3b74, type: 3}
+  m_Name: MeatSO
+  m_EditorClassIdentifier: Assembly-CSharp::ProductSO
+  productName: Meat
+  icon: {fileID: -4000605481103776352, guid: acdede75be038174e90a3348e44e2884, type: 3}
+  prefab: {fileID: 4754075658079602206, guid: b156c6420a8ed7048b16f289ab4a9030, type: 3}
+  price: 9
+  isMergable: 0
+  startState: {fileID: 11400000, guid: f24ba86e6a2ff3b448fb957b54ef5595, type: 2}
+  rules:
+  - fromState: {fileID: 11400000, guid: f24ba86e6a2ff3b448fb957b54ef5595, type: 2}
+    action: 0
+    toState: {fileID: 11400000, guid: 20df4beab3bdab44e97f8801e62f4d06, type: 2}
+    requiresRecipe: 0
+  - fromState: {fileID: 11400000, guid: 20df4beab3bdab44e97f8801e62f4d06, type: 2}
+    action: 1
+    toState: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+    requiresRecipe: 0
+  - fromState: {fileID: 11400000, guid: 22032f88ef027474fbc73ea1cc8a3c3c, type: 2}
+    action: 2
+    toState: {fileID: 11400000, guid: dbbdad08fd7713242a6ef077efde663c, type: 2}
+    requiresRecipe: 0
+  baseConfig:
+    isBase: 0
+    acceptsInState: {fileID: 0}
+    maxContents: 4
+    recipes: {fileID: 11400000, guid: 001137126f88f0d4f9809e9b0bcdacba, type: 2}
+    dishState: {fileID: 0}
+    spritesByContents: []
