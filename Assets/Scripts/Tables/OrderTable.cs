@@ -45,6 +45,7 @@ namespace Tables
                 if (!RecipeMatcher.SatisfiesOrder(dish.ingredients, activeOrder.ingredients)) continue;
 
                 OrderManager.Instance.CompleteOrder(activeOrder);
+                PlayerTest.Instance.HandleObjectGive();
                 plate.DestroySelf();
                 return;
             }

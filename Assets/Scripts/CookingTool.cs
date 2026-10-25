@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class CookingTool : BaseObject, IProductContainer
 {
-    public EventHandler OnEmptyTool;
-    public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+    public event EventHandler OnEmptyTool;
+    public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs : EventArgs {
         public float cookingProgress; 
     }
 
-    public EventHandler<OnProductAddedEventArgs> OnProductAdded;
+    public event EventHandler<OnProductAddedEventArgs> OnProductAdded;
     public class OnProductAddedEventArgs : EventArgs
     {
         public Product product;

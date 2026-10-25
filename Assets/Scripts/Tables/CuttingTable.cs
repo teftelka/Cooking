@@ -6,7 +6,7 @@ namespace Tables
     public class CuttingTable: BaseTable
     {
         
-        public EventHandler<OnCuttingProgressChangedEventArgs> OnCuttingProgressChanged;
+        public event EventHandler<OnCuttingProgressChangedEventArgs> OnCuttingProgressChanged;
         public class OnCuttingProgressChangedEventArgs {
             public float cuttingProgress; 
         }

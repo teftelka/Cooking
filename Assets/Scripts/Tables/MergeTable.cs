@@ -17,7 +17,7 @@ namespace Tables
         
         [SerializeField] private List<Product> productsOnMerge = new List<Product>();
         
-        public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+        public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
         public class OnProgressChangedEventArgs {
             public float progress; 
         }

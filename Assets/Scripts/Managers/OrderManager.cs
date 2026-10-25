@@ -9,7 +9,7 @@ namespace Managers
 {
     public class OrderManager: MonoBehaviour
     {
-        public static OrderManager Instance { get; set; }
+        public static OrderManager Instance { get; private set; }
     
         [SerializeField] private RecipeListSO recipeList;
         [SerializeField] private List<Dish> _activeOrders;
@@ -17,13 +17,13 @@ namespace Managers
         private float spawnRecipeTimerMax = 3f;
         [SerializeField] private int maxActiveOrders = 2;
     
-        public EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
+        public event EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
         public class OnNewRecipeSpawnedEventArgs : EventArgs
         {
             public Dish newOrder;
         }
     
-        public EventHandler<OnOrderCompleteEventArgs> OnOrderComplete;
+        public event EventHandler<OnOrderCompleteEventArgs> OnOrderComplete;
         public class OnOrderCompleteEventArgs : EventArgs
         {
             public Dish completedOrder;
@@ -104,7 +104,6 @@ namespace Managers
                 _activeOrders.Remove(order);
                 OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { completedOrder = order });
                 spawnRecipeTimer = spawnRecipeTimerMax;
-                PlayerTest.Instance.HandleObjectGive();
                 Debug.Log(order.Name + " order completed!");
             }
         }

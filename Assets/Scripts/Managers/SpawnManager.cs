@@ -8,7 +8,7 @@ namespace Managers
 {
     public class SpawnManager : MonoBehaviour
     {
-        public static SpawnManager Instance { get; set; }
+        public static SpawnManager Instance { get; private set; }
     
         [SerializeField] private GameObject spawnerPrefab;
         [SerializeField] private ProductList productsToSpawn;

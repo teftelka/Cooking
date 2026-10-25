@@ -13,7 +13,7 @@ public class GardenPlate: MonoBehaviour
     private bool _isInitialized;
 
     
-    public EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+    public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs {
         public float spawningProgress; 
     }

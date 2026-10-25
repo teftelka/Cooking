@@ -10,7 +10,7 @@ namespace Tables
     {
         private List<Plate> platesOnTable = new List<Plate>();
 
-        public EventHandler<OnPlateCountChangedEventArgs> OnPlateCountChanged;
+        public event EventHandler<OnPlateCountChangedEventArgs> OnPlateCountChanged;
         public class OnPlateCountChangedEventArgs {
             public int plateCount; 
         }

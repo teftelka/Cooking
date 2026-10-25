@@ -6,13 +6,13 @@ namespace UIScripts
 {
     public class ScoreManager: MonoBehaviour
     {
-        public static ScoreManager Instance { get; set; }
+        public static ScoreManager Instance { get; private set; }
         
         [SerializeField] private int currentMoney;
         [SerializeField] private int currentExperience;
 
-        public EventHandler OnExperienceUpdated;
-        public EventHandler OnMoneyUpdated;
+        public event EventHandler OnExperienceUpdated;
+        public event EventHandler OnMoneyUpdated;
         
         
         private void Awake()

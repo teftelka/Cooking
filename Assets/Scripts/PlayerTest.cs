@@ -4,7 +4,7 @@ namespace DefaultNamespace
 {
     public class PlayerTest: MonoBehaviour
     {
-        public static PlayerTest Instance { get; set; }
+        public static PlayerTest Instance { get; private set; }
         [SerializeField] private bool hasObject;
         [SerializeField] private BaseObject _product;
         [SerializeField] private Camera mainCamera;

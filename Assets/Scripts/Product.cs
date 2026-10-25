@@ -32,7 +32,6 @@ public class Product : BaseObject
     // True while the product lies inside a plate or cookware: their own icon panel shows it then
     public bool IsInsideContainer { get; private set; }
 
-    public IReadOnlyList<IngredientData> Contents => contents;
     public bool IsBase => productData != null && productData.IsBase;
     public bool HasContents => contents.Count > 0;
     public ProductStateSO GetCurrentState() => currentStateSO;
@@ -228,7 +227,9 @@ public class Product : BaseObject
         spriteRenderer.sprite = sprite != null ? sprite : currentStateSO.sprite;
     }
 
-    private static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)
+    // What moves when this object is put into something: a plain product moves itself,
+    // a container (pan, pot, plate) gives its contents and stays. Shared by Product and Plate.
+    public static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)
     {
         switch (other)
         {
@@ -306,23 +307,6 @@ public class Product : BaseObject
         return otherProduct.range == range;
     }
 
-    /*public override void CombineWith(BaseObject other)
-    {
-        Product otherProduct = (Product)other;
-        range++;
-        productRangeUI.UpdateRange(range);
-        Destroy(otherProduct.gameObject);
-        
-        ProductExperienceManager.Instance.AddExperience(productData, 50);
-
-        Debug.Log("Products combined -> upgraded");
-    }*/
-
-    public Sprite GetDefaultSprite()
-    {
-        return productData.icon;
-    }
-    
     public bool GetIsMergable()
     {
         return isMergable;

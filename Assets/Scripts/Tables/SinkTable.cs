@@ -14,12 +14,12 @@ namespace Tables
         [SerializeField] private float _timer;
         [SerializeField] private GameObject indicatorImage;
         
-        public EventHandler<OnWashingProgressChangedEventArgs> OnWashingProgressChanged;
+        public event EventHandler<OnWashingProgressChangedEventArgs> OnWashingProgressChanged;
         public class OnWashingProgressChangedEventArgs {
             public float washingProgress; 
         }
         
-        public EventHandler OnWashingCompleted;
+        public event EventHandler OnWashingCompleted;
         
         private enum SinkTableState
         {

@@ -22,10 +22,8 @@ public abstract class BaseObject: MonoBehaviour
     }
 
     public virtual bool CanAccept(BaseObject other) => false;
-    public virtual bool CanBeAcceptedBy(BaseObject other) => false;
     public virtual void Accept(BaseObject other) { }
 
 
     public virtual bool CanCombineWith(BaseObject other) => false;
-    public virtual void CombineWith(BaseObject other) { }
 }

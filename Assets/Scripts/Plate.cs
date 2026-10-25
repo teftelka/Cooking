@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class Plate: BaseObject, IProductContainer
 {
-    [SerializeField] private bool hasObject;
     [SerializeField] private bool isDirty;
     [SerializeField] private List<Product> _products;
     [SerializeField] private RecipeListSO recipeList;
@@ -16,14 +15,6 @@ public class Plate: BaseObject, IProductContainer
     //[SerializeField] private SpriteRenderer stainImage;
     private GameObject newRecipe;
     
-    public EventHandler<OnProductAddedEventArgs> OnProductAdded;
-    public class OnProductAddedEventArgs : EventArgs
-    {
-        public Product product;
-    }
-    
-    public EventHandler OnEmptyPlate;
-
     // Raised after any change of what is on the plate (including ingredients added to a base on it)
     public event EventHandler OnContentsChanged;
 
@@ -37,7 +28,7 @@ public class Plate: BaseObject, IProductContainer
     {
         if (isDirty) return false;
 
-        var incoming = GetIncomingProducts(other);
+        var incoming = Product.GetIncomingProducts(other);
         if (incoming == null || incoming.Count == 0) return false;
 
         // 1. A base is on the plate: everything goes into the base, nothing else is accepted
@@ -84,19 +75,6 @@ public class Plate: BaseObject, IProductContainer
         return null;
     }
 
-    private static IReadOnlyList<Product> GetIncomingProducts(BaseObject other)
-    {
-        switch (other)
-        {
-            case Product product:
-                return new[] { product };
-            case IProductContainer container:
-                return container.GetProducts();
-            default:
-                return null;
-        }
-    }
-
     public List<Product> GetProducts()
     {
         return _products;
@@ -104,7 +82,7 @@ public class Plate: BaseObject, IProductContainer
 
     public override void Accept(BaseObject other)
     {
-        var incoming = GetIncomingProducts(other);
+        var incoming = Product.GetIncomingProducts(other);
         if (incoming == null || incoming.Count == 0) return;
 
         // 1. A base is on the plate: the base takes the product / the cookware contents
@@ -141,8 +119,6 @@ public class Plate: BaseObject, IProductContainer
     private void AddProductToPlate(Product product)
     {
         _products.Add(product);
-        OnProductAdded?.Invoke(this, new OnProductAddedEventArgs { product = product });
-        
         product.SetToParent(transform);
         TryCompleteRecipe();
     }
@@ -251,8 +227,7 @@ public class Plate: BaseObject, IProductContainer
         completedDish = null;
         Destroy(newRecipe);
         _products.Clear();
-        
-        OnEmptyPlate?.Invoke(this, EventArgs.Empty);
+
         OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
     
