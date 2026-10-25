@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using Tables;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -11,7 +12,14 @@ namespace Managers
     {
         public static OrderManager Instance { get; private set; }
     
-        [SerializeField] private RecipeListSO recipeList;
+        [Tooltip("The menu: recipes that can be ordered. Unlock conditions will narrow it later")]
+        [FormerlySerializedAs("recipeList")]
+        [SerializeField] private RecipeListSO orderPool;
+
+        [Tooltip("The cookbook: everything that can be assembled (the list the plate and the bases use). " +
+                 "Only used to check that every recipe on the menu can actually be made")]
+        [SerializeField] private RecipeListSO cookbook;
+
         [SerializeField] private List<Dish> _activeOrders;
         private float spawnRecipeTimer;
         private float spawnRecipeTimerMax = 3f;
@@ -42,6 +50,30 @@ namespace Managers
             Instance = this;
             _activeOrders = new List<Dish>();
         }
+
+#if UNITY_EDITOR
+        // At Play too: the lists are separate assets and can change after this component was validated
+        private void Start() => ValidateMenu();
+        private void OnValidate() => ValidateMenu();
+
+        private void ValidateMenu()
+        {
+            if (orderPool == null)
+            {
+                Debug.LogWarning($"{name}: Order Pool is empty, no orders will appear", this);
+                return;
+            }
+            if (cookbook == null || cookbook == orderPool || orderPool.allRecipes == null) return;
+
+            foreach (var recipe in orderPool.allRecipes)
+            {
+                if (recipe == null) continue;
+                if (cookbook.allRecipes != null && cookbook.allRecipes.Contains(recipe)) continue;
+                Debug.LogWarning($"{name}: '{recipe.name}' can be ordered but is not in the cookbook " +
+                                 $"'{cookbook.name}', so it can't be assembled", this);
+            }
+        }
+#endif
     
         private void Update()
         {
@@ -58,12 +90,36 @@ namespace Managers
 
         private void SpawnNewOrder()
         {
-            var nextOrderRecipe = recipeList.allRecipes[UnityEngine.Random.Range(0, recipeList.allRecipes.Count)];
+            var nextOrderRecipe = PickNextRecipe();
+            if (nextOrderRecipe == null) return;
+
             var order = CreateOrder(nextOrderRecipe);
         
             OnNewRecipeSpawned?.Invoke(this, new OnNewRecipeSpawnedEventArgs { newOrder = order });
         
             _activeOrders.Add(order);
+        }
+
+        // The recipes that may be ordered right now.
+        // The one place for future unlock conditions (level, opened products, day...)
+        private List<RecipeSO> GetAvailableRecipes()
+        {
+            var available = new List<RecipeSO>();
+            if (orderPool == null || orderPool.allRecipes == null) return available;
+
+            foreach (var recipe in orderPool.allRecipes)
+            {
+                if (recipe != null) available.Add(recipe);
+            }
+            return available;
+        }
+
+        // The one place that decides which of the available recipes is ordered next
+        private RecipeSO PickNextRecipe()
+        {
+            var available = GetAvailableRecipes();
+            if (available.Count == 0) return null;
+            return available[Random.Range(0, available.Count)];
         }
 
         // An order is the recipe with a random required level for every mergeable ingredient

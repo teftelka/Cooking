@@ -44,6 +44,26 @@ public class ProductSO : ScriptableObject
     }
 
 #if UNITY_EDITOR
+    // A misconfigured base silently accepts nothing, so say it in the console
+    private void OnValidate()
+    {
+        if (!IsBase) return;
+
+        if (baseConfig.acceptsInState == null)
+            Debug.LogWarning($"{name}: the base has no 'Accepts In State', it won't accept any ingredients", this);
+
+        if (baseConfig.recipes == null || baseConfig.recipes.allRecipes == null)
+        {
+            Debug.LogWarning($"{name}: the base has no recipe list, it won't accept any ingredients", this);
+            return;
+        }
+
+        bool usedInRecipe = baseConfig.recipes.allRecipes.Exists(r =>
+            r != null && r.ingredients != null && r.ingredients.Exists(i => i.productSO == this));
+        if (!usedInRecipe)
+            Debug.LogWarning($"{name}: no recipe in '{baseConfig.recipes.name}' uses this base, it won't accept any ingredients", this);
+    }
+
     // ---- Editor helpers for the base's "Sprites By Contents" table (three-dot menu of this asset in the Inspector) ----
 
     private struct FillingKey
