@@ -166,11 +166,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2565324755116798707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7516158a840e3b94c8d58d425a0f9d4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 794f18a1f4737f74e87f77c998ac0f20, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProgressBarCookingToolUI
+  m_EditorClassIdentifier: Assembly-CSharp::UIScripts.ProgressBarUI
   progressBarFill: {fileID: 4546289627031975385}
-  cookingTool: {fileID: 6401189907630016858}
 --- !u!1 &2730605599019487788
 GameObject:
   m_ObjectHideFlags: 0

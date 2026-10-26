@@ -4,12 +4,17 @@ using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
 
-public class CookingTool : BaseObject, IProductContainer
+public class CookingTool : BaseObject, IProductContainer, IHasProgress
 {
-    public event EventHandler OnEmptyTool;
-    public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
-    public class OnProgressChangedEventArgs : EventArgs {
-        public float cookingProgress; 
+    public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
+
+    // One args object reused every frame instead of a new one per event
+    private readonly ProgressChangedEventArgs progressArgs = new ProgressChangedEventArgs();
+
+    private void RaiseProgress(float progress)
+    {
+        progressArgs.progress = progress;
+        OnProgressChanged?.Invoke(this, progressArgs);
     }
 
     public event EventHandler OnContentsChanged;
@@ -45,7 +50,7 @@ public class CookingTool : BaseObject, IProductContainer
         if (_products.Count == 0) return;
 
         _timer -= Time.deltaTime;
-        OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { cookingProgress = 1 - (_timer / ( _state == CookingProgressState.Cooking ? cookingTime : burningTime)) });
+        RaiseProgress(1 - (_timer / (_state == CookingProgressState.Cooking ? cookingTime : burningTime)));
         
         if (_timer > 0f) return;
 
@@ -103,7 +108,7 @@ public class CookingTool : BaseObject, IProductContainer
     {
         _state = CookingProgressState.Idle;
         _products.Clear();
-        OnEmptyTool?.Invoke(this, EventArgs.Empty);
+        RaiseProgress(0f);   // nothing inside: the bar hides
         OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
 

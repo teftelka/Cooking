@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Interfaces;
 using Managers;
 using UnityEngine;
 
 namespace Tables
 {
-    public class MergeTable: BaseTable
+    public class MergeTable: BaseTable, IHasProgress
     {
         [SerializeField] private GameObject firstPosition;
         [SerializeField] private GameObject secondPosition;
@@ -17,9 +18,15 @@ namespace Tables
         
         [SerializeField] private List<Product> productsOnMerge = new List<Product>();
         
-        public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
-        public class OnProgressChangedEventArgs {
-            public float progress; 
+        public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
+
+        // One args object reused every frame instead of a new one per event
+        private readonly ProgressChangedEventArgs progressArgs = new ProgressChangedEventArgs();
+
+        private void RaiseProgress(float progress)
+        {
+            progressArgs.progress = progress;
+            OnProgressChanged?.Invoke(this, progressArgs);
         }
         
         private enum MergeState
@@ -52,7 +59,7 @@ namespace Tables
             if (mergingState != MergeState.Merging) return;
             
             _timer -= Time.deltaTime;
-            OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs { progress = 1 - (_timer / mergingTime) });
+            RaiseProgress(1 - (_timer / mergingTime));
             
             if (_timer > 0f) return;
             

@@ -1,14 +1,21 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Tables
 {
-    public class CuttingTable: BaseTable
+    public class CuttingTable: BaseTable, IHasProgress
     {
         
-        public event EventHandler<OnCuttingProgressChangedEventArgs> OnCuttingProgressChanged;
-        public class OnCuttingProgressChangedEventArgs {
-            public float cuttingProgress; 
+        public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
+
+        // One args object reused every frame instead of a new one per event
+        private readonly ProgressChangedEventArgs progressArgs = new ProgressChangedEventArgs();
+
+        private void RaiseProgress(float progress)
+        {
+            progressArgs.progress = progress;
+            OnProgressChanged?.Invoke(this, progressArgs);
         }
         
         [SerializeField] private float cuttingTime = 3f;
@@ -32,7 +39,7 @@ namespace Tables
             if (cuttingState != CuttingTableState.Cutting) return;
             
             _timer -= Time.deltaTime;
-            OnCuttingProgressChanged?.Invoke(this, new OnCuttingProgressChangedEventArgs { cuttingProgress = 1 - (_timer / cuttingTime) });
+            RaiseProgress(1 - (_timer / cuttingTime));
             
             if (_timer > 0f) return;
             
