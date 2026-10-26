@@ -11,6 +11,9 @@ namespace Interfaces
 
         IReadOnlyList<Product> GetProducts();
 
+        // Can the contents leave right now? Cookware keeps them while cooking
+        bool CanReleaseContents { get; }
+
         // Forgets the contents: they have moved into something else
         void EmptyContainer();
 

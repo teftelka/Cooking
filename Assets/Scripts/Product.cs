@@ -236,7 +236,8 @@ public class Product : BaseObject
             case Product product:
                 return new[] { product };
             case IProductContainer container:   // pan, pot, plate
-                return container.GetProducts();
+                // Nothing moves out of cookware while it is still cooking
+                return container.CanReleaseContents ? container.GetProducts() : null;
             default:
                 return null;
         }

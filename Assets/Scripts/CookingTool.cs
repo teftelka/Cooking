@@ -28,7 +28,10 @@ public class CookingTool : BaseObject, IProductContainer, IHasProgress
     [SerializeField] private float burningTime = 4f;
     [SerializeField] private float extraTimePerItem = 2f;
     [SerializeField] private CookingProgressState _state;
-    [SerializeField] private float _timer;
+    // The shared process of everything inside: time spent on heat in the current stage
+    // and the length of that stage (it grows as products are added)
+    [SerializeField] private float _elapsed;
+    [SerializeField] private float _required;
     [SerializeField] private bool _isOnHeat;
     
     private enum CookingProgressState
@@ -48,27 +51,38 @@ public class CookingTool : BaseObject, IProductContainer, IHasProgress
     {
         if (!_isOnHeat) return;
         if (_products.Count == 0) return;
+        if (_state != CookingProgressState.Cooking && _state != CookingProgressState.Burning) return;
 
-        _timer -= Time.deltaTime;
-        RaiseProgress(1 - (_timer / (_state == CookingProgressState.Cooking ? cookingTime : burningTime)));
-        
-        if (_timer > 0f) return;
+        _elapsed += Time.deltaTime;
+        RaiseProgress(_elapsed / _required);
+
+        if (_elapsed < _required) return;
 
         switch (_state)
         {
             case CookingProgressState.Cooking:
                 CookRecipe();
-                _state = CookingProgressState.Burning;
-                _timer = burningTime;
+                StartStage(CookingProgressState.Burning, 0f, burningTime);
                 Debug.Log("Food cooked");
                 break;
             case CookingProgressState.Burning:
                 BurnRecipe();
                 _state = CookingProgressState.Burned;
+                RaiseProgress(1f);   // finished: the bar hides
                 Debug.Log("Food burned!");
                 break;
         }
     }
+
+    private void StartStage(CookingProgressState state, float elapsed, float required)
+    {
+        _state = state;
+        _elapsed = elapsed;
+        _required = Mathf.Max(required, 0.01f);   // never divide by zero
+    }
+
+    // Contents leave only when cooked (or burned), not in the middle of cooking
+    public bool CanReleaseContents => _state != CookingProgressState.Cooking;
     
     public void SetHeat(bool hasHeat)
     {
@@ -157,15 +171,15 @@ public class CookingTool : BaseObject, IProductContainer, IHasProgress
         switch (_state)
         {
             case CookingProgressState.Idle:
-                _state = CookingProgressState.Cooking;
-                _timer = cookingTime;
+                StartStage(CookingProgressState.Cooking, 0f, cookingTime);
                 break;
             case CookingProgressState.Cooking:
-                _timer += extraTimePerItem;
+                // The dish takes a bit longer: the bar rolls back a little
+                _required += extraTimePerItem;
                 break;
             case CookingProgressState.Burning:
-                _state = CookingProgressState.Cooking;
-                _timer = extraTimePerItem;
+                // Burning is interrupted: back to cooking, ready again in extraTimePerItem
+                StartStage(CookingProgressState.Cooking, Mathf.Max(cookingTime - extraTimePerItem, 0f), cookingTime);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

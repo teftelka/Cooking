@@ -40,6 +40,9 @@ public class CookingStation : BaseTable
     {
         if (!HasFixedTool) return base.TakeForEmptyHand();
 
+        // Only when cooked (or burned): nothing is taken out while it is still cooking
+        if (!fixedTool.CanReleaseContents) return null;
+
         var products = fixedTool.GetProducts();
         if (products.Count != 1) return null;
 

@@ -75,6 +75,8 @@ public class Plate: BaseObject, IProductContainer
         return null;
     }
 
+    public bool CanReleaseContents => true;
+
     public IReadOnlyList<Product> GetProducts()
     {
         return _products;
