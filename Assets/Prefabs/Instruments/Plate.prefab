@@ -446,11 +446,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7032647625677979379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ea1cf03eba0034291961dfc743ab77, type: 3}
+  m_Script: {fileID: 11500000, guid: 840662fdcb411ca41abda0edafec6b32, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlateIconsUI
-  plate: {fileID: 4698217791920550197}
+  m_EditorClassIdentifier: Assembly-CSharp::UIScripts.ContainerIconsUI
   iconTemplate: {fileID: 8306740084758282832}
+  showTemplateWhenEmpty: 0
 --- !u!1 &7389643283409373804
 GameObject:
   m_ObjectHideFlags: 0

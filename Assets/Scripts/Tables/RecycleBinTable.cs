@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using Interfaces;
 
 namespace Tables
 {
@@ -18,15 +19,12 @@ namespace Tables
         {
             switch (playerProduct)
             {
-                case CookingTool cookingTool:
-                    cookingTool.DestroyAllProducts();
-                    return;
+                case IProductContainer container:   // plate, cookware: emptied, stays in hand
+                    container.DestroyContents();
+                    break;
                 case Product someProduct:
                     PlayerTest.Instance.HandleObjectGive();
                     Destroy(someProduct.gameObject);
-                    break;
-                case Plate plate:
-                    plate.ResetPlate();
                     break;
             }
         }

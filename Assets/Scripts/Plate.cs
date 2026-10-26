@@ -75,7 +75,7 @@ public class Plate: BaseObject, IProductContainer
         return null;
     }
 
-    public List<Product> GetProducts()
+    public IReadOnlyList<Product> GetProducts()
     {
         return _products;
     }
@@ -195,7 +195,7 @@ public class Plate: BaseObject, IProductContainer
         return completedDish;
     }
 
-    public void ResetPlate()
+    public void DestroyContents()
     {
         foreach (var p in _products)
             Destroy(p.gameObject);

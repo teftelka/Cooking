@@ -12,11 +12,7 @@ public class CookingTool : BaseObject, IProductContainer
         public float cookingProgress; 
     }
 
-    public event EventHandler<OnProductAddedEventArgs> OnProductAdded;
-    public class OnProductAddedEventArgs : EventArgs
-    {
-        public Product product;
-    }
+    public event EventHandler OnContentsChanged;
     
     [SerializeField] private ProductAction toolAction;
     [SerializeField] private List<CookingStationTypeSO> compatibleStations;
@@ -98,7 +94,7 @@ public class CookingTool : BaseObject, IProductContainer
         return compatibleStations.Contains(stationType);
     }
 
-    public List<Product> GetProducts()
+    public IReadOnlyList<Product> GetProducts()
     {
         return _products;
     }
@@ -108,9 +104,10 @@ public class CookingTool : BaseObject, IProductContainer
         _state = CookingProgressState.Idle;
         _products.Clear();
         OnEmptyTool?.Invoke(this, EventArgs.Empty);
+        OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void DestroyAllProducts()
+    public void DestroyContents()
     {
         foreach (var product in _products)
         {
@@ -151,7 +148,6 @@ public class CookingTool : BaseObject, IProductContainer
         if (product == null) return;
 
         _products.Add(product);
-        OnProductAdded?.Invoke(this, new OnProductAddedEventArgs { product = product });
 
         switch (_state)
         {
@@ -171,5 +167,6 @@ public class CookingTool : BaseObject, IProductContainer
         }
         
         product.SetToParent(transform);
+        OnContentsChanged?.Invoke(this, EventArgs.Empty);
     }
 }
