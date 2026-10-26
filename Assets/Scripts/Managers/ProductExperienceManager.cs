@@ -61,6 +61,9 @@ namespace Managers
 
             if (amount <= 0) return;
 
+            // The last level is reached: no more experience for this product
+            if (GetLevel(productSO) >= ProductLevels.Max) return;
+
             experienceDict.TryAdd(productSO, 0);
 
             experienceDict[productSO] += amount;
@@ -76,7 +79,8 @@ namespace Managers
         
         private void TryLevelUp(ProductSO productSO)
         {
-            while (GetExperience(productSO) >= GetExperienceToNextLevel(productSO))
+            while (GetLevel(productSO) < ProductLevels.Max &&
+                   GetExperience(productSO) >= GetExperienceToNextLevel(productSO))
             {
                 int requiredExp = GetExperienceToNextLevel(productSO);
 
@@ -84,6 +88,10 @@ namespace Managers
 
                 int newLevel = GetLevel(productSO) + 1;
                 levelDict[productSO] = newLevel;
+
+                // Leftover experience has nowhere to go after the last level
+                if (newLevel >= ProductLevels.Max)
+                    experienceDict[productSO] = 0;
 
                 OnLevelChanged?.Invoke(this, new OnLevelChangedEventArgs
                 {

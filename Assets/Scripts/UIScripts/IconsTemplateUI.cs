@@ -15,7 +15,7 @@ namespace UIScripts
             productIcon.sprite = icon;
             if (range > 0)
             {
-                backgroundImage.GetComponent<Outline>().effectColor = rangeColorsSO._colors[range].color;
+                backgroundImage.GetComponent<Outline>().effectColor = rangeColorsSO.GetColor(range);
             }
         }
     }

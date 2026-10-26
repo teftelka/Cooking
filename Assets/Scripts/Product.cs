@@ -55,8 +55,8 @@ public class Product : BaseObject
     
     public void SetRange(int rarity)
     {
-        range = rarity;
-        productRangeUI.UpdateRange(rarity);
+        range = ProductLevels.Clamp(rarity);
+        productRangeUI.UpdateRange(range);
         OnLevelChanged?.Invoke(this, EventArgs.Empty);
     }
     
@@ -301,17 +301,15 @@ public class Product : BaseObject
     
     public override bool CanCombineWith(BaseObject other)
     {
-        if (!isMergable) return false;
+        if (!CanBeMerged) return false;
         if (other is not Product otherProduct) return false;
         if (HasContents || otherProduct.HasContents) return false;
         if (productData != otherProduct.productData) return false;
         return otherProduct.range == range;
     }
 
-    public bool GetIsMergable()
-    {
-        return isMergable;
-    }
+    // Can still be merged into a higher level: mergeable, raw, and below the last level
+    public bool CanBeMerged => isMergable && range < ProductLevels.Max;
 
     public void DestroySelf()
     {

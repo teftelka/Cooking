@@ -129,7 +129,7 @@ namespace Managers
 
             foreach (var ingredient in nextOrderRecipe.ingredients)
             {
-                var randomState = Random.Range(0, 3);
+                var randomState = Mathf.Min(Random.Range(0, 3), ProductLevels.Max);
             
                 if (!ingredient.productSO.isMergable)
                 {

@@ -26,8 +26,7 @@ namespace UIScripts
             }
             SetActive(true);
             rangeText.text = range.ToString();
-            var a = rangeColorsSO._colors[range].color;
-            backgroundImage.color = a;
+            backgroundImage.color = rangeColorsSO.GetColor(range);
         }
         
         public void SetActive(bool isActive)

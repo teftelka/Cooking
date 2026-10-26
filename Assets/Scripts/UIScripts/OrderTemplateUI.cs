@@ -35,7 +35,7 @@ namespace UIScripts
                 {
                     var rarityImage = newIcon.GetChild(0);
                     rarityImage.gameObject.SetActive(true);
-                    rarityImage.GetComponent<Image>().color = rangeColorsSO._colors[ingredient.productLevel].color;
+                    rarityImage.GetComponent<Image>().color = rangeColorsSO.GetColor(ingredient.productLevel);
                 }
             }
         }

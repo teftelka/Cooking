@@ -40,7 +40,7 @@ namespace Tables
             if (mergingState == MergeState.Merging) return;
             
             var playerObject = PlayerTest.Instance.GetProduct();
-            if (playerObject is Product product && product.GetIsMergable())
+            if (playerObject is Product product && product.CanBeMerged)
             {
                 if (_hasObject) return;
                 SetProductToMerge(product);
@@ -123,7 +123,7 @@ namespace Tables
         {
             var newProduct = Instantiate(product.GetProductData().prefab).GetComponent<Product>();
             SetObjectOnTable(newProduct);
-            newProduct.SetRange(product.GetProductRange() + 1);
+            newProduct.SetRange(product.GetProductRange() + 1);   // clamped to ProductLevels.Max
             ProductExperienceManager.Instance.AddExperience(newProduct.GetProductData(), 50);
             ClearTable();
         }
