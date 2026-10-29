@@ -34,6 +34,10 @@ public class CookingStation : BaseTable
     // A fixed tool never leaves the station (no taking, no swapping)
     public override bool CanTake() => !HasFixedTool;
 
+    // Cookware on the stove swaps with compatible cookware from the hand:
+    // the one taken off loses heat, the one put on starts heating (OnTaken / OnPlaced)
+    public override bool AllowSwap => !HasFixedTool;
+
     // With a fixed tool, an empty hand takes what is inside it (e.g. the pizza), not the tool itself.
     // Only a single product can be taken by hand; with more, use a plate.
     public override BaseObject TakeForEmptyHand()

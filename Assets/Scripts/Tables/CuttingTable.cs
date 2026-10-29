@@ -54,6 +54,10 @@ namespace Tables
         // Nothing leaves the board while it is being cut (not even into a plate)
         public override bool CanTake() => cuttingState != CuttingTableState.Cutting;
 
+        // A cut product on the board swaps with an uncut one from the hand, which starts cutting.
+        // Not while cutting (CanTake), and only for products that can be cut (CanPlace)
+        public override bool AllowSwap => true;
+
         // Right-click may bring back any product taken from here, e.g. an already chopped one
         public override bool CanReturn(BaseObject obj) => obj is Product;
 
