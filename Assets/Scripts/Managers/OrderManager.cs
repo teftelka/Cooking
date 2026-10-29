@@ -23,6 +23,11 @@ namespace Managers
         private float spawnRecipeTimer;
         private float spawnRecipeTimerMax = 3f;
         [SerializeField] private int maxActiveOrders = 2;
+
+        // Set by a level (levels prototype): replaces the order pool while the level runs
+        private IReadOnlyList<RecipeSO> menuOverride;
+        private bool randomIngredientLevels = true;
+        private bool spawningEnabled = true;
     
         public event EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
         public class OnNewRecipeSpawnedEventArgs : EventArgs
@@ -74,8 +79,25 @@ namespace Managers
         }
 #endif
     
+        // Levels prototype: the level decides what is ordered, how many orders at once
+        // and whether orders ask for upgraded ingredients
+        public void ConfigureForLevel(IReadOnlyList<RecipeSO> menu, int maxOrders, bool useIngredientLevels)
+        {
+            menuOverride = menu;
+            if (maxOrders > 0) maxActiveOrders = maxOrders;
+            randomIngredientLevels = useIngredientLevels;
+        }
+
+        // Levels prototype: no new orders after the shift is over
+        public void SetSpawning(bool enabled)
+        {
+            spawningEnabled = enabled;
+        }
+
         private void Update()
         {
+            if (!spawningEnabled) return;
+
             spawnRecipeTimer -= Time.deltaTime;
             if (spawnRecipeTimer <= 0f)
             {
@@ -104,9 +126,10 @@ namespace Managers
         private List<RecipeSO> GetAvailableRecipes()
         {
             var available = new List<RecipeSO>();
-            if (orderPool == null || orderPool.allRecipes == null) return available;
+            IReadOnlyList<RecipeSO> source = menuOverride ?? (orderPool != null ? orderPool.allRecipes : null);
+            if (source == null) return available;
 
-            foreach (var recipe in orderPool.allRecipes)
+            foreach (var recipe in source)
             {
                 if (recipe != null) available.Add(recipe);
             }
@@ -130,7 +153,7 @@ namespace Managers
             {
                 var randomState = Mathf.Min(Random.Range(0, 3), ProductLevels.Max);
             
-                if (!ingredient.productSO.isMergable)
+                if (!ingredient.productSO.isMergable || !randomIngredientLevels)
                 {
                     randomState = 0;
                 }

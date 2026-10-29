@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d25052dec6c4115aaf919b5ad04ceb3, type: 3}
+  m_Name: Level3_Bases
+  m_EditorClassIdentifier: Assembly-CSharp::Levels.LevelSO
+  levelName: "\u0411\u043b\u044e\u0434\u0430 \u0441 \u043e\u0441\u043d\u043e\u0432\u043e\u0439"
+  duration: 210
+  recipes:
+  - {fileID: 11400000, guid: 51377bf0e7394af46a58b53fe5ddb476, type: 2}
+  - {fileID: 11400000, guid: 90a85ed967092ec47b576ddd6fe40a74, type: 2}
+  - {fileID: 11400000, guid: 555f17bdee1b5fe4682c6bcd07ffb1c9, type: 2}
+  - {fileID: 11400000, guid: 7cfdf53de4079fd488b89077abd0f41e, type: 2}
+  - {fileID: 11400000, guid: 8660216024e16db4ca3f3c8be7c893a0, type: 2}
+  maxActiveOrders: 3
+  randomIngredientLevels: 0
+  starThresholds:
+  - 2
+  - 4
+  - 6

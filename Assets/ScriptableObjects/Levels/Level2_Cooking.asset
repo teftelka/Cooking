@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d25052dec6c4115aaf919b5ad04ceb3, type: 3}
+  m_Name: Level2_Cooking
+  m_EditorClassIdentifier: Assembly-CSharp::Levels.LevelSO
+  levelName: "\u041d\u0430\u0440\u0435\u0437\u043a\u0430 \u0438 \u0433\u043e\u0442\u043e\u0432\u043a\u0430"
+  duration: 180
+  recipes:
+  - {fileID: 11400000, guid: 8a6cf70b5c8e23a4280e8645362a938d, type: 2}
+  - {fileID: 11400000, guid: 355a82c68eec80e44b0c4d41c6ec509d, type: 2}
+  - {fileID: 11400000, guid: 964c3af244a4c3a49b53595fce9bfc41, type: 2}
+  - {fileID: 11400000, guid: f999f8699e4d72942a106fb131905af3, type: 2}
+  - {fileID: 11400000, guid: fb1e630b1671b0946a467b97a35a25e9, type: 2}
+  - {fileID: 11400000, guid: 9b4d5febdefee4e45b41f3eb3c948fb3, type: 2}
+  maxActiveOrders: 3
+  randomIngredientLevels: 0
+  starThresholds:
+  - 3
+  - 5
+  - 7
