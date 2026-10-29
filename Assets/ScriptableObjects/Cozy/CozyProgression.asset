@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d89164dd46c4bb1be7f3a67c8d071d6, type: 3}
+  m_Name: CozyProgression
+  m_EditorClassIdentifier: Assembly-CSharp::Cozy.CozyProgressionSO
+  stages:
+  - stageName: "\u041d\u0430\u0440\u0435\u0437\u043a\u0430"
+    requiredOrders: 0
+    recipes:
+    - {fileID: 11400000, guid: 06039bd713c30fd4a9351bf1a1ee68ae, type: 2}
+    - {fileID: 11400000, guid: 20d52f09730c5aa4d9690be532840036, type: 2}
+  - stageName: "\u0424\u0440\u0438\u0442\u044e\u0440"
+    requiredOrders: 4
+    recipes:
+    - {fileID: 11400000, guid: 8a6cf70b5c8e23a4280e8645362a938d, type: 2}
+    - {fileID: 11400000, guid: 355a82c68eec80e44b0c4d41c6ec509d, type: 2}
+  - stageName: "\u0413\u043e\u0440\u044f\u0447\u0430\u044f \u043a\u0443\u0445\u043d\u044f"
+    requiredOrders: 8
+    recipes:
+    - {fileID: 11400000, guid: 964c3af244a4c3a49b53595fce9bfc41, type: 2}
+    - {fileID: 11400000, guid: f999f8699e4d72942a106fb131905af3, type: 2}
+    - {fileID: 11400000, guid: fb1e630b1671b0946a467b97a35a25e9, type: 2}
+    - {fileID: 11400000, guid: 9b4d5febdefee4e45b41f3eb3c948fb3, type: 2}
+  - stageName: "\u0411\u0443\u0440\u0433\u0435\u0440\u044b"
+    requiredOrders: 13
+    recipes:
+    - {fileID: 11400000, guid: 51377bf0e7394af46a58b53fe5ddb476, type: 2}
+    - {fileID: 11400000, guid: 90a85ed967092ec47b576ddd6fe40a74, type: 2}
+  - stageName: "\u041f\u0438\u0446\u0446\u0430"
+    requiredOrders: 18
+    recipes:
+    - {fileID: 11400000, guid: 7cfdf53de4079fd488b89077abd0f41e, type: 2}
+  - stageName: "\u0424\u0438\u0440\u043c\u0435\u043d\u043d\u044b\u0435 \u0431\u043b\u044e\u0434\u0430"
+    requiredOrders: 24
+    recipes:
+    - {fileID: 11400000, guid: 555f17bdee1b5fe4682c6bcd07ffb1c9, type: 2}
+    - {fileID: 11400000, guid: 8660216024e16db4ca3f3c8be7c893a0, type: 2}

@@ -23,6 +23,11 @@ namespace Managers
         private float spawnRecipeTimer;
         private float spawnRecipeTimerMax = 3f;
         [SerializeField] private int maxActiveOrders = 2;
+
+        // Set by the cozy progression (prototype): replaces the order pool with the unlocked recipes
+        private IReadOnlyList<RecipeSO> menuOverride;
+        // Recipes to order first, e.g. one that was just unlocked
+        private readonly Queue<RecipeSO> queuedRecipes = new Queue<RecipeSO>();
     
         public event EventHandler<OnNewRecipeSpawnedEventArgs> OnNewRecipeSpawned;
         public class OnNewRecipeSpawnedEventArgs : EventArgs
@@ -74,6 +79,18 @@ namespace Managers
         }
 #endif
     
+        // Cozy prototype: the menu is whatever has been unlocked so far
+        public void SetMenu(IReadOnlyList<RecipeSO> menu)
+        {
+            menuOverride = menu;
+        }
+
+        // Cozy prototype: this recipe is ordered next (a newly unlocked dish shows up right away)
+        public void QueueRecipe(RecipeSO recipe)
+        {
+            if (recipe != null) queuedRecipes.Enqueue(recipe);
+        }
+
         private void Update()
         {
             spawnRecipeTimer -= Time.deltaTime;
@@ -104,9 +121,10 @@ namespace Managers
         private List<RecipeSO> GetAvailableRecipes()
         {
             var available = new List<RecipeSO>();
-            if (orderPool == null || orderPool.allRecipes == null) return available;
+            IReadOnlyList<RecipeSO> source = menuOverride ?? (orderPool != null ? orderPool.allRecipes : null);
+            if (source == null) return available;
 
-            foreach (var recipe in orderPool.allRecipes)
+            foreach (var recipe in source)
             {
                 if (recipe != null) available.Add(recipe);
             }
@@ -116,6 +134,12 @@ namespace Managers
         // The one place that decides which of the available recipes is ordered next
         private RecipeSO PickNextRecipe()
         {
+            while (queuedRecipes.Count > 0)
+            {
+                var queued = queuedRecipes.Dequeue();
+                if (queued != null) return queued;
+            }
+
             var available = GetAvailableRecipes();
             if (available.Count == 0) return null;
             return available[Random.Range(0, available.Count)];
