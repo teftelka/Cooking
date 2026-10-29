@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DefaultNamespace;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -35,19 +34,19 @@ namespace Tables
             Merging
         }
         
-        public override void OnClick()
+        public override void Interact(IHand hand)
         {
             if (mergingState == MergeState.Merging) return;
             
-            var playerObject = PlayerTest.Instance.GetProduct();
-            if (playerObject is Product product && product.CanBeMerged)
+            var heldObject = hand.HeldObject;
+            if (heldObject is Product product && product.CanBeMerged)
             {
                 if (_hasObject) return;
-                SetProductToMerge(product);
+                SetProductToMerge(product, hand);
                 return;
             }
 
-            HandleObjectGive(playerObject);
+            HandleObjectGive(hand);
         }
         
         // Right-click may bring the merge result back only when the table is completely free
@@ -67,8 +66,9 @@ namespace Tables
             SpawnMergedProduct(productsOnMerge[0]);
         }
 
-        private void HandleObjectGive(BaseObject objectInHand)
+        private void HandleObjectGive(IHand hand)
         {
+            var objectInHand = hand.HeldObject;
             BaseObject objectToGive = _hasObject ? _objectOnTable
                 : productsOnMerge.Count > 0 ? productsOnMerge[0] : null;
 
@@ -76,7 +76,7 @@ namespace Tables
 
             if (objectInHand == null)
             {
-                if (!PlayerTest.Instance.HandleObjectTake(objectToGive)) return;
+                if (!hand.TryTake(objectToGive)) return;
             }
             else if (objectInHand.CanAccept(objectToGive))
             {
@@ -97,14 +97,14 @@ namespace Tables
             productsOnMerge.Clear();
         }
 
-        private void SetProductToMerge(Product product)
+        private void SetProductToMerge(Product product, IHand hand)
         {
             
             if (productsOnMerge.Count == 0)
             {
                 productsOnMerge.Add(product);
                 product.transform.position = firstPosition.transform.position;
-                PlayerTest.Instance.HandleObjectGive();
+                hand.Release();
                 return;
             }
 
@@ -112,7 +112,7 @@ namespace Tables
             {
                 productsOnMerge.Add(product);
                 product.transform.position = secondPosition.transform.position;
-                PlayerTest.Instance.HandleObjectGive();
+                hand.Release();
                 
                 mergingState = MergeState.Merging;
                 _timer = mergingTime;
@@ -137,4 +137,4 @@ namespace Tables
             productsOnMerge.Clear();
         }
     }
-}
+}

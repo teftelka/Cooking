@@ -1,11 +1,10 @@
-using DefaultNamespace;
 using Interaction;
 using Interfaces;
 using UnityEngine;
 
 namespace Tables
 {
-    public class BaseTable: MonoBehaviour, IClickable
+    public class BaseTable: MonoBehaviour, IInteractable
     {
         [SerializeField] protected GameObject spawnPosition;
     
@@ -15,11 +14,11 @@ namespace Tables
         public bool HasObject => _hasObject;
         public BaseObject ObjectOnTable => _objectOnTable;
 
-        // Default click: shared rules from InteractionResolver.
+        // Default: shared rules from InteractionResolver, with whatever hand is used.
         // Special tables (orders, sink, bin, plate stack, merge) override this.
-        public virtual void OnClick()
+        public virtual void Interact(IHand hand)
         {
-            InteractionResolver.Resolve(this, PlayerTest.Instance);
+            InteractionResolver.Resolve(this, hand);
         }
 
         // ---- Table policy ----

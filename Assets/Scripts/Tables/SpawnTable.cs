@@ -1,5 +1,4 @@
 using System;
-using DefaultNamespace;
 using Interfaces;
 using Managers;
 using UIScripts;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace Tables
 {
-    public class SpawnTable: MonoBehaviour, IClickable
+    public class SpawnTable: MonoBehaviour, IInteractable
     {
         [SerializeField] private ProductSO productSO;
         [SerializeField] private SpawnerTableUI spawnerTableUI;
@@ -50,9 +49,9 @@ namespace Tables
             spawnerTableUI.UpdateProductAmount(ResourceManager.Instance.GetAmount(productSO, level));
         }
 
-        public void OnClick()
+        public void Interact(IHand hand)
         {
-            if (!PlayerTest.Instance.HasObject())
+            if (!hand.HasObject)
             {
                 int productRange = ProductExperienceManager.Instance.GetLevel(productSO);
                 if (!ResourceManager.Instance.TrySpendResource(productSO, productRange, 1))
@@ -62,7 +61,7 @@ namespace Tables
                     
                 var newProduct = Instantiate(productSO.prefab).GetComponent<BaseObject>();
                 newProduct.GetComponent<Product>().SetRange(productRange);
-                PlayerTest.Instance.HandleObjectTake(newProduct);
+                hand.TryTake(newProduct);
             }
         }
 

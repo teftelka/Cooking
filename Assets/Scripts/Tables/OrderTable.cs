@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DefaultNamespace;
+using Interfaces;
 using Managers;
 using Recipes;
 
@@ -7,9 +7,9 @@ namespace Tables
 {
     public class OrderTable: BaseTable
     {
-        public override void OnClick()
+        public override void Interact(IHand hand)
         {
-            var held = PlayerTest.Instance.GetProduct();
+            var held = hand.HeldObject;
             if (held == null) return;   // an empty hand is not an attempt to serve
 
             if (held is not Plate plate)
@@ -18,10 +18,10 @@ namespace Tables
                 return;
             }
 
-            HandleOrderComplete(plate);
+            HandleOrderComplete(plate, hand);
         }
         
-        private void HandleOrderComplete(Plate plate)
+        private void HandleOrderComplete(Plate plate, IHand hand)
         {
             if (plate.GetProducts().Count == 0)
             {
@@ -57,7 +57,7 @@ namespace Tables
             if (bestOrder != null)
             {
                 OrderManager.Instance.CompleteOrder(bestOrder);
-                PlayerTest.Instance.HandleObjectGive();
+                hand.Release();
                 plate.DestroySelf();
                 return;
             }
@@ -78,4 +78,4 @@ namespace Tables
             OrderManager.Instance.RejectOrder(reason, dish, this);
         }
     }
-}
+}

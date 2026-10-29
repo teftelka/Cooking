@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,7 +25,7 @@ public class GameInput: MonoBehaviour
 
     private void CancelClickOnPerformed(InputAction.CallbackContext obj)
     {
-        PlayerTest.Instance.CancelHolding();
+        PlayerHand.Instance.CancelHolding();
     }
 
     private void ClickOnPerformed(InputAction.CallbackContext obj)
@@ -43,8 +42,9 @@ public class GameInput: MonoBehaviour
         {
             if (hit.collider != null)
             {
-                IClickable clickable = hit.collider.GetComponent<IClickable>();
-                clickable?.OnClick();
+                // The mouse always acts with the player's hand
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                interactable?.Interact(PlayerHand.Instance);
             }
         }
     }

@@ -1,11 +1,11 @@
-using DefaultNamespace;
 using Interfaces;
 using Tables;
 
 namespace Interaction
 {
     /// <summary>
-    /// The one place that decides what a click on a table does.
+    /// The one place that decides what using a hand on a table does
+    /// (the player's hand now, helpers' hands later).
     /// Tables only describe their policy (CanPlace / CanTake / AllowSwap)
     /// and react through OnPlaced / OnTaken.
     ///
@@ -15,14 +15,14 @@ namespace Interaction
     /// </summary>
     public static class InteractionResolver
     {
-        public static bool Resolve(BaseTable table, PlayerTest hand)
+        public static bool Resolve(BaseTable table, IHand hand)
         {
             if (table == null || hand == null) return false;
 
-            if (!hand.HasObject())
+            if (!hand.HasObject)
                 return TryTake(table, hand);
 
-            var inHand = hand.GetProduct();
+            var inHand = hand.HeldObject;
 
             if (!table.HasObject)
                 return TryPlace(table, hand, inHand);
@@ -34,7 +34,7 @@ namespace Interaction
             {
                 onTable.Accept(inHand);
                 if (!(inHand is IProductContainer))
-                    hand.HandleObjectGive();
+                    hand.Release();
                 return true;
             }
 
@@ -59,33 +59,33 @@ namespace Interaction
             return false;
         }
 
-        private static bool TryTake(BaseTable table, PlayerTest hand)
+        private static bool TryTake(BaseTable table, IHand hand)
         {
             var taken = table.TakeForEmptyHand();
             if (taken == null) return false;
-            return hand.HandleObjectTake(taken);
+            return hand.TryTake(taken);
         }
 
-        private static bool TryPlace(BaseTable table, PlayerTest hand, BaseObject inHand)
+        private static bool TryPlace(BaseTable table, IHand hand, BaseObject inHand)
         {
             if (!table.CanPlace(inHand)) return false;
 
-            hand.HandleObjectGive();
+            hand.Release();
             table.SetObjectOnTable(inHand);
             return true;
         }
 
-        private static void Swap(BaseTable table, PlayerTest hand, BaseObject inHand)
+        private static void Swap(BaseTable table, IHand hand, BaseObject inHand)
         {
             // The object picked up remembers where the hand's object came from,
             // so right-click sends it there (same as before the refactor).
             var handOrigin = inHand.GetOrigin();
 
-            hand.HandleObjectGive();
+            hand.Release();
             var taken = table.TakeObject();
             table.SetObjectOnTable(inHand);
 
-            hand.HandleObjectTake(taken);
+            hand.TryTake(taken);
             taken.RememberOrigin(handOrigin);
         }
     }

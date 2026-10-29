@@ -1,32 +1,31 @@
 using System;
-using DefaultNamespace;
 using Interfaces;
 
 namespace Tables
 {
     public class RecycleBinTable: BaseTable
     {
-        public override void OnClick()
+        public override void Interact(IHand hand)
         {
-            var playerProduct = PlayerTest.Instance.GetProduct();
-            if (playerProduct)
+            var heldObject = hand.HeldObject;
+            if (heldObject)
             {
-                HandleDestroy(playerProduct);
+                HandleDestroy(heldObject, hand);
             }
         }
 
-        private void HandleDestroy(BaseObject playerProduct)
+        private void HandleDestroy(BaseObject heldObject, IHand hand)
         {
-            switch (playerProduct)
+            switch (heldObject)
             {
                 case IProductContainer container:   // plate, cookware: emptied, stays in hand
                     container.DestroyContents();
                     break;
                 case Product someProduct:
-                    PlayerTest.Instance.HandleObjectGive();
+                    hand.Release();
                     Destroy(someProduct.gameObject);
                     break;
             }
         }
     }
-}
+}

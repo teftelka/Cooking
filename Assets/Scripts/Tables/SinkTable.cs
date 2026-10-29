@@ -1,5 +1,4 @@
 using System;
-using DefaultNamespace;
 using Interfaces;
 using Managers;
 using Unity.Mathematics;
@@ -72,7 +71,8 @@ namespace Tables
             platesCount--;
         }
 
-        public override void OnClick()
+        // Starts washing; the hand is not used
+        public override void Interact(IHand hand)
         {
             if (washingState == SinkTableState.Washing) return;
             if (platesCount == 0) return;

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Interfaces;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -15,17 +15,17 @@ namespace Tables
             public int plateCount; 
         }
         
-        public override void OnClick()
+        public override void Interact(IHand hand)
         {
-            if (PlayerTest.Instance.HasObject()) return;
+            if (hand.HasObject) return;
             if (platesOnTable.Count == 0) return;
-            HandleObjectGive();
+            HandleObjectGive(hand);
         }
 
-        private void HandleObjectGive()
+        private void HandleObjectGive(IHand hand)
         {
             platesOnTable.Remove(_objectOnTable as Plate);
-            PlayerTest.Instance.HandleObjectTake(GiveObject());
+            hand.TryTake(GiveObject());
             OnPlateCountChanged?.Invoke(this, new OnPlateCountChangedEventArgs { plateCount = platesOnTable.Count });
         }
         
@@ -69,4 +69,4 @@ namespace Tables
             return objectOnTable;
         }
     }
-}
+}
