@@ -1,5 +1,4 @@
 using System;
-using Managers;
 using UnityEngine;
 
 namespace UIScripts
@@ -20,16 +19,12 @@ namespace UIScripts
             Instance = this;
         }
         
-        private void Start()
-        {
-            OrderManager.Instance.OnOrderComplete += HandleOrderComplete;
-        }
-
-        private void HandleOrderComplete(object sender, OrderManager.OnOrderCompleteEventArgs e)
+        // Called by the kitchen when an order is served. The kitchen calls the score, not the other way
+        // round: the score lives in the core scene and must not depend on any zone
+        public void RewardForOrder()
         {
             ExperienceAmountUpdate(555);
             MoneyAmountUpdate(100);
-
         }
 
         private void ExperienceAmountUpdate(int exp)

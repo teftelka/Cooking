@@ -3,7 +3,7 @@ using UnityEngine;
 
 // The player's hand. What every hand can do is in IHand; on top of that the player's
 // held object follows the mouse, and right-click sends it back to where it came from.
-public class PlayerHand : MonoBehaviour, IHand
+public class PlayerHand : MonoBehaviour, IHand, IZoneExitBlocker
 {
     public static PlayerHand Instance { get; private set; }
 
@@ -13,6 +13,9 @@ public class PlayerHand : MonoBehaviour, IHand
 
     public bool HasObject => hasObject;
     public BaseObject HeldObject => _product;
+
+    // The player can't go to another zone with an object in the hand
+    public bool CanLeaveZone => !hasObject;
 
     private void Awake()
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Tables;
+using UIScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -158,6 +159,8 @@ namespace Managers
             {
                 _activeOrders.Remove(order);
                 OnOrderComplete?.Invoke(this, new OnOrderCompleteEventArgs { completedOrder = order });
+                if (ScoreManager.Instance != null)
+                    ScoreManager.Instance.RewardForOrder();
                 spawnRecipeTimer = spawnRecipeTimerMax;
                 Debug.Log(order.Name + " order completed!");
             }
