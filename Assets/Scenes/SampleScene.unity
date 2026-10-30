@@ -336,16 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaManager
   mainCamera: {fileID: 519420031}
-  areas:
-  - areaType: 0
-    cameraPoint: {fileID: 644773234}
-    areaUI: {fileID: 1278001355}
-  - areaType: 1
-    cameraPoint: {fileID: 1555588198}
-    areaUI: {fileID: 423426912}
-  - areaType: 2
-    cameraPoint: {fileID: 285352788}
-    areaUI: {fileID: 104348814}
   cameraMoveDuration: 0.35
   instantMove: 0
 --- !u!1 &104348814
@@ -460,6 +450,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6401189907630016858, guid: c472088e2787be5498331c121f14d98b, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 977494607}
+    - target: {fileID: 6401189907630016858, guid: c472088e2787be5498331c121f14d98b, type: 3}
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 977494607}
@@ -508,14 +502,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185747322}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1360919641}
   - {fileID: 439727029}
-  m_Father: {fileID: 1278001356}
+  m_Father: {fileID: 390286234}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -683,6 +677,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1472612931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &267490433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267490434}
+  - component: {fileID: 267490435}
+  m_Layer: 0
+  m_Name: PondZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267490434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267490433}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 863135653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &267490435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267490433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325e02e356ccab749919ab760dda16df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameZone
+  zoneType: 2
+  cameraPoint: {fileID: 285352788}
+  zoneUI: {fileID: 104348814}
+  activeWhenShown: []
+  exitBlockers: []
 --- !u!1 &285352787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,9 +1161,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1297359550}
-  - {fileID: 1278001356}
   - {fileID: 423426913}
   - {fileID: 104348815}
+  - {fileID: 1278001356}
+  - {fileID: 185747323}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1419,6 +1463,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 543014862}
     m_Modifications:
+    - target: {fileID: 2054207767618485484, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 1934893693}
     - target: {fileID: 2054207767618485484, guid: d7fcce45d82f4fa42992ebd3387dcca8, type: 3}
       propertyPath: _originalTable
       value: 
@@ -2259,6 +2307,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6401189907630016858, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 674509814}
+    - target: {fileID: 6401189907630016858, guid: abb12e33c15f7f54aa69a495759feaa3, type: 3}
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 674509814}
@@ -2631,6 +2683,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrderManagerUI
   orderTemplate: {fileID: 369983793}
   container: {fileID: 1121799335}
+--- !u!1 &863135652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863135653}
+  m_Layer: 0
+  m_Name: GameZones
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &863135653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863135652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1540898306}
+  - {fileID: 1860353665}
+  - {fileID: 267490434}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &937400213
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,7 +3463,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 814517948}
-  - {fileID: 185747323}
   m_Father: {fileID: 390286234}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4423,6 +4508,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520593898}
   m_CullTransparentMesh: 1
+--- !u!1 &1540898305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1540898306}
+  - component: {fileID: 1540898307}
+  m_Layer: 0
+  m_Name: KitchenZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1540898306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540898305}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 863135653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1540898307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540898305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325e02e356ccab749919ab760dda16df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameZone
+  zoneType: 0
+  cameraPoint: {fileID: 644773234}
+  zoneUI: {fileID: 1278001355}
+  activeWhenShown: []
+  exitBlockers:
+  - {fileID: 1628051849}
 --- !u!1 &1555588197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,6 +4597,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2054207767618485484, guid: f615cbf1794e1a24f81733e7f5d7c2d5, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 1519488082}
     - target: {fileID: 2054207767618485484, guid: f615cbf1794e1a24f81733e7f5d7c2d5, type: 3}
       propertyPath: _originalTable
       value: 
@@ -4978,6 +5117,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4409797101718878941, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
   m_PrefabInstance: {fileID: 4440119340551601916}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1860353664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860353665}
+  - component: {fileID: 1860353666}
+  m_Layer: 0
+  m_Name: GardenZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1860353665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860353664}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 863135653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1860353666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860353664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325e02e356ccab749919ab760dda16df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameZone
+  zoneType: 1
+  cameraPoint: {fileID: 1555588198}
+  zoneUI: {fileID: 423426912}
+  activeWhenShown: []
+  exitBlockers: []
 --- !u!1001 &1872656609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5559,6 +5747,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 543014862}
     m_Modifications:
     - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 1426971797}
+    - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
       propertyPath: currentState
       value: 
       objectReference: {fileID: 11400000, guid: ed7d93c9bce511d429147aa2ab3405eb, type: 2}
@@ -5839,6 +6031,10 @@ PrefabInstance:
       value: Plate
       objectReference: {fileID: 0}
     - target: {fileID: 4698217791920550197, guid: 3b69618b473931545af86b37aa8872a7, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 35717628}
+    - target: {fileID: 4698217791920550197, guid: 3b69618b473931545af86b37aa8872a7, type: 3}
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 35717628}
@@ -5919,6 +6115,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 543014862}
     m_Modifications:
+    - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 2004037728}
     - target: {fileID: 2054207767618485484, guid: fd032dc92c9e2f140be4c31d546fc8be, type: 3}
       propertyPath: currentState
       value: 
@@ -6203,6 +6403,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6401189907630016858, guid: 2054399a4ddc8b54382062efae26bf5d, type: 3}
+      propertyPath: _origin
+      value: 
+      objectReference: {fileID: 1142825521}
+    - target: {fileID: 6401189907630016858, guid: 2054399a4ddc8b54382062efae26bf5d, type: 3}
       propertyPath: _originalTable
       value: 
       objectReference: {fileID: 1142825521}
@@ -6236,3 +6440,4 @@ SceneRoots:
   - {fileID: 611317537}
   - {fileID: 8390752018111491712}
   - {fileID: 1936185279}
+  - {fileID: 863135653}
