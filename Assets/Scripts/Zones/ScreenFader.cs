@@ -54,6 +54,12 @@ public class ScreenFader : MonoBehaviour
         SetAlpha(targetAlpha);
     }
 
+    // Instantly dark (e.g. while the zones are loading at start) or instantly clear
+    public void SetDark(bool dark)
+    {
+        SetAlpha(dark ? 1f : 0f);
+    }
+
     private void SetAlpha(float alpha)
     {
         canvasGroup.alpha = alpha;

@@ -67,6 +67,19 @@ namespace Managers
 
         public GameAreaType GetCurrentArea() => currentArea;
 
+        // At start, while the zone scenes are loading: the screen stays dark and zones can't be switched
+        public void CoverScreen()
+        {
+            isSwitching = true;
+            fader.SetDark(true);
+        }
+
+        public IEnumerator RevealScreen()
+        {
+            yield return fader.FadeTo(0f, fadeInDuration);
+            isSwitching = false;
+        }
+
         // False during a switch and while something in the current zone forbids leaving
         // (e.g. an object in the hand)
         public bool CanLeaveCurrentArea
