@@ -63,7 +63,8 @@ namespace Pond
             if (!UnlockManager.IsFeatureUnlocked(GameFeature.Fishing)) return;
             if (slingshot == null || !slingshot.isActiveAndEnabled || Manager == null) return;
             if (baitsInFlight > 0) return;   // one bait at a time
-            if (!slingshot.IsInGrabZone(ToWorld(screenPosition))) return;
+            var pressWorld = ToWorld(screenPosition);
+            if (!slingshot.IsInGrabZone(pressWorld)) return;
 
             if (Manager.Baits <= 0)
             {
@@ -71,6 +72,7 @@ namespace Pond
                 return;
             }
 
+            slingshot.BeginPull(pressWorld);
             isAiming = true;
         }
 

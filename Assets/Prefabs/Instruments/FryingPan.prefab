@@ -315,9 +315,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc220a71729725749911cc95b16ebf50, type: 2}
   _products: []
   capacity: 1
-  cookingTime: 5
-  burningTime: 4
-  extraTimePerItem: 2
+  cookingTime: 7.5
+  burningTime: 24
+  extraTimePerItem: 3
   _state: 0
   _timer: 0
   _isOnHeat: 0

@@ -586,7 +586,7 @@ MonoBehaviour:
   firstPosition: {fileID: 4761940039353996377}
   secondPosition: {fileID: 6080320417023015334}
   mergingState: 0
-  mergingTime: 10
+  mergingTime: 30
   _timer: 0
   productsOnMerge: []
 --- !u!61 &8002176312521266429

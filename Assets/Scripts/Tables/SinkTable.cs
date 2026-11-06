@@ -8,7 +8,7 @@ namespace Tables
 {
     public class SinkTable: BaseTable, IHasProgress
     {
-        private float washTime = 3;
+        private float washTime = 4.5f;
         private int platesCount = 0;
         [SerializeField] private SinkTableState washingState;
         [SerializeField] private float _timer;

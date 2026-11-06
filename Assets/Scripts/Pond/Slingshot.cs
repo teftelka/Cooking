@@ -34,13 +34,14 @@ namespace Pond
         [SerializeField, Min(0.1f)] private float descentSlowdown = 1.5f;
         [Tooltip("Optional: the visible grab circle, scaled to the grab radius")]
         [SerializeField] private Transform grabCircle;
-        [Tooltip("Optional: a LineRenderer for the string. Created automatically if empty")]
+        [Tooltip("Optional: a LineRenderer for the pull line. Created automatically if empty")]
         [SerializeField] private LineRenderer stringLine;
-        [Tooltip("Half the distance between the slingshot's two prongs")]
-        [SerializeField] private float prongHalfWidth = 0.5f;
         [SerializeField] private int sortingOrder = 20;
 
         public Vector2 Anchor => transform.position;
+
+        // Where the current pull started: the point pressed inside the grab circle
+        private Vector2 pullOrigin;
 
         private void Start()
         {
@@ -77,39 +78,52 @@ namespace Pond
         public bool IsInGrabZone(Vector2 worldPoint) =>
             (worldPoint - Anchor).sqrMagnitude <= grabRadius * grabRadius;
 
-        // While pulling: the string follows the pointer, up to maxPull
-        public void ShowPull(Vector2 pointerWorld)
+        // A pull starts wherever the grab circle was pressed
+        public void BeginPull(Vector2 pressWorld)
         {
-            var pull = Vector2.ClampMagnitude(pointerWorld - Anchor, maxPull);
-            SetString(Anchor + pull);
+            pullOrigin = pressWorld;
         }
 
-        public void ResetString() => SetString(Anchor);
+        // While pulling: one line from the pressed point towards the pointer, up to maxPull
+        public void ShowPull(Vector2 pointerWorld)
+        {
+            SetLine(pullOrigin + GetPull(pointerWorld));
+        }
 
-        // Where the bait would land if released now. False if the pull is too short (cancelled)
+        private Vector2 GetPull(Vector2 pointerWorld) =>
+            Vector2.ClampMagnitude(pointerWorld - pullOrigin, maxPull);
+
+        // Not pulling: the line is hidden
+        public void ResetString()
+        {
+            if (stringLine != null) stringLine.enabled = false;
+        }
+
+        // Where the bait would land if released now. False if the pull is too short (cancelled).
+        // Everything is measured from the pressed point: the bait also flies from there
         public bool TryGetTarget(Vector2 pointerWorld, out Vector2 target)
         {
-            var pull = Vector2.ClampMagnitude(pointerWorld - Anchor, maxPull);
-            target = Anchor;
+            var pull = GetPull(pointerWorld);
+            target = pullOrigin;
             if (pull.magnitude < minPull) return false;
 
             float power = pull.magnitude / maxPull;
-            target = Anchor - pull.normalized * (power * maxDistance);
+            target = pullOrigin - pull.normalized * (power * maxDistance);
             return true;
         }
 
         public void Launch(Vector2 target, Action<Vector2> onLanded)
         {
-            BaitProjectile.Spawn(baitSprite, Anchor, target, flightSpeed, baitScale, arcScale,
+            BaitProjectile.Spawn(baitSprite, pullOrigin, target, flightSpeed, baitScale, arcScale,
                                  descentSlowdown, sortingOrder + 1, gameObject.scene, onLanded);
         }
 
-        private void SetString(Vector2 middle)
+        private void SetLine(Vector2 end)
         {
             if (stringLine == null) return;
-            stringLine.SetPosition(0, Anchor + Vector2.left * prongHalfWidth);
-            stringLine.SetPosition(1, middle);
-            stringLine.SetPosition(2, Anchor + Vector2.right * prongHalfWidth);
+            stringLine.enabled = true;
+            stringLine.SetPosition(0, pullOrigin);
+            stringLine.SetPosition(1, end);
         }
 
         private void CreateStringIfMissing()
@@ -131,7 +145,7 @@ namespace Pond
             }
 
             stringLine.useWorldSpace = true;
-            stringLine.positionCount = 3;
+            stringLine.positionCount = 2;
             stringLine.sortingOrder = sortingOrder;
         }
 
